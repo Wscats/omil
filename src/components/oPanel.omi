@@ -1,0 +1,202 @@
+<template>
+  <div className="weui-panel weui-panel_access">
+    <div className="weui-panel__bd">
+      <a href="javascript:void(0);" className="weui-media-box weui-media-box_appmsg">
+        <div className="weui-media-box__hd">
+          <img
+            onClick={this.showGallery.bind(this)}
+            className="weui-media-box__thumb"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAMAAAAOusbgAAAAeFBMVEUAwAD///+U5ZTc9twOww7G8MYwzDCH4YcfyR9x23Hw+/DY9dhm2WZG0kbT9NP0/PTL8sux7LFe115T1VM+zz7i+OIXxhes6qxr2mvA8MCe6J6M4oz6/frr+us5zjn2/fa67rqB4IF13XWn6ad83nxa1loqyirn+eccHxx4AAAC/klEQVRo3u2W2ZKiQBBF8wpCNSCyLwri7v//4bRIFVXoTBBB+DAReV5sG6lTXDITiGEYhmEYhmEYhmEYhmEY5v9i5fsZGRx9PyGDne8f6K9cfd+mKXe1yNG/0CcqYE86AkBMBh66f20deBc7wA/1WFiTwvSEpBMA2JJOBsSLxe/4QEEaJRrASP8EVF8Q74GbmevKg0saa0B8QbwBdjRyADYxIhqxAZ++IKYtciPXLQVG+imw+oo4Bu56rjEJ4GYsvPmKOAB+xlz7L5aevqUXuePWVhvWJ4eWiwUQ67mK51qPj4dFDMlRLBZTqF3SDvmr4BwtkECu5gHWPkmDfQh02WLxXuvbvC8ku8F57GsI5e0CmUwLz1kq3kD17R1In5816rGvQ5VMk5FEtIiWislTffuDpl/k/PzscdQsv8r9qWq4LRWX6tQYtTxvI3XyrwdyQxChXioOngH3dLgOFjk0all56XRi/wDFQrGQU3Os5t0wJu1GNtNKHdPqYaGYQuRDfbfDf26AGLYSyGS3ZAK4S8XuoAlxGSdYMKwqZKM9XJMtyqXi7HX/CiAZS6d8bSVUz5J36mEMFDTlAFQzxOT1dzLRljjB6+++ejFqka+mXIe6F59mw22OuOw1F4T6lg/9VjL1rLDoI9Xzl1MSYDNHnPQnt3D1EE7PrXjye/3pVpr1Z45hMUdcACc5NVQI0bOdS1WA0wuz73e7/5TNqBPhQXPEFGJNV2zNqWI7QKBd2Gn6AiBko02zuAOXeWIXjV0jNqdKegaE/kJQ6Bfs4aju04lMLkA2T5wBSYPKDGF3RKhFYEa6A1L1LG2yacmsaZ6YPOSAMKNsO+N5dNTfkc5Aqe26uxHpx7ZirvgCwJpWq/lmX1hA7LyabQ34tt5RiJKXSwQ+0KU0V5xg+hZrd4Bn1n4EID+WkQdgLfRNtvil9SPfwy+WQ7PFBWQz6dGWZBLkeJFXZGCfLUjCgGgqXo5TuSu3cugdcTv/HjqnBTEMwzAMwzAMwzAMwzAMw/zf/AFbXiOA6frlMAAAAABJRU5ErkJggg=="
+            alt=""
+          />
+        </div>
+        <div className="weui-media-box__bd">
+          <h4 className="weui-media-box__title">标题一</h4>
+          <p className="weui-media-box__desc">由各种物质组成的巨型球状天体，叫做星球。星球有一定的形状，有自己的运行轨道。</p>
+        </div>
+      </a>
+    </div>
+    <div className="weui-panel__ft">
+      <a href="javascript:void(0);" className="weui-cell weui-cell_access weui-cell_link">
+        <div className="weui-cell__bd">查看更多</div>
+        <span className="weui-cell__ft"></span>
+      </a>
+    </div>
+  </div>
+</template>
+<script>
+
+export default {
+  install() {
+    this.data = {
+      title: "Omi"
+    };
+  }
+  showGallery(){
+      console.log(this)
+  }
+};
+</script>
+<style lang="scss">
+.weui-panel:first-child {
+  margin-top: 0;
+}
+
+.weui-panel {
+  background-color: #ffffff;
+  /* margin-top: 10px; */
+  position: relative;
+  overflow: hidden;
+}
+.weui-panel:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid #e5e5e5;
+  color: #e5e5e5;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+}
+a.weui-media-box {
+  color: #000000;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.weui-media-box_appmsg {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.weui-media-box {
+  padding: 15px;
+  position: relative;
+}
+a {
+  text-decoration: none;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.weui-media-box_appmsg .weui-media-box__hd {
+  margin-right: 0.8em;
+  width: 60px;
+  height: 60px;
+  line-height: 60px;
+  text-align: center;
+}
+.weui-media-box_appmsg .weui-media-box__thumb {
+  width: 100%;
+  max-height: 100%;
+  vertical-align: top;
+}
+
+a img {
+  border: 0;
+}
+.weui-media-box_appmsg .weui-media-box__bd {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+  min-width: 0;
+}
+.weui-media-box__title {
+  font-weight: 400;
+  font-size: 17px;
+  width: auto;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  word-wrap: normal;
+  word-wrap: break-word;
+  word-break: break-all;
+}
+.weui-media-box__desc {
+  color: #808080;
+  font-size: 13px;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.weui-cell_access {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  color: inherit;
+}
+.weui-cell_link {
+  color: #586c94;
+  font-size: 14px;
+}
+.weui-cell {
+  padding: 10px 15px;
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.weui-cell_link:first-child:before {
+  display: block;
+}
+
+.weui-cell:first-child:before {
+  display: none;
+}
+.weui-cell:before {
+  content: " ";
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  height: 1px;
+  border-top: 1px solid #e5e5e5;
+  color: #e5e5e5;
+  -webkit-transform-origin: 0 0;
+  transform-origin: 0 0;
+  -webkit-transform: scaleY(0.5);
+  transform: scaleY(0.5);
+  left: 15px;
+  z-index: 2;
+}
+.weui-cell__bd {
+  -webkit-box-flex: 1;
+  -webkit-flex: 1;
+  flex: 1;
+}
+.weui-cell_access .weui-cell__ft {
+  padding-right: 13px;
+  position: relative;
+}
+
+.weui-cell__ft {
+  text-align: right;
+  color: #808080;
+}
+.weui-cell_access .weui-cell__ft:after {
+  content: " ";
+  display: inline-block;
+  height: 6px;
+  width: 6px;
+  border-width: 2px 2px 0 0;
+  border-color: #c8c8cd;
+  border-style: solid;
+  -webkit-transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  transform: matrix(0.71, 0.71, -0.71, 0.71, 0, 0);
+  position: relative;
+  top: -2px;
+  position: absolute;
+  top: 50%;
+  margin-top: -4px;
+  right: 2px;
+}
+</style>

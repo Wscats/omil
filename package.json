@@ -1,0 +1,33 @@
+{
+  "name": "awesome-omi-loader",
+  "version": "1.0.0",
+  "description": "Webpack loader for Omi.js components",
+  "main": "./libs/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Eno Yao",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.4.3",
+    "@babel/generator": "^7.4.0",
+    "@babel/preset-env": "^7.4.3",
+    "@babel/preset-react": "^7.0.0",
+    "babel-loader": "^8.0.0-beta.0",
+    "css-loader": "^2.1.1",
+    "htm": "^2.1.1",
+    "style-loader": "^0.23.1",
+    "to-string-loader": "^1.1.5",
+    "webpack": "^4.30.0",
+    "webpack-cli": "^3.3.1"
+  },
+  "dependencies": {
+    "omi": "^6.1.2",
+    "omi-html": "^0.3.0",
+    "omiu": "^0.0.15",
+    "weui": "^1.1.3"
+  }
+}

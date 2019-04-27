@@ -1,0 +1,18 @@
+<template>
+    
+</template>
+<script>
+export default {
+  test(){
+    console.log('Hello button!')
+  }
+  install() {
+    this.data = {
+      title: "Omi"
+    };
+  }
+};
+</script>
+<style>
+
+</style>

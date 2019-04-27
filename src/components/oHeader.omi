@@ -1,0 +1,21 @@
+<template lang='html'>
+  <header onClick="${this.test}">${this.data.title}</header>
+</template>
+<script>
+import style from './_oHeader.css'
+export default {
+  css() {
+    return style
+  }
+  test(){
+    console.log('Hello button!')
+  }
+  install() {
+    this.data = {
+      title: "Omi"
+    };
+  }
+};
+</script>
+<style>
+</style>
