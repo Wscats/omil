@@ -2,7 +2,7 @@
 
 > Webpack loader for Omi Single-File Components
 
-You can use npm install or git clone it
+You can use [npm](https://www.npmjs.com/package/eno-loader) install or [git](https://github.com/Wscats/eno-loader) clone it
 ```bash
 npm install eno-loader --save-dev
 ```
