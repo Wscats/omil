@@ -43,7 +43,7 @@ header {
 </style>
 ```
 
-There are many cool features provided by `omi-loader`:
+There are many cool features provided by `eno-loader`:
 
 - Allows using other webpack loaders for each part of a Omi component, for example Sass for `<style lang="scss">` and JSX/HTML for `<template lang="html">`;
 - Allows custom blocks in a `.omi` or `.eno` file that can have custom loader chains applied to them [Here Online Demo](https://github.com/Wscats/eno-loader/tree/master/src/components);
