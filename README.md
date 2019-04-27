@@ -22,7 +22,7 @@ export default {
     return style
   }
   test(){
-    console.log('Hello Eno!')
+    console.log('Hello button!')
   }
   install() {
     this.data = {
@@ -32,14 +32,14 @@ export default {
 };
 </script>
 <style>
-    header {
-        height: 50px;
-        background-color: #07c160;
-        color: white;
-        text-align: center;
-        line-height: 50px;
-        width: 100%;
-    }
+header {
+  height: 50px;
+  background-color: #07c160;
+  color: white;
+  text-align: center;
+  line-height: 50px;
+  width: 100%;
+}
 </style>
 ```
 
