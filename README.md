@@ -27,9 +27,9 @@ export default {
   install() {
     this.data = {
       title: "Omi"
-    };
+    }
   }
-};
+}
 </script>
 <style>
 header {
