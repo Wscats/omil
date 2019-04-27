@@ -1,16 +1,21 @@
 {
-  "name": "awesome-omi-loader",
-  "version": "1.0.0",
+  "name": "eno-loader",
+  "version": "1.0.4",
   "description": "Webpack loader for Omi.js components",
-  "main": "./libs/index.js",
-  "directories": {
-    "test": "test"
-  },
+  "main": "libs/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "webpack"
   },
-  "author": "Eno Yao",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Wscats/eno-loader.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wscats/eno-loader/issues"
+  },
+  "homepage": "https://github.com/Wscats/eno-loader",
+  "author": "eno yao <kalone.cool@gmail.com>",
+  "license": "MIT",
   "devDependencies": {
     "@babel/core": "^7.4.3",
     "@babel/generator": "^7.4.0",
@@ -24,6 +29,21 @@
     "webpack": "^4.30.0",
     "webpack-cli": "^3.3.1"
   },
+  "keywords": [
+    "omi",
+    "webcomponents",
+    "jsx",
+    "proxy",
+    "preact",
+    "react",
+    "virtual dom",
+    "vdom",
+    "components",
+    "virtual",
+    "dom",
+    "eno",
+    "loader"
+  ],
   "dependencies": {
     "omi": "^6.1.2",
     "omi-html": "^0.3.0",

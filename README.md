@@ -1,13 +1,13 @@
 # Install
 
-> webpack loader for Omi Single-File Components
+> Webpack loader for Omi Single-File Components
 
 You can use npm install or git clone it
 ```bash
 npm install eno-loader --save-dev
 ```
 
-## What is Omi Loader?
+## What is Eno Loader?
 
 `eno-loader` is a loader for [webpack](https://webpack.js.org/) that allows you to author Omi components in a format called Single-File Components
 
@@ -22,7 +22,7 @@ export default {
     return style
   }
   test(){
-    console.log('Hello button!')
+    console.log('Hello Eno!')
   }
   install() {
     this.data = {
