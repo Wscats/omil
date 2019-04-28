@@ -24,7 +24,6 @@ module.exports = (option) => {
             // html
             case 'html':
                 return `
-                // import 'omi-html';
                 export default class extends WeElement {
                     ${css}
                     render() {

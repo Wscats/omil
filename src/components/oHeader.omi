@@ -3,7 +3,7 @@
   <header onClick="${this.test}">${this.data.title}</header>
 </template>
 <script>
-import style from './_oHeader.css'
+import style from '../assets/oHeader.css'
 export default {
   css() {
     return (style)

@@ -5,6 +5,7 @@ const compileScript = (omi) => {
         isExistStyle,
         styleLang
     } = compileStyle(omi)
+    
     const scriptInTag = (() => {
         // match some content like <script>xxx</script>
         let isExistScript = omi.match(/<script[^>]*>[\s\S]*?<\/script>/g)

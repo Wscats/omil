@@ -25,7 +25,6 @@
   </div>
 </template>
 <script>
-
 export default {
   install() {
     this.data = {

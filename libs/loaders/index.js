@@ -10,15 +10,15 @@ const compileAll = async (omi) => {
     const {
         template,
         templateLang,
-        style,
-        isExistStyle,
-        styleLang
     } = compileTemplate(omi)
     // js
     const {
         script,
         isExistScript,
-        scriptLang
+        scriptLang,
+        style,
+        isExistStyle,
+        styleLang
     } = compileScript(omi)
     try {
         const modulesStart = await getModules(path.resolve('./libs/scripts/modules/import.js'))
@@ -37,7 +37,6 @@ const compileAll = async (omi) => {
                 styleLang,
                 isExistStyle,
             })))
-        // console.log(allScript)
         // html2jsx and es62es5
         const result = await transform(allScript)
         return result.code
