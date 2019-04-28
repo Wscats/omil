@@ -5,7 +5,7 @@
 import style from './_oHeader.css'
 export default {
   css() {
-    return style
+    return (style)
   }
   test(){
     console.log('Hello button!')

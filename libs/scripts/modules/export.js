@@ -1,18 +1,32 @@
 module.exports = (option) => {
         let {
+            script,
             style,
             template,
             templateLang
         } = option;
+        // return true or false
+        const styleInScript = (() => {
+            // style in script
+            return /css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
+        })()
+        const css = (() => {
+            if(styleInScript){
+                return ''
+            }else{
+                return `css() {
+                    return (${'`'}${style}${'`'})
+                }`
+                
+            }
+        })()
         switch (templateLang) {
             // html
             case 'html':
                 return `
-                import 'omi-html';
+                // import 'omi-html';
                 export default class extends WeElement {
-                    css() {
-                        return (${'`'}${style}${'`'})
-                    }
+                    ${css}
                     render() {
                         return (html${'`'}${template}${'`'})
                     }
@@ -21,9 +35,7 @@ module.exports = (option) => {
         default:
             return `
                 export default class extends WeElement {
-                    css() {
-                        return (${'`'}${style}${'`'})
-                    }
+                    ${css}
                     render() {
                         return (${template})
                     }

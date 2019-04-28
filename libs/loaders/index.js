@@ -31,12 +31,16 @@ const compileAll = async (omi) => {
             script
             // load css and html
             .replace(/export\s+default\s*\{|module.exports\s*=\s*\{/g, modulesEnd({
+                script,
+                isExistScript,
+                scriptLang,
                 template,
                 templateLang,
                 style,
                 styleLang,
                 isExistStyle,
             })))
+        // console.log(allScript)
         // html2jsx and es62es5
         const result = await transform(allScript)
         return result.code

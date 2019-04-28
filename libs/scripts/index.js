@@ -1,3 +1,4 @@
+const compileStyle = require('../styles/index')
 const compileScript = (omi) => {
     const scriptInTag = (() => {
         // match some content like <script>xxx</script>
@@ -9,11 +10,22 @@ const compileScript = (omi) => {
             return '<script>module.exports={}</script>'
         }
     })()
-    const script = (
+    let script = (
         // clear tag which is <script> and </script>
         scriptInTag
         .replace(/<script[^>]*>|<\/script>/g, '')
     )
+    const styleInScript = (() => {
+        // if css(){} in script , we should combine style and css functuon
+        const {
+            style,
+            isExistStyle,
+            styleLang
+        } = compileStyle(omi)
+        script
+        script =  script.replace(/css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g, `css(){return ${'`'}${style}${'`'}+$1`)
+        return script
+    })()
     const scriptLang = (() => {
         if (scriptInTag) {
             return scriptInTag

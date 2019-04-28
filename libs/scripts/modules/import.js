@@ -4,5 +4,8 @@ import {
     // when you use component, you should define
     define,
     // JSX
-    h
+    h,
+    // html
+    htm,
+    html
 } from "omi";

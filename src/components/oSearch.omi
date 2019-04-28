@@ -1,11 +1,11 @@
 <template lang="html">
-    <div class="weui-search-bar ${
-      this.data.isShowSearchBar?'weui-search-bar_focusing':''
+    <div class="${
+      this.data.isShowSearchBar?'weui-search-bar_focusing weui-search-bar':'weui-search-bar'
     }" id="searchBar">
         <form class="weui-search-bar__form">
             <div class="weui-search-bar__box">
                 <i class="weui-icon-search"></i>
-                <input type="text" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="">
+                <input type="text" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="" />
                 <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
             </div>
             <label onClick="${this.toggle}" class="weui-search-bar__label" id="searchText">
