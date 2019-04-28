@@ -2,10 +2,20 @@
 
 > Webpack loader for Omi Single-File Components
 
-You can use [npm](https://www.npmjs.com/package/eno-loader) install or [git](https://github.com/Wscats/eno-loader) clone it
+You can use [npm](https://www.npmjs.com/package/eno-loader) install or [git](https://github.com/Wscats/eno-loader) clone it.
 ```bash
 npm install eno-loader --save-dev
 ```
+Configuration webpack file like this:
+```js
+module: {
+    rules: [{
+        test: /\.omi|eno$/,
+        use: ['eno-loader']
+    }]
+}
+```
+> -> [Loader Demo]()
 
 ## Why Eno Loader?
 
@@ -89,4 +99,4 @@ In a nutshell, the combination of webpack and `eno-loader` gives you a modern, f
 
 ## License
 
-MIT © Tencent
+MIT

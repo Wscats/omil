@@ -5,29 +5,42 @@
         <form class="weui-search-bar__form">
             <div class="weui-search-bar__box">
                 <i class="weui-icon-search"></i>
-                <input type="text" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="" />
+                <input onKeyup=${this.getSearchInput.bind(this)} type="text" class="weui-search-bar__input" id="searchInput" placeholder="搜索" required="" />
                 <a href="javascript:" class="weui-icon-clear" id="searchClear"></a>
             </div>
             <label onClick="${this.toggle}" class="weui-search-bar__label" id="searchText">
                 <i class="weui-icon-search"></i>
-                <span>搜索</span>
+                <span>Search</span>
             </label>
         </form>
         <a onClick="${this.toggle}" href="javascript:" class="weui-search-bar__cancel-btn" id="searchCancel">取消</a>
     </div>
 </template>
 <script>
+import emitter from '../events/events.js'
 module.exports = {
+  initUse() {
+    return ['showNews']
+  }
   install() {
     this.data = {
       isShowSearchBar: false,
     }
     this.toggle = this.toggle.bind(this)
+    this.store.data.showNews = [...this.store.data.news]
   }
   toggle(){
-    console.log({...this})
     this.data.isShowSearchBar=!this.data.isShowSearchBar
     this.update()
+  }
+  getSearchInput(event){
+    this.store.data.showNews = this.filteredNews(event.target.value)
+    emitter.emit('loadMore');
+ }
+  filteredNews(searchInput) {
+    return this.store.data.news.filter((item)=>{
+      return item.description.indexOf(searchInput) !== -1
+    })
   }
 };
 </script>

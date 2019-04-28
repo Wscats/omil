@@ -4,6 +4,6 @@ import {
     define,
 } from 'omi';
 import oApp from './oApp.omi'
-
+import stores from './stores/stores'
 define('o-app', oApp)
-render(h('o-app'), 'body')
+render(h('o-app'), 'body', stores)

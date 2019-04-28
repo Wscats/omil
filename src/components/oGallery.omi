@@ -1,0 +1,89 @@
+<template>
+    <div className="weui-gallery" style={{
+        display: this.store.data.isShowGallery?'none':'block'
+    }}>
+        <span className="weui-gallery__img" style={{
+            backgroundImage: `url(${this.store.data.galleryImg})`
+        }}></span>
+        <div onClick={this.toggleGallery.bind(this)} className="weui-gallery__opr">
+            <a href="javascript:" className="weui-gallery__del">
+                Cancel
+            </a>
+        </div>
+    </div>
+</template>
+<script>
+export default {
+    initUse() {
+        return ['isShowGallery']
+    }
+    toggleGallery(){
+        this.store.data.isShowGallery = !this.store.data.isShowGallery
+    }
+}
+</script>
+
+<style lang="scss">
+.weui-gallery {
+    display: none;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    z-index: 1000;
+    .weui-gallery__img {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 60px;
+        left: 0;
+        background: center center no-repeat;
+        background-size: contain;
+    }
+    .weui-gallery__opr {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: #0D0D0D;
+        color: #FFFFFF;
+        line-height: 60px;
+        text-align: center;
+        .weui-gallery__del {
+            color: #FFFFFF;
+            display: block;
+            .weui-icon-delete.weui-icon_gallery-delete {
+                color: #FFFFFF;
+                font-size: 22px;
+            }
+
+            [class^="weui-icon-"], [class*=" weui-icon-"] {
+                display: inline-block;
+                vertical-align: middle;
+                font: normal normal normal 14px/1 "weui";
+                font-size: inherit;
+                text-rendering: auto;
+                -webkit-font-smoothing: antialiased;
+            }
+            [class^="weui-icon_"]:before, [class*=" weui-icon_"]:before {
+                    margin: 0;
+            }
+            .weui-icon-delete:before {
+                content: "\EA11";
+            }
+            [class^="weui-icon-"]:before, [class*=" weui-icon-"]:before {
+                display: inline-block;
+                margin-left: .2em;
+                margin-right: .2em;
+            }
+        }
+        a {
+            text-decoration: none;
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+        }
+    }
+}
+</style>
+
