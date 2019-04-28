@@ -15,7 +15,7 @@ module: {
     }]
 }
 ```
-> -> [Loader Demo]()
+> [Loader Demo](https://wscats.github.io/eno-loader/dist)
 
 ## Why Eno Loader?
 
@@ -58,6 +58,7 @@ header {
 }
 </style>
 ```
+> [Single-File Components Demo](https://github.com/Wscats/eno-loader/blob/master/src/components/oHeader.omi)
 
 It also supports [JSX](https://github.com/facebook/jsx), if you want to do that, you only write `<template>` without `lang="html"` attribute in your component like this:
 ```html
@@ -65,6 +66,7 @@ It also supports [JSX](https://github.com/facebook/jsx), if you want to do that,
   <header onClick={this.test}>{this.data.title}</header>
 </template>
 ```
+> [JSX Demo](https://github.com/Wscats/eno-loader/blob/master/src/components/oPanel.omi)
 
 `eno-loader` supports using non-default languages, such as CSS pre-processors and compile-to-HTML template languages, by specifying the lang attribute for a language block. For example, you install [node-sass](https://www.npmjs.com/package/node-sass) after you can use [Sass](https://sass-lang.com/) for the style of your component like this:
 ```html
@@ -77,6 +79,8 @@ header {
 }
 </style>
 ```
+
+> [Sass Demo](https://github.com/Wscats/eno-loader/blob/master/src/components/oGallery.omi)
 
 There are many cool features provided by `eno-loader`:
 
