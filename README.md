@@ -12,26 +12,28 @@ npm install eno-loader --save-dev
 `eno-loader` is a loader for [webpack](https://webpack.js.org/) that allows you to author Omi components in a format called Single-File Components
 
 ```html
-<template lang='html'>
+<template lang="html">
+  <!-- replace render function -->
   <header onClick="${this.test}">${this.data.title}</header>
 </template>
 <script>
 import style from './_oHeader.css'
 export default {
   css() {
-    return style
+    return style // it will combine scoped css
   }
   test(){
     console.log('Hello Eno!')
   }
   install() {
     this.data = {
-      title: "Omi"
+      title: 'Omi'
     }
   }
 }
 </script>
 <style>
+/* scoped css */
 header {
   height: 50px;
   background-color: #07c160;
@@ -41,6 +43,14 @@ header {
   width: 100%;
 }
 </style>
+```
+
+it also support jsx, when you use jsx, you can write template without `lang="html"` attribute
+
+```html
+<template>
+  <header onClick={this.test}>{this.data.title}</header>
+</template>
 ```
 
 There are many cool features provided by `eno-loader`:
