@@ -45,7 +45,7 @@ header {
 </style>
 ```
 
-it also support jsx, when you use jsx, you can write template without `lang="html"` attribute
+it also support jsx, when you use jsx, you can write `<template>` without `lang="html"` attribute
 
 ```html
 <template>
