@@ -18,14 +18,12 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
 /* scoped css */
+$height: 50px;
+$color: #07c160;
 header {
-  height: 50px;
-  background-color: #07c160;
-  color: white;
-  text-align: center;
-  line-height: 50px;
-  width: 100%;
+  height: $height;
+  background-color: $color;
 }
 </style>

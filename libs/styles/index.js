@@ -1,3 +1,6 @@
+const {
+    compileSassSync
+} = require('./sass')
 const compileStyle = (omi) => {
     const styleInTag = (() => {
         // match <script>xxx</script> content
@@ -9,18 +12,26 @@ const compileStyle = (omi) => {
             return ''
         }
     })()
-    const style = (
+    let style = (
         // remove <script> and </script> tag
         styleInTag
         .replace(/<style[^>]*>|<\/style>/g, '')
     )
     const styleLang = (() => {
         if (styleInTag) {
-            styleInTag
+            return styleInTag
                 .match(/<style[^>]*>/g)[0]
                 .replace(/<style\s+lang=["']([^>]*)["']\s*>/g, '$1')
         }
     })()
+    // console.log(style, styleInTag.match(/<style[^>]*>/g)[0].replace(/<style\s+lang=["']([^>]*)["']\s*>/g, '$1'))
+    switch (styleLang) {
+        case 'scss':
+            style = compileSassSync(style)
+            break
+        default:
+            style = style
+    }
     return {
         isExistStyle: styleInTag ? true : false,
         styleLang,

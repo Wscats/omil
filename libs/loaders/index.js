@@ -6,16 +6,13 @@ const getModules = require('../utils/getModules')
 const modulesEnd = require('../scripts/modules/export')
 const path = require('path')
 const compileAll = async (omi) => {
-    // css
-    const {
-        style,
-        isExistStyle,
-        styleLang
-    } = compileStyle(omi)
     // html
     const {
         template,
-        templateLang
+        templateLang,
+        style,
+        isExistStyle,
+        styleLang
     } = compileTemplate(omi)
     // js
     const {
@@ -44,7 +41,9 @@ const compileAll = async (omi) => {
         // html2jsx and es62es5
         const result = await transform(allScript)
         return result.code
-    } catch {}
+    } catch {
+        throw new Error("See issues https://github.com/Wscats/eno-loader/issues");
+    }
 }
 
 module.exports = compileAll

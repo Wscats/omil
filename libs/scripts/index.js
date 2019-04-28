@@ -1,5 +1,10 @@
 const compileStyle = require('../styles/index')
 const compileScript = (omi) => {
+    const {
+        style,
+        isExistStyle,
+        styleLang
+    } = compileStyle(omi)
     const scriptInTag = (() => {
         // match some content like <script>xxx</script>
         let isExistScript = omi.match(/<script[^>]*>[\s\S]*?<\/script>/g)
@@ -17,12 +22,6 @@ const compileScript = (omi) => {
     )
     const styleInScript = (() => {
         // if css(){} in script , we should combine style and css functuon
-        const {
-            style,
-            isExistStyle,
-            styleLang
-        } = compileStyle(omi)
-        script
         script =  script.replace(/css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g, `css(){return ${'`'}${style}${'`'}+$1`)
         return script
     })()
@@ -36,7 +35,10 @@ const compileScript = (omi) => {
     return {
         isExistScript: scriptInTag ? true : false,
         scriptLang,
-        script
+        script,
+        style,
+        isExistStyle,
+        styleLang
     };
 }
 

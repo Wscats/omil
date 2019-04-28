@@ -45,12 +45,24 @@ header {
 </style>
 ```
 
-it also support jsx, when you use jsx, you can write `<template>` without `lang="html"` attribute
+It also support jsx, when you use jsx, you can write `<template>` without `lang="html"` attribute
 
 ```html
 <template>
   <header onClick={this.test}>{this.data.title}</header>
 </template>
+```
+
+If you want to use [sass](https://sass-lang.com/) which is a powerful professional grade css extension language, you can write `<style>` with `lang="scss"` attribute, before you must install [node-sass](https://www.npmjs.com/package/node-sass)
+```html
+<style lang="scss">
+$height: 50px;
+$color: #07c160;
+header {
+  height: $height;
+  background-color: $color;
+}
+</style>
 ```
 
 There are many cool features provided by `eno-loader`:
