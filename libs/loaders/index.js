@@ -21,7 +21,7 @@ const compileAll = async (omi) => {
         styleLang
     } = compileScript(omi)
     try {
-        const modulesStart = await getModules(path.resolve('./libs/scripts/modules/import.js'))
+        const modulesStart = await getModules(path.resolve('./libs/scripts/modules/import'))
         const allScript = (
             // import html modules to transform html to jsx 
             modulesStart +
