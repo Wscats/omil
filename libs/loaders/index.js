@@ -21,10 +21,22 @@ const compileAll = async (omi) => {
         styleLang
     } = compileScript(omi)
     try {
-        const modulesStart = await getModules(path.resolve('node_modules/omil/libs/scripts/modules/import.js'))
+        // const modulesStart = await getModules(path.resolve('node_modules/omil/libs/scripts/modules/import.js'))
         const allScript = (
             // import html modules to transform html to jsx 
-            modulesStart +
+            `
+                import {
+                    // register component
+                    WeElement,
+                    // when you use component, you should define
+                    define,
+                    // JSX
+                    h,
+                    // html
+                    htm,
+                    html
+                } from "omi";
+            ` +
             script
             // load css and html
             .replace(/export\s+default\s*\{|module.exports\s*=\s*\{/g, modulesEnd({

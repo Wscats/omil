@@ -14,7 +14,7 @@ module.exports = (option) => {
             if(styleInScript){
                 return ''
             }else{
-                return `static css() {
+                return `css() {
                     return (${'`'}${style}${'`'})
                 }`
                 
