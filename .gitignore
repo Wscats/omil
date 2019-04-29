@@ -2,3 +2,5 @@ test
 node_modules
 omiu
 .DS_Store
+examples
+yarn-error.log
