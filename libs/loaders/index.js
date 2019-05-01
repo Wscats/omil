@@ -3,6 +3,7 @@ const compileTemplate = require('../templates/index')
 const compileScript = require('../scripts/index')
 const transform = require('../scripts/transform')
 const getModules = require('../utils/getModules')
+const modulesStart = require('../scripts/modules/import')
 const modulesEnd = require('../scripts/modules/export')
 const path = require('path')
 const compileAll = async (omi) => {
@@ -10,7 +11,7 @@ const compileAll = async (omi) => {
     const {
         template,
         templateLang,
-    } = compileTemplate(omi)
+    } = html = compileTemplate(omi)
     // js
     const {
         script,
@@ -19,24 +20,12 @@ const compileAll = async (omi) => {
         style,
         isExistStyle,
         styleLang
-    } = compileScript(omi)
+    } = js = compileScript(omi)
     try {
-        // const modulesStart = await getModules(path.resolve('node_modules/omil/libs/scripts/modules/import.js'))
+        // const modulesStart = await getModules(path.resolve('node_modules/omil/libs/scripts/modules/import'))
         const allScript = (
             // import html modules to transform html to jsx 
-            `
-                import {
-                    // register component
-                    WeElement,
-                    // when you use component, you should define
-                    define,
-                    // JSX
-                    h,
-                    // html
-                    htm,
-                    html
-                } from "omi";
-            ` +
+            modulesStart +
             script
             // load css and html
             .replace(/export\s+default\s*\{|module.exports\s*=\s*\{/g, modulesEnd({
@@ -51,6 +40,7 @@ const compileAll = async (omi) => {
             })))
         // html2jsx and es62es5
         const result = await transform(allScript)
+        // console.log(allScript)
         return result.code
     } catch {
         throw new Error("See issues https://github.com/Wscats/eno-loader/issues");

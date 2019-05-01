@@ -1,27 +1,30 @@
 <template>
   <div>
-    <o-header></o-header>
+    {/*<o-header></o-header>
     <o-search></o-search>
     <o-panel></o-panel>
-    <o-gallery></o-gallery>
+    <o-gallery></o-gallery>*/}
+    <o-file-test></o-file-test>
   </div>
 </template>
 <script>
-import oHeader from "./components/oHeader.omi";
-import oSearch from "./components/oSearch.omi"
-import oPanel from "./components/oPanel.omi"
-import oGallery from "./components/oGallery.omi"
-define("o-header", oHeader);
-define("o-search", oSearch)
-define("o-panel", oPanel)
-define("o-gallery", oGallery)
+// import oHeader from "./components/oHeader.omi";
+// import oSearch from "./components/oSearch.omi"
+// import oPanel from "./components/oPanel.omi"
+// import oGallery from "./components/oGallery.omi"
+import oFileTest from "./components/oFileTest.omi"
+// define("o-header", oHeader)
+// define("o-search", oSearch)
+// define("o-panel", oPanel)
+// define("o-gallery", oGallery)
+define("o-file-test", oFileTest)
 export default {
   install() {
     this.data = {
       text: "Omi"
-    };
+    }
   }
-};
+}
 </script>
 <style>
 </style>

@@ -1,3 +1,4 @@
+module.exports = `
 import {
     // register component
     WeElement,
@@ -9,3 +10,4 @@ import {
     htm,
     html
 } from "omi";
+`

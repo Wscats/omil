@@ -1,0 +1,16 @@
+<template>
+    <div>
+        <img src={this.data.logo} />
+    </div>
+</template>
+<script>
+import logo from '../assets/logo.png'
+export default {
+    install() {
+        this.data = {
+            title: 'Omi',
+            logo
+        }
+    } 
+}
+</script>

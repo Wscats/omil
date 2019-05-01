@@ -4,7 +4,7 @@ module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.test.js'
     },
     module: {
         rules: [{
@@ -23,6 +23,14 @@ module.exports = {
         }, {
             test: /\.css$/,
             use: ['to-string-loader', 'css-loader']
+        }, {
+            test: /\.(png|jpg|gif)$/i,
+            use: [{
+                loader: 'file-loader',
+                options: {
+                    limit: 8192
+                }
+            }]
         }]
     }
 };

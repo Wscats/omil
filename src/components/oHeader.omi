@@ -1,20 +1,23 @@
 <template lang="html">
-  <!-- replace render function -->
-  <header onClick="${this.test}">${this.data.title}</header>
+  <div>
+    <!-- replace render function -->
+    <header onClick="${this.test.bind(this)}">${this.data.title}</header>
+  </div>
 </template>
 <script>
-import style from '../assets/oHeader.css'
+import {render} from 'omi'
+// import style from '../assets/oHeader.css'
 export default {
   css() {
-    return (style)
-  }
-  test(){
-    console.log('Hello button!')
+    return require('../assets/oHeader.css')
   }
   install() {
     this.data = {
-      title: "Omi"
+      title: 'Omi',
     }
+  }
+  test() {
+    console.log({...this})
   }
 }
 </script>
