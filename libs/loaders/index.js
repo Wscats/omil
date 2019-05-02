@@ -47,7 +47,7 @@ const compileAll = async (source, options, callback) => {
         // callback(null, result.code)
         // return result
     } catch {
-        throw new Error("See issues https://github.com/Wscats/eno-loader/issues");
+        throw new Error("babel compile failed, see issues https://github.com/Wscats/eno-loader/issues");
     }
 }
 
