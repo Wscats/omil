@@ -1,5 +1,6 @@
 const path = require('path');
 module.exports = {
+    // devtool: 'source-map',
     mode: "development",
     entry: './src/index.js',
     output: {
@@ -10,7 +11,13 @@ module.exports = {
         rules: [{
             test: /\.omi|eno$/,
             exclude: /(node_modules|bower_components)/,
-            use: ['./libs']
+            use: [{
+                // test
+                loader: path.resolve(__dirname, 'libs'),
+                options: {
+                    sourceMaps: 'both'
+                }
+            }],
         }, {
             test: /\.js$/,
             exclude: /(node_modules|bower_components)/,

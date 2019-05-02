@@ -1,9 +1,9 @@
 const {
     transform
 } = require("@babel/core");
-module.exports = (code) => {
+module.exports = (code, options) => {
     return new Promise((resolve, reject) => {
-        transform(code, {
+        const defaultOption = {
             presets: [
                 ["@babel/preset-env"],
                 [
@@ -12,11 +12,20 @@ module.exports = (code) => {
                         "pragma": "h",
                     }
                 ]
-            ],
+            ]
+        }
+        // comibine option
+        const finalOptions = Object.assign({}, defaultOption, {
+            ...options
+        });
+        // console.log(finalOptions)
+        transform(code, {
+            ...finalOptions
         }, (err, result) => {
             if (err) {
                 reject()
             } else {
+                // console.log(result)
                 resolve(result)
             }
         });

@@ -13,7 +13,14 @@ Configuration webpack file like this:
 module: {
     rules: [{
         test: /\.omi|eno$/,
-        use: ['omil']
+        use: [{
+            loader: ['omil'],
+            options: {
+                // Use in development, You should remove in production
+                sourceMaps: 'both' 
+            }
+        }],
+        // Or you can use eno-loader
         // use: ['eno-loader']
     }]
 }

@@ -6,12 +6,12 @@ const getModules = require('../utils/getModules')
 const modulesStart = require('../scripts/modules/import')
 const modulesEnd = require('../scripts/modules/export')
 const path = require('path')
-const compileAll = async (omi) => {
+const compileAll = async (source, options, callback) => {
     // html
     const {
         template,
         templateLang,
-    } = html = compileTemplate(omi)
+    } = html = compileTemplate(source)
     // js
     const {
         script,
@@ -20,7 +20,7 @@ const compileAll = async (omi) => {
         style,
         isExistStyle,
         styleLang
-    } = js = compileScript(omi)
+    } = js = compileScript(source)
     try {
         // const modulesStart = await getModules(path.resolve('node_modules/omil/libs/scripts/modules/import'))
         const allScript = (
@@ -39,9 +39,13 @@ const compileAll = async (omi) => {
                 isExistStyle,
             })))
         // html2jsx and es62es5
-        const result = await transform(allScript)
+        const result = await transform(allScript, options)
+        // console.log(result)
         // console.log(allScript)
-        return result.code
+        // as async return
+        callback(null, result.code, result.map)
+        // callback(null, result.code)
+        // return result
     } catch {
         throw new Error("See issues https://github.com/Wscats/eno-loader/issues");
     }
