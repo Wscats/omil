@@ -14,7 +14,7 @@ module: {
     rules: [{
         test: /\.omi|eno$/,
         use: [{
-            loader: ['omil'],
+            loader: require.resolve('omil'),
             options: {
                 // Use in development, You should remove in production
                 sourceMaps: 'both' 
@@ -22,6 +22,7 @@ module: {
         }],
         // Or you can use eno-loader
         // use: ['eno-loader']
+        // use: ['omil']
     }]
 }
 ```
