@@ -114,4 +114,4 @@ In a nutshell, the combination of webpack and `omil` gives you a modern, flexibl
 
 ## License
 
-MIT
+MIT @[Eno Yao](https://github.com/Wscats)
