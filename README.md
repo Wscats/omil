@@ -111,7 +111,10 @@ In a nutshell, the combination of webpack and `omil` gives you a modern, flexibl
 * [node-sass](https://github.com/sass/node-sass)
 * [vue-loader](https://github.com/vuejs/vue-loader)
 
+# Contributors
+
+| [<img src="https://avatars1.githubusercontent.com/u/17243165?s=460&v=4" width="60px;"/><br /><sub>Eno Yao</sub>](https://github.com/Wscats)|
 
 ## License
 
-MIT @[Eno Yao](https://github.com/Wscats)
+MIT

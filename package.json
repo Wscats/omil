@@ -47,10 +47,11 @@
     "eno",
     "loader"
   ],
-  "peerDependencies":{
+  "peerDependencies": {
     "node-sass": "^4.12.0"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "events": "^3.0.0",
     "omi": "^6.1.2"
   }
