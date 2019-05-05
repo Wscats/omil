@@ -20,17 +20,17 @@ module: {
               sourceMaps: 'both',
               // Config babel plugins for async, await and other many features
               plugins: [
-                [
-                  "@babel/plugin-transform-runtime",
-                  {
-                      "absoluteRuntime": false,
-                      "corejs": false,
-                      "helpers": true,
-                      "regenerator": true,
-                      "useESModules": false
-                  }
+                  [
+                    "@babel/plugin-transform-runtime",
+                    {
+                        "absoluteRuntime": false,
+                        "corejs": false,
+                        "helpers": true,
+                        "regenerator": true,
+                        "useESModules": false
+                    }
+                  ]
                 ]
-              ]
             }
         }],
         // Or you can use eno-loader or omil directly
