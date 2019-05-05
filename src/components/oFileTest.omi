@@ -4,13 +4,16 @@
     </div>
 </template>
 <script>
+import axios from 'axios'
 import logo from '../assets/logo.png'
 export default {
-    install() {
+    async install() {
         this.data = {
             title: 'Omi',
             logo
         }
-    } 
+        const data = await axios.get('https://cnodejs.org/api/v1/topics')
+        // debugger
+    }
 }
 </script>

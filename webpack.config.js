@@ -15,7 +15,19 @@ module.exports = {
                 // test
                 loader: path.resolve(__dirname, 'libs'),
                 options: {
-                    sourceMaps: 'both'
+                    sourceMaps: 'both',
+                    plugins: [
+                        [
+                            "@babel/plugin-transform-runtime",
+                            {
+                                "absoluteRuntime": false,
+                                "corejs": false,
+                                "helpers": true,
+                                "regenerator": true,
+                                "useESModules": false
+                            }
+                        ]
+                    ]
                 }
             }],
         }, {
