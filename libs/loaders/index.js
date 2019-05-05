@@ -22,7 +22,6 @@ const compileAll = async (source, options, callback) => {
         styleLang
     } = js = compileScript(source)
     try {
-        // const modulesStart = await getModules(path.resolve('node_modules/omil/libs/scripts/modules/import'))
         const allScript = (
             // import html modules to transform html to jsx 
             modulesStart +
@@ -45,8 +44,8 @@ const compileAll = async (source, options, callback) => {
         // as async return
         callback(null, result.code, result.map)
         // callback(null, result.code)
-        // return result
-    } catch {
+    } catch (e) {
+        console.log(e)
         throw new Error("babel compile failed, see issues https://github.com/Wscats/eno-loader/issues");
     }
 }

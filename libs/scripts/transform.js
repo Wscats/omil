@@ -23,7 +23,7 @@ module.exports = (code, options) => {
             ...finalOptions
         }, (err, result) => {
             if (err) {
-                reject()
+                reject(err)
             } else {
                 // console.log(result)
                 resolve(result)

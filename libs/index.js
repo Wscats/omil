@@ -8,5 +8,4 @@ module.exports = function (source, map) {
     const callback = this.async();
     const options = getOptions(this) || {}
     const output = compileAll(source, options, callback)
-    // return output
 };
