@@ -1,10 +1,11 @@
 const compileStyle = require('../styles/index')
-const compileScript = (omi) => {
+const compileScript = (sourceObj) => {
+    const omi = sourceObj.source
     const {
         style,
         isExistStyle,
         styleLang
-    } = compileStyle(omi)
+    } = compileStyle(sourceObj)
     
     const scriptInTag = (() => {
         // match some content like <script>xxx</script>

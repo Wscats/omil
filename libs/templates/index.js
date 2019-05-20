@@ -1,5 +1,6 @@
 const annotation = require('../utils/annotation')
-const compileTemplate = (omi) => {
+const compileTemplate = (sourceObj) => {
+    const omi = sourceObj.source
     const templateInTag = (
         omi
         .match(/<template[^>]*>([\s\S]*?)<\/template>/g)[0]

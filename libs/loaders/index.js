@@ -6,12 +6,12 @@ const getModules = require('../utils/getModules')
 const modulesStart = require('../scripts/modules/import')
 const modulesEnd = require('../scripts/modules/export')
 const path = require('path')
-const compileAll = async (source, options, callback) => {
+const compileAll = async (sourceObj, options, callback) => {
     // html
     const {
         template,
         templateLang,
-    } = html = compileTemplate(source)
+    } = html = compileTemplate(sourceObj)
     // js
     const {
         script,
@@ -20,7 +20,7 @@ const compileAll = async (source, options, callback) => {
         style,
         isExistStyle,
         styleLang
-    } = js = compileScript(source)
+    } = js = compileScript(sourceObj)
     try {
         const allScript = (
             // import html modules to transform html to jsx 
@@ -46,7 +46,7 @@ const compileAll = async (source, options, callback) => {
         // callback(null, result.code)
     } catch (e) {
         console.log(e)
-        throw new Error("babel compile failed, see issues https://github.com/Wscats/eno-loader/issues");
+        // throw new Error("babel compile failed, see issues https://github.com/Wscats/eno-loader/issues");
     }
 }
 

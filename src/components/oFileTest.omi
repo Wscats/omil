@@ -1,6 +1,7 @@
 <template>
     <div>
         <img src={this.data.logo} />
+        <p>123</p>
     </div>
 </template>
 <script>
@@ -13,7 +14,17 @@ export default {
             logo
         }
         const data = await axios.get('https://cnodejs.org/api/v1/topics')
+        console.log(data)
         // debugger
     }
 }
 </script>
+<style lang="scss">
+    div{
+        color: red;
+        p {
+            font-size: 28px;
+            color: blue;
+        }
+    }
+</style>

@@ -1,7 +1,17 @@
-const {
-    compileSassSync
-} = require('./sass')
-const compileStyle = (omi) => {
+const compileStyle = (sourceObj) => {
+    // console.log(sourceObj)
+    const omi = sourceObj.source
+    const sass = sourceObj.sass
+    let compileSassSync = null
+    switch (sass) {
+        case 'extension':
+            compileSassSync = require('./extension').compileSass
+            break
+        default:
+            compileSassSync = require('./loader').compileSassSync
+            console.log(compileSassSync)
+    }
+
     const styleInTag = (() => {
         // match <script>xxx</script> content
         let isExistStyle = omi.match(/<style[^>]*>[\s\S]*?<\/style>/g)
@@ -28,6 +38,8 @@ const compileStyle = (omi) => {
     switch (styleLang) {
         case 'scss':
             style = compileSassSync(style)
+            // style = await compileSassSync(style)
+            console.log(style)
             break
         default:
             style = style
