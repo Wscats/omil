@@ -1,10 +1,12 @@
-const compileStyle = require('../styles/index')
+// const compileStyle = require('../styles/index')
 const compileTemplate = require('../templates/index')
 const compileScript = require('../scripts/index')
 const transform = require('../scripts/transform')
-const getModules = require('../utils/getModules')
+// const getModules = require('../utils/getModules')
 const modulesStart = require('../scripts/modules/import')
 const modulesEnd = require('../scripts/modules/export')
+// handle sass
+const compileSass = require('../styles/extension/index').compileSass
 const path = require('path')
 const compileAll = async (sourceObj, options, callback) => {
     // html
@@ -13,7 +15,7 @@ const compileAll = async (sourceObj, options, callback) => {
         templateLang,
     } = html = compileTemplate(sourceObj)
     // js
-    const {
+    let {
         script,
         isExistScript,
         scriptLang,
@@ -21,6 +23,8 @@ const compileAll = async (sourceObj, options, callback) => {
         isExistStyle,
         styleLang
     } = js = compileScript(sourceObj)
+    // use in omi-snippets
+    style = sourceObj.sass === 'extension' ? (await compileSass(style)).text : style
     try {
         const allScript = (
             // import html modules to transform html to jsx 

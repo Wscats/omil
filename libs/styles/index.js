@@ -4,12 +4,15 @@ const compileStyle = (sourceObj) => {
     const sass = sourceObj.sass
     let compileSassSync = null
     switch (sass) {
+        // use in omi-snippets
         case 'extension':
-            compileSassSync = require('./extension').compileSass
+            compileSassSync = (sass) => {
+                return sass
+            }
             break
+        // loader branch
         default:
             compileSassSync = require('./loader').compileSassSync
-            console.log(compileSassSync)
     }
 
     const styleInTag = (() => {
@@ -38,8 +41,6 @@ const compileStyle = (sourceObj) => {
     switch (styleLang) {
         case 'scss':
             style = compileSassSync(style)
-            // style = await compileSassSync(style)
-            console.log(style)
             break
         default:
             style = style
