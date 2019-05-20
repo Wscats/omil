@@ -23,6 +23,7 @@ const compileAll = async (sourceObj, options, callback) => {
         isExistStyle,
         styleLang
     } = js = compileScript(sourceObj)
+    // sass
     // use in omi-snippets
     style = sourceObj.sass === 'extension' ? (await compileSass(style)).text : style
     try {
