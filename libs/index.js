@@ -1,10 +1,9 @@
 const compileAll = require('./loaders/index')
 const path = require('path')
 const fs = require('fs')
-const {
-    getOptions
-} = require('loader-utils')
+
 module.exports = function (source, map) {
+    // use in omi-snippets
     if (typeof source === 'object') {
         const callback = (info, code, map) => {
             return code
@@ -16,6 +15,10 @@ module.exports = function (source, map) {
         const sourceObj = {
             source
         }
+        // use in webpack loader
+        const {
+            getOptions
+        } = require('loader-utils')
         const options = getOptions(this) || {}
         const output = compileAll(sourceObj, options, callback)
     }
