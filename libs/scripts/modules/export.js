@@ -10,8 +10,9 @@ module.exports = (option) => {
             // style in script
             return /css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
         })()
+        console.log(style,styleInScript)
         const css = (() => {
-            if(styleInScript){
+            if(styleInScript || style === undefined){
                 return ''
             }else{
                 return `css() {
@@ -36,7 +37,7 @@ module.exports = (option) => {
                 export default class extends WeElement {
                     ${css}
                     render() {
-                        return (${template})
+                        return ${template}
                     }
                 `
     }

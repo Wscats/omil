@@ -5,12 +5,16 @@ const compileScript = require('../scripts/index')
 // const getModules = require('../utils/getModules')
 const modulesStart = require('../scripts/modules/import')
 const modulesEnd = require('../scripts/modules/export')
+
+// handle template
+const transform = require('../scripts/transform')
+
 // handle sass
 const compileSass = require('../styles/extension/index').compileSass
 const path = require('path')
 const compileAll = async (sourceObj, options, callback) => {
     // html
-    const {
+    let {
         template,
         templateLang,
     } = html = compileTemplate(sourceObj)
@@ -27,11 +31,24 @@ const compileAll = async (sourceObj, options, callback) => {
     // sass
     // use in omi-snippets
     style = sourceObj.sass === 'extension' ? (await compileSass(style)).text : style
-    // console.log(style)
+    // use in omi-snippets
+    template = sourceObj.sass === 'extension' && templateLang !== 'html' && templateLang !== 'htm' ? (await transform(template, {
+        // not in strict mode
+        sourceType: 'script'
+    })).code : template
     try {
         const allScript = (
             // import html modules to transform html to jsx 
-            modulesStart +
+            modulesStart({
+                script,
+                isExistScript,
+                scriptLang,
+                template,
+                templateLang,
+                style,
+                styleLang,
+                isExistStyle,
+            }) +
             script
             // load css and html
             .replace(/export\s+default\s*\{|module.exports\s*=\s*\{/g, modulesEnd({
@@ -51,7 +68,7 @@ const compileAll = async (sourceObj, options, callback) => {
         if (sourceObj.sass === 'extension') {
             callback(allScript)
         } else {
-            const transform = require('../scripts/transform')
+
             // html2jsx and es62es5
             const result = await transform(allScript, options)
             callback(null, result.code, result.map)

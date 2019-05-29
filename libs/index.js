@@ -10,6 +10,10 @@ module.exports = function (source, map) {
         }
         const sourceObj = source
         const output = compileAll(sourceObj, source.options, source.callback)
+        const compileSass = require('./styles/extension/index').compileSass
+        return {
+            compileSass,
+        }
     } else {
         const callback = this.async()
         const sourceObj = {
