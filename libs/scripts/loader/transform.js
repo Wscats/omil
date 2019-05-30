@@ -6,12 +6,12 @@ module.exports = (code, options) => {
         const defaultOption = {
             presets: [
                 ["@babel/preset-env"],
-                [
-                    "@babel/preset-react",
-                    {
-                        "pragma": "h",
-                    }
-                ]
+                // [
+                //     "@babel/preset-react",
+                //     {
+                //         "pragma": "h",
+                //     }
+                // ]
             ]
         }
         // comibine option

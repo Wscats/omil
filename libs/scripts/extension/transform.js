@@ -25,7 +25,7 @@ module.exports = (code, options) => {
             if (err) {
                 reject(err)
             } else {
-                console.log(result)
+                // console.log(result)
                 resolve(result)
             }
         });

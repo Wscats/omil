@@ -27,15 +27,17 @@ const compileAll = async (sourceObj, options, callback) => {
     } = js = compileScript(sourceObj)
     // sass and jsx
     // use in omi-snippets
-    style = sourceObj.sass === 'extension' ? (await compileSass(style)).text : style
-    if (sourceObj.sass === 'extension' && templateLang !== 'html' && templateLang !== 'htm') {
-        const transform = require('../scripts/transformSnippets')
+    style = sourceObj.type === 'extension' ? (await compileSass(style)).text : style
+    
+    // html -> jsx
+    if (templateLang !== 'html' && templateLang !== 'htm') {
+        const transform = require('../scripts/extension/transform')
         // handle template
         template = (await transform(template, {
             // not in strict mode
             sourceType: 'script'
         })).code
-        console.log(template)
+        // console.log(template)
     }
 
     try {
@@ -64,16 +66,17 @@ const compileAll = async (sourceObj, options, callback) => {
                 isExistStyle,
             })))
 
-        // console.log(result)
+        
         // console.log(allScript)
         // as async return
-        if (sourceObj.sass === 'extension') {
+        if (sourceObj.type === 'extension') {
             callback(allScript)
         } else {
             // handle template
-            const transform = require('../scripts/transform')
-            // html2jsx and es62es5
+            const transform = require('../scripts/loader/transform')
+            // es6 -> es5
             const result = await transform(allScript, options)
+            // console.log(result)
             callback(null, result.code, result.map)
         }
 

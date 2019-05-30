@@ -10,7 +10,7 @@ module.exports = (option) => {
             // style in script
             return /css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
         })()
-        console.log(style,styleInScript)
+        // console.log(style,styleInScript)
         const css = (() => {
             if(styleInScript || style === undefined){
                 return ''

@@ -1,9 +1,9 @@
 const compileStyle = (sourceObj) => {
     // console.log(sourceObj)
     const omi = sourceObj.source
-    const sass = sourceObj.sass
+    const type = sourceObj.type
     let compileSassSync = null
-    switch (sass) {
+    switch (type) {
         // use in omi-snippets
         case 'extension':
             compileSassSync = (sass) => {
