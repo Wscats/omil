@@ -3,8 +3,10 @@ module.exports = (option) => {
             script,
             style,
             template,
-            templateLang
+            templateLang,
+            templateComponentName
         } = option;
+        console.log(templateComponentName)
         // return true or false
         const styleInScript = (() => {
             // style in script
@@ -12,20 +14,30 @@ module.exports = (option) => {
         })()
         // console.log(style,styleInScript)
         const css = (() => {
-            if(styleInScript || style === undefined){
+            if (styleInScript || style === undefined) {
                 return ''
-            }else{
+            } else {
                 return `css() {
                     return (${'`'}${style}${'`'})
                 }`
                 
             }
         })()
+        // define('${templateComponentName}', ${templateComponentName});
+        const componentName = (() => {
+            if(templateComponentName){
+                return `const ${templateComponentName} =`
+            } else {
+                return `export default`
+
+            }
+        })()
+
         switch (templateLang) {
             // html
             case 'html':
                 return `
-                export default class extends WeElement {
+                    ${componentName} class extends WeElement {
                     ${css}
                     render() {
                         return (html${'`'}${template}${'`'})
@@ -34,7 +46,7 @@ module.exports = (option) => {
         // jsx
         default:
             return `
-                export default class extends WeElement {
+                    ${componentName} class extends WeElement {
                     ${css}
                     render() {
                         return ${template}

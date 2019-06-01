@@ -5,6 +5,7 @@ const compileScript = require('../scripts/index')
 // const getModules = require('../utils/getModules')
 const modulesStart = require('../scripts/modules/import')
 const modulesEnd = require('../scripts/modules/export')
+const defineComponent = require('../scripts/modules/define')
 
 // handle sass
 const compileSass = require('../styles/extension/index').compileSass
@@ -14,6 +15,7 @@ const compileAll = async (sourceObj, options, callback) => {
     let {
         template,
         templateLang,
+        templateComponentName
     } = html = compileTemplate(sourceObj)
     // js
     let {
@@ -28,7 +30,7 @@ const compileAll = async (sourceObj, options, callback) => {
     // sass and jsx
     // use in omi-snippets
     style = sourceObj.type === 'extension' ? (await compileSass(style)).text : style
-    
+
     // html -> jsx
     if (templateLang !== 'html' && templateLang !== 'htm') {
         const transform = require('../scripts/extension/transform')
@@ -49,6 +51,7 @@ const compileAll = async (sourceObj, options, callback) => {
                 scriptLang,
                 template,
                 templateLang,
+                templateComponentName,
                 style,
                 styleLang,
                 isExistStyle,
@@ -61,12 +64,15 @@ const compileAll = async (sourceObj, options, callback) => {
                 scriptLang,
                 template,
                 templateLang,
+                templateComponentName,
                 style,
                 styleLang,
                 isExistStyle,
-            })))
-
-        
+            })) +
+            defineComponent({
+                templateComponentName
+            })
+        )
         // console.log(allScript)
         // as async return
         if (sourceObj.type === 'extension') {

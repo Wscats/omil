@@ -5,6 +5,7 @@ module.exports = (option) => {
         scriptLang,
         template,
         templateLang,
+        templateComponentName,
         style,
         styleLang,
         isExistStyle,
@@ -15,7 +16,9 @@ module.exports = (option) => {
             // register component
             WeElement,
             // when you use component, you should define
-            define,
+            ${
+                templateComponentName?'define,':''
+            }
             ${
                 // JSX or HTML
                 // html,
