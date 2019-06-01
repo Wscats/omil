@@ -1,6 +1,6 @@
 {
   "name": "omil",
-  "version": "1.4.1",
+  "version": "1.4.5",
   "description": "Webpack loader for Omi.js components",
   "main": "libs/index.js",
   "scripts": {
@@ -59,8 +59,9 @@
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.4.4",
     "axios": "^0.18.0",
+    "cheerio": "^1.0.0-rc.3",
     "events": "^3.0.0",
-    "omi": "^6.1.2",
-    "node-sass": "^4.12.0"
+    "node-sass": "^4.12.0",
+    "omi": "^6.1.2"
   }
 }

@@ -1,9 +1,15 @@
+const {
+    convertToCamelCase
+} = require('../extension/convert')
+
 module.exports = (option) => {
     let {
         templateComponentName
     } = option
+    
     if (templateComponentName) {
-        return `define('${templateComponentName}', ${templateComponentName});`
+        const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)
+        return `define('${templateComponentName}', ${templateComponentCamelCaseName});`
     } else {
         return ''
     }

@@ -6,6 +6,7 @@ const compileScript = require('../scripts/index')
 const modulesStart = require('../scripts/modules/import')
 const modulesEnd = require('../scripts/modules/export')
 const defineComponent = require('../scripts/modules/define')
+const renderComponent = require('../scripts/modules/render')
 
 // handle sass
 const compileSass = require('../styles/extension/index').compileSass
@@ -55,6 +56,7 @@ const compileAll = async (sourceObj, options, callback) => {
                 style,
                 styleLang,
                 isExistStyle,
+                sourceObj
             }) +
             script
             // load css and html
@@ -69,8 +71,14 @@ const compileAll = async (sourceObj, options, callback) => {
                 styleLang,
                 isExistStyle,
             })) +
+            // define('my-eno', myEno)
             defineComponent({
                 templateComponentName
+            }) +
+            // render(html`my-eno`, body)
+            renderComponent({
+                templateComponentName,
+                sourceObj
             })
         )
         // console.log(allScript)

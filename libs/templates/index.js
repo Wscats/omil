@@ -1,4 +1,5 @@
 const annotation = require('../utils/annotation')
+const cheerio = require('cheerio')
 const compileTemplate = (sourceObj) => {
     const omi = sourceObj.source
     const templateInTag = (
@@ -12,7 +13,10 @@ const compileTemplate = (sourceObj) => {
     const templateLang = (() => {
         let lang = templateInTag.match(/<template[^>]*>/g)[0]
         if (lang.indexOf('lang') >= 0) {
-            return lang.replace(/<template\s+lang=["']([^>]*)["']\s*>/g, '$1')
+            let $ = cheerio.load(lang)
+            // console.log($('template').attr('lang')||'')
+            // return lang.replace(/<template\s+lang=["']([^>]*)["']\s*>/g, '$1')
+            return $('template').attr('lang').replace(/^\s*|\s*$/g, "") || ''
         } else {
             return ''
         }
@@ -20,7 +24,10 @@ const compileTemplate = (sourceObj) => {
     const templateComponentName = (() => {
         let name = templateInTag.match(/<template[^>]*>/g)[0]
         if (name.indexOf('name') >= 0) {
-            return name.replace(/<template\s+name=["']([^>]*)["']\s*>/g, '$1')
+            let $ = cheerio.load(name)
+            // console.log($('template').attr('name')||'')
+            // return name.replace(/<template\s+name=["']([^>]*)["']\s*>/g, '$1')
+            return $('template').attr('name').replace(/^\s*|\s*$/g, "") || ''
         } else {
             return ''
         }

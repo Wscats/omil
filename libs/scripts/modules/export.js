@@ -1,3 +1,7 @@
+const {
+    convertToCamelCase
+} = require('../extension/convert')
+
 module.exports = (option) => {
         let {
             script,
@@ -6,7 +10,7 @@ module.exports = (option) => {
             templateLang,
             templateComponentName
         } = option;
-        console.log(templateComponentName)
+        // console.log(templateComponentName)
         // return true or false
         const styleInScript = (() => {
             // style in script
@@ -23,10 +27,10 @@ module.exports = (option) => {
                 
             }
         })()
-        // define('${templateComponentName}', ${templateComponentName});
         const componentName = (() => {
             if(templateComponentName){
-                return `const ${templateComponentName} =`
+                const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)
+                return `const ${templateComponentCamelCaseName} =`
             } else {
                 return `export default`
 

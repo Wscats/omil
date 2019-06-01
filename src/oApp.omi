@@ -8,6 +8,7 @@
   </div>
 </template>
 <script>
+import {define} from "omi";
 // import oHeader from "./components/oHeader.omi";
 // import oSearch from "./components/oSearch.omi"
 // import oPanel from "./components/oPanel.omi"
