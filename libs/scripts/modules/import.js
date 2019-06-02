@@ -30,7 +30,7 @@ module.exports = (option) => {
                     html,
                     h,
                     render
-                } in omi;
+                } = omi;
             `
             break
         default:
