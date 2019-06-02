@@ -50,7 +50,7 @@ module: {
 A `*.omi` file is a custom file format that uses HTML-like syntax to describe a Omi component. Each `*.omi` file consists of three types of top-level language blocks: `<template>, <script>, and <style>`, and optionally additional custom blocks:
 
 ```html
-<template lang="html">
+<template lang="html" name="component-name">
   <!-- replace render function -->
   <header onClick="${this.test}">${this.data.title}</header>
 </template>
