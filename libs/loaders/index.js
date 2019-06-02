@@ -31,7 +31,7 @@ const compileAll = async (sourceObj, options, callback) => {
     // sass and jsx
     // use in omi-snippets
     style = sourceObj.type === 'extension' ? (await compileSass(style)).text : style
-
+    
     // html -> jsx
     if (templateLang !== 'html' && templateLang !== 'htm') {
         const transform = require('../scripts/extension/transform')

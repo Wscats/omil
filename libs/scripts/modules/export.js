@@ -16,17 +16,23 @@ module.exports = (option) => {
             // style in script
             return /css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
         })()
+
+        // console.log(script, style, styleInScript)
+
         // console.log(style,styleInScript)
         const css = (() => {
             if (styleInScript || style === undefined) {
                 return ''
             } else {
-                return `css() {
-                    return (${'`'}${style}${'`'})
-                }`
+                return `
+                    css() {
+                        return (${'`'}${style}${'`'})
+                    }
+                `
                 
             }
         })()
+        // console.log(css)
         const componentName = (() => {
             if(templateComponentName){
                 const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)

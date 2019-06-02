@@ -9,7 +9,9 @@ module.exports = (option) => {
     
     if (templateComponentName) {
         const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)
-        return `define('${templateComponentName}', ${templateComponentCamelCaseName});`
+        return `
+            define('${templateComponentName}', ${templateComponentCamelCaseName});
+        `
     } else {
         return ''
     }

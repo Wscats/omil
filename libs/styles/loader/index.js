@@ -15,6 +15,8 @@ const compileSass = (data) => {
 const compileSassSync = (data) => {
     return sass.renderSync({
         data,
+    },{
+        outputStyle: 'compressed'
     })
     .css
     .toString()
