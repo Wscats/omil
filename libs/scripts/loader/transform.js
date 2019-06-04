@@ -12,7 +12,8 @@ module.exports = (code, options) => {
                 //         "pragma": "h",
                 //     }
                 // ]
-            ]
+            ],
+            
         }
         // comibine option
         const finalOptions = Object.assign({}, defaultOption, {

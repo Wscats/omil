@@ -4,7 +4,9 @@ const {
 module.exports = (code, options) => {
     return new Promise((resolve, reject) => {
         const defaultOption = {
+            plugins: [require("@babel/plugin-proposal-class-properties")],
             presets: [
+                // [require('@babel/plugin-proposal-class-properties')],
                 // [require("@babel/preset-env")],
                 [
                     require("@babel/preset-react"),
@@ -12,7 +14,8 @@ module.exports = (code, options) => {
                         "pragma": "h",
                     }
                 ]
-            ]
+            ],
+
         }
         // comibine option
         const finalOptions = Object.assign({}, defaultOption, {

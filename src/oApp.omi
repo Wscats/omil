@@ -20,11 +20,11 @@ import oFileTest from "./components/oFileTest.omi"
 // define("o-gallery", oGallery)
 define("o-file-test", oFileTest)
 export default {
-  install() {
+  static css  = `p{color:red}`;install() {
     this.data = {
       text: "Omi"
     }
-  }
+  };
 }
 </script>
 <style lang="scss">
