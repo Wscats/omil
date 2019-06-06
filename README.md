@@ -57,9 +57,7 @@ A `*.omi` file is a custom file format that uses HTML-like syntax to describe a 
 <script>
 import style from './_oHeader.css'
 export default {
-  css() {
-    return style // it will combine scoped css
-  }
+  static css = style // it will combine scoped css
   test(){
     console.log('Hello Eno!')
   }
