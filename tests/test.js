@@ -18,6 +18,9 @@ console.log(omil({
     export default {
         static js = 'p'
         static css = 'p'
+        css(){
+            return 'ooooo'
+        }
         install() {
             this.data = {
             }

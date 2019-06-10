@@ -10,27 +10,33 @@ module.exports = (option) => {
         templateLang,
         templateComponentName
     } = option;
-    // console.log(templateComponentName)
-    // return true or false
+    // 1. static css = `xxx`
     const styleInScript = (() => {
         // style in script
-        // return /css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
         return /static\s*css\s*=([^\)]*)/g.test(script)
     })()
-
-    // console.log(script, style, styleInScript)
-
-    // console.log(style,styleInScript)
+    // 2. css()=>{return ``}
+    const styleInScript2 = (() => {
+        // style in script
+        return /css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
+    })()
     const css = (() => {
         if (styleInScript || style === undefined) {
             return ''
         } else {
-            // return `
-            //     static css() {
-            //         return (${'`'}${style}${'`'})
-            //     }
-            // `
             return `static css =  (${'`'}${style}${'`'})`
+        }
+    })()
+
+    const css2 = (() => {
+        if (styleInScript2 || style === undefined) {
+            return ''
+        } else {
+            return `
+                css() {
+                    return (${'`'}${style}${'`'})
+                }
+            `
         }
     })()
     // console.log(css)

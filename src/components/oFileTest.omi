@@ -8,6 +8,7 @@
 import axios from 'axios'
 import logo from '../assets/logo.png'
 export default {
+    static css = 'div{color:blue}'
     async install() {
         this.data = {
             title: 'Omi',
