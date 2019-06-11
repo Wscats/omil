@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Eno Yao</title>
   </head>
   <body>
     <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
@@ -11,11 +11,8 @@
       const { WeElement, define, html, h, render } = omi;
 
       const aB = class extends WeElement {
-        css() {
-          return `div{color:red}
+        static css = `div{color:red}
 `;
-        }
-
         render() {
           return html`
             <div>
