@@ -39,7 +39,6 @@ module.exports = (option) => {
             `
         }
     })()
-    // console.log(css)
     const componentName = (() => {
         if (templateComponentName) {
             const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)
@@ -49,6 +48,15 @@ module.exports = (option) => {
 
         }
     })()
+
+    // 2. render()=>{return ``}
+    const renderInScript = (() => {
+        // style in script
+        return /render\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
+    })()
+
+    // ast(script, null)
+    // console.log(script)
 
     switch (templateLang) {
         // html

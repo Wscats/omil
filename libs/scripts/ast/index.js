@@ -1,17 +1,33 @@
 const {
-    transform,
-    transformSync
+    transform
 } = require("@babel/core");
-module.exports = (code, options) => {
-    return new Promise((resolve, reject) => {
-        // console.log(code)
+module.exports = async (option, options) => {
+    let {
+        script,
+        allScript,
+        isExistScript,
+        scriptLang,
+        template,
+        templateLang,
+        templateComponentName,
+        style,
+        styleLang,
+        isExistStyle
+    } = option
+    const result = await new Promise((resolve, reject) => {
+        console.log(allScript)
         const defaultOption = {
             plugins: [
-                require("@babel/plugin-proposal-class-properties")
+                require("@babel/plugin-proposal-class-properties"),
+                {
+                    visitor: {
+                        ArrayExpression(path) {
+                            console.log(path)
+                        }
+                    }
+                }
             ],
             presets: [
-                // [require('@babel/plugin-proposal-class-properties')],
-                // [require("@babel/preset-env")],
                 [
                     require("@babel/preset-react"),
                     {
@@ -26,7 +42,7 @@ module.exports = (code, options) => {
             ...options
         });
         // console.log(finalOptions)
-        transform(code, {
+        transform(allScript, {
             ...finalOptions
         }, (err, result) => {
             if (err) {
@@ -37,5 +53,5 @@ module.exports = (code, options) => {
             }
         });
     })
-    
+    return result
 }

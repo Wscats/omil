@@ -8,6 +8,9 @@ const modulesEnd = require('../scripts/modules/export')
 const defineComponent = require('../scripts/modules/define')
 const renderComponent = require('../scripts/modules/render')
 
+// handle ast
+const ast = require('../scripts/ast')
+
 // handle sass
 const compileSass = require('../styles/extension/index').compileSass
 const path = require('path')
@@ -31,7 +34,7 @@ const compileAll = async (sourceObj, options, callback) => {
     // sass and jsx
     // use in omi-snippets
     style = sourceObj.type === 'extension' ? (await compileSass(style)).text : style
-    
+
     // html -> jsx
     if (templateLang !== 'html' && templateLang !== 'htm') {
         const transform = require('../scripts/extension/transform')
@@ -59,18 +62,19 @@ const compileAll = async (sourceObj, options, callback) => {
                 sourceObj
             }) +
             script
-            // load css and html
-            .replace(/export\s+default\s*\{|module.exports\s*=\s*\{/g, modulesEnd({
-                script,
-                isExistScript,
-                scriptLang,
-                template,
-                templateLang,
-                templateComponentName,
-                style,
-                styleLang,
-                isExistStyle,
-            })) +
+                // load css and html
+                // support export default {} and export default class {}
+                .replace(/export\s+default\s*\{|module.exports\s*=\s*\{|export\s+default\s*class\s*\{|module.exports\s*=\s*class\s*\{/g, modulesEnd({
+                    script,
+                    isExistScript,
+                    scriptLang,
+                    template,
+                    templateLang,
+                    templateComponentName,
+                    style,
+                    styleLang,
+                    isExistStyle,
+                })) +
             // define('my-eno', myEno)
             defineComponent({
                 templateComponentName
@@ -82,6 +86,19 @@ const compileAll = async (sourceObj, options, callback) => {
             })
         )
         // console.log(allScript)
+        // ast
+        ast({
+            script,
+            allScript,
+            isExistScript,
+            scriptLang,
+            template,
+            templateLang,
+            templateComponentName,
+            style,
+            styleLang,
+            isExistStyle
+        }, null)
         // as async return
         if (sourceObj.type === 'extension') {
             callback(allScript)

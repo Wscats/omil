@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Eno Yao</title>
+  </head>
+  <body>
+    <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
+    <script>
+      const {
+        WeElement,
+
+        html,
+        h,
+        render
+      } = omi;
+
+      import axios from "axios";
+      import logo from "../assets/logo.png";
+
+      export default class extends WeElement {
+        render() {
+          return h(
+            "div",
+            null,
+            h("img", {
+              src: this.data.logo
+            }),
+            h("p", null, "123")
+          );
+        }
+
+        /*static css = `
+    div{
+        color: red;
+        p {
+            font-size: 28px;
+            color: blue;
+        }
+    }
+`+ 'div{color:blue}'*/
+        async install() {
+          this.data = {
+            title: "Omi",
+            logo
+          };
+          const data = await axios.get("https://cnodejs.org/api/v1/topics");
+          console.log(data);
+          // debugger
+        }
+      }
+    </script>
+  </body>
+</html>

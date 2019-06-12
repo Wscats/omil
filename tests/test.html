@@ -11,16 +11,28 @@
       const { WeElement, define, html, h, render } = omi;
 
       const aB = class extends WeElement {
-        static css = `div{color:red}
-`;
         render() {
           return html`
             <div>
-              hello world
+              hello worldaaa
             </div>
           `;
         }
+
+        static css =
+          `
+    div{
+        color:red
+    }
+` +
+          "abc" +
+          "cba";
+        render() {
+          return;
+        }
+        css() {}
       };
+
       define("a-b", aB);
 
       render(

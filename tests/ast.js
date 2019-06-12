@@ -12,24 +12,16 @@ const t = require('@babel/types')
 //   source: t.stringLiteral("my-module"),
 // });
 
+// https://astexplorer.net/
+
 
 const source = "my-module";
 
 const ast = template.ast(`
 // JS
 var a = 'abcd'
-import style from './index.css'
-import axios from 'axios'
-export default {
-    css = 'p'
-    install() {
-        this.data = {
-        }
-    }
-}
-1
 `);
-
+ast.kind = 'let'
 
 console.log(ast);
 console.log(generate(ast).code);

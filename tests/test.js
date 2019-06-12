@@ -1,52 +1,26 @@
-var omil = require('../libs')
-console.log(omil({
-    type: 'extension',
-    file: 'html',
-    options: null,
-    source: `
-    <template  name="my-abc-abc" lang="html" >
-        <div>
-            <!-- JSX -->
-            <p>123</p>
-        </div>
-    </template>
-    <script>
-    // JS
-    var a = 'abcd'
-    import style from './index.css'
-    import axios from 'axios'
-    export default {
-        static js = 'p'
-        static css = 'p'
-        css(){
-            return 'ooooo'
-        }
-        install() {
-            this.data = {
-            }
-        }
+import { WeElement, define, html } from "omi";
+
+const aB = class extends WeElement {
+  render() {
+    return html`
+      <div>
+        hello worldaaa
+      </div>
+    `;
+  }
+
+  static css =
+    `
+    div{
+        color:red
     }
-    1
-    </script>
-    <style lang='scss'>
-    p{
-        color:red;
-        span{
-            font-size:14px
-        }
-    }
-    </style>
-    `,
-    callback(code) {
-        console.log(code)
-    }
-}).compileSass(`
-p{
-    color:red;
-    span{
-        font-size:14px
-    }
-}
-`).then((data) => {
-    // console.log(data.text)
-}));
+` +
+    "abc" +
+    "cba";
+  render() {
+    return;
+  }
+  css() {}
+};
+
+define("a-b", aB);

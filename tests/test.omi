@@ -1,0 +1,21 @@
+<template lang="html" name="a-b">
+    <div>
+        hello worldaaa
+    </div>
+</template>
+<script>
+export default {
+    static css = 'abc' + 'cba'
+    render(){
+        return 
+    }
+    css(){
+        
+    }
+}
+</script>
+<style lang="scss">
+    div{
+        color:red
+    }
+</style>
