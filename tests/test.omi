@@ -1,21 +1,20 @@
-<template lang="html" name="a-b">
+<template name="component-name">
     <div>
-        hello worldaaa
+        <!-- JSX -->
+        <p>{this.data.title}</p>
     </div>
 </template>
 <script>
-export default {
-    static css = 'abc' + 'cba'
-    render(){
-        return 
-    }
-    css(){
-        
+// JS
+export default class {
+    install() {
+        this.data = {
+            title: "omi"
+        }
     }
 }
 </script>
 <style lang="scss">
-    div{
-        color:red
-    }
+/* CSS */
+p{color:#58bc58};
 </style>

@@ -15,10 +15,16 @@ console.log(omil({
     var a = 'abcd'
     import style from './index.css'
     import axios from 'axios'
-    module.exports= class {
+    const aa = (_temp = _class = class myAbcAbc extends WeElement2 {
+        css (){
+            return 
+        }
+    })
+    module.exports = {
         css(){
             return 'ooooo'
         }
+        static arr = ['a','b','c']
         install() {
             this.data = {
             }
@@ -26,19 +32,7 @@ console.log(omil({
         render(){
             return
         }
-        static routes = [
-            {
-              path: '/',
-              name: 'home',
-              component: Home
-            },
-            {
-              path: '/about',
-              name: 'about',
-              component: About
-            }
-            // to be append new route.
-        ]
+        
         abc
     }
     1
@@ -53,7 +47,7 @@ console.log(omil({
     </style>
     `,
     callback(code) {
-        // console.log(code)
+        console.log(code)
     }
 }).compileSass(`
 p{

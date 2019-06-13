@@ -11,11 +11,12 @@ export default class extends WeElement {
       h("img", {
         src: this.data.logo
       }),
-      h("p", null, "123")
+      h("p", null, "123456")
     );
   }
 
-  /*static css = `
+  static css =
+    `
     div{
         color: red;
         p {
@@ -23,7 +24,7 @@ export default class extends WeElement {
             color: blue;
         }
     }
-`+ 'div{color:blue}'*/
+` + "div{color:blue}";
   async install() {
     this.data = {
       title: "Omi",

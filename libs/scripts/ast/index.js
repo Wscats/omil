@@ -15,15 +15,45 @@ module.exports = async (option, options) => {
         isExistStyle
     } = option
     const result = await new Promise((resolve, reject) => {
-        console.log(allScript)
+        // console.log(allScript)
         const defaultOption = {
             plugins: [
                 require("@babel/plugin-proposal-class-properties"),
                 {
                     visitor: {
-                        ArrayExpression(path) {
-                            console.log(path)
-                        }
+                        "ClassExpression"(path, { opts }) {
+                            // 筛选class myAbcAbc extends WeElement
+                            console.log('---------------')
+                            // if(path.node.superClass.name === 'WeElement'){
+                            //     // 筛选render() {}
+                            //     // console.log(path.node.superClass.name)
+                            //     path.node.body.body.forEach((item) => {
+                            //         if (item.key.name === 'render') {
+                            //             console.log(item)
+                            //             item.remove()
+                            //             // console.log(item.get("body"))
+                            //             // item.key.name = 'r'
+                            //         }
+                            //     })
+                            // }
+                            // path.remove()
+
+                            // 筛选class myAbcAbc extends WeElement
+                            if (path.node.superClass.name === 'WeElement') {
+                                path.get("body.body.0").remove()
+                            }
+                            // console.log(path.get("body.body.1"))
+
+                            // console.log(opts)
+                            // console.log(path.get("render"))
+
+                        },
+                        // "ClassExpression"(path) {
+                        //     console.log(path)
+                        // },
+                        // "ImportDeclaration"(path){
+                        //     path.remove()
+                        // }
                     }
                 }
             ],
@@ -35,7 +65,6 @@ module.exports = async (option, options) => {
                     }
                 ]
             ],
-
         }
         // comibine option
         const finalOptions = Object.assign({}, defaultOption, {
@@ -53,5 +82,6 @@ module.exports = async (option, options) => {
             }
         });
     })
+    console.log(result.code)
     return result
 }
