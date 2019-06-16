@@ -1,7 +1,9 @@
 const {
     transform
 } = require("@babel/core");
-module.exports = async (option, options) => {
+
+// const t = require("@babel/types");
+module.exports = (option, options) => {
     let {
         script,
         allScript,
@@ -14,38 +16,71 @@ module.exports = async (option, options) => {
         styleLang,
         isExistStyle
     } = option
-    const result = await new Promise((resolve, reject) => {
+    return new Promise((resolve, reject) => {
         // console.log(allScript)
         const defaultOption = {
             plugins: [
-                require("@babel/plugin-proposal-class-properties"),
+                [require("@babel/plugin-proposal-class-properties"), { "loose": true }],
                 {
                     visitor: {
                         "ClassExpression"(path, { opts }) {
                             // 筛选class myAbcAbc extends WeElement
-                            console.log('---------------')
-                            // if(path.node.superClass.name === 'WeElement'){
-                            //     // 筛选render() {}
-                            //     // console.log(path.node.superClass.name)
-                            //     path.node.body.body.forEach((item) => {
-                            //         if (item.key.name === 'render') {
-                            //             console.log(item)
-                            //             item.remove()
-                            //             // console.log(item.get("body"))
-                            //             // item.key.name = 'r'
-                            //         }
-                            //     })
-                            // }
-                            // path.remove()
-
-                            // 筛选class myAbcAbc extends WeElement
                             if (path.node.superClass.name === 'WeElement') {
-                                path.get("body.body.0").remove()
+                                // console.log('-----------------------------------------------')
+                                // console.log(path.get("body.body"))
+                                let ClassMethods = [];
+                                path.get("body.body").forEach((ClassMethod) => {
+                                    // 筛选render() {}
+                                    if (ClassMethod.node.key.name === 'render') {
+                                        // console.log(ClassMethod.type)
+                                        ClassMethods.push(ClassMethod)
+                                        // ClassMethod.remove()
+                                        // 删除所有css() {}
+                                    } else if (ClassMethod.node.key.name === 'css') {
+                                        ClassMethod.remove()
+                                    }
+                                })
+                                // 获取最后一个render函数
+                                let lastRenderFn = ClassMethods[ClassMethods.length - 1];
+                                // 删除除第一个以外的其他render
+                                if (ClassMethods) {
+                                    for (let i = 0; i < ClassMethods.length; i++) {
+                                        if (i != 0) {
+                                            ClassMethods[i].remove()
+                                        }
+                                    }
+                                }
+                                if (lastRenderFn) {
+                                    // lastRenderFn.replaceWithMultiple([
+                                    //     t.expressionStatement(t.stringLiteral("Is this the real life?")),
+                                    //     t.expressionStatement(t.stringLiteral("Is this just fantasy?")),
+                                    //     t.expressionStatement(t.stringLiteral("(Enjoy singing the rest of the song in your head)")),
+                                    // ])
+                                    // lastRenderFn.remove();
+                                    // console.log(t);
+                                    // lastRenderFn.get("body.body").remove()
+                                    // path.find((path) => path.isReturnStatement());
+                                    // 寻找return的地方
+                                    // let returnStatement = lastRenderFn.get("body.body").find((path) => path.isReturnStatement());
+                                    // console.log(returnStatement)
+                                    // returnStatement.replaceWithMultiple([
+                                    //     // lastRenderFn,
+                                    //     // template
+                                    //     // t.returnStatement(t.jsxEmptyExpression())
+                                    //     t.expressionStatement(t.stringLiteral("Is this the real life?")),
+                                    //     // t.expressionStatement(t.stringLiteral("Is this just fantasy?")),
+                                    //     // t.expressionStatement(t.stringLiteral("(Enjoy singing the rest of the song in your head)")),
+                                    // ])
+                                    // console.log({
+                                    //     ...returnStatement
+                                    // })
+                                    // console.log(returnStatement)
+                                    // console.log(lastRenderFn.node.body)
+                                    // returnStatement.getCode
+                                    // returnStatement.insertAfter(t.blockStatement([returnStatement]))
+                                    // console.log(lastRenderFn.get("body.body"));
+                                }
                             }
-                            // console.log(path.get("body.body.1"))
-
-                            // console.log(opts)
-                            // console.log(path.get("render"))
 
                         },
                         // "ClassExpression"(path) {
@@ -62,9 +97,11 @@ module.exports = async (option, options) => {
                     require("@babel/preset-react"),
                     {
                         "pragma": "h",
-                    }
+                    },
+
                 ]
             ],
+
         }
         // comibine option
         const finalOptions = Object.assign({}, defaultOption, {
@@ -77,11 +114,11 @@ module.exports = async (option, options) => {
             if (err) {
                 reject(err)
             } else {
-                // console.log(result)
+                // console.log(result.code)
                 resolve(result)
             }
         });
     })
-    console.log(result.code)
-    return result
+    // console.log(result.code)
+    // return result
 }

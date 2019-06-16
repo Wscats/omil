@@ -47,7 +47,7 @@ const compileAll = async (sourceObj, options, callback) => {
     }
 
     try {
-        const allScript = (
+        let allScript = (
             // import html modules to transform html to jsx 
             modulesStart({
                 script,
@@ -85,9 +85,9 @@ const compileAll = async (sourceObj, options, callback) => {
                 sourceObj
             })
         )
-        // console.log(allScript)
+        console.log(allScript)
         // ast
-        ast({
+        allScript = (await ast({
             script,
             allScript,
             isExistScript,
@@ -98,7 +98,8 @@ const compileAll = async (sourceObj, options, callback) => {
             style,
             styleLang,
             isExistStyle
-        }, null)
+        }, null)).code
+        console.log(allScript)
         // as async return
         if (sourceObj.type === 'extension') {
             callback(allScript)

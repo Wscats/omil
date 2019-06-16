@@ -15,24 +15,28 @@ console.log(omil({
     var a = 'abcd'
     import style from './index.css'
     import axios from 'axios'
-    const aa = (_temp = _class = class myAbcAbc extends WeElement2 {
-        css (){
-            return 
-        }
-    })
+    // const aa = (_temp = _class = class myAbcAbc extends WeElement2 {
+    //     css (){
+    //         return 
+    //     }
+    // })
     module.exports = {
         css(){
             return 'ooooo'
         }
+        css(){}
         static arr = ['a','b','c']
         install() {
             this.data = {
             }
         }
         render(){
-            return
+            let a = 1;
+            return 'abc'
         }
-        
+        render(){
+
+        }
         abc
     }
     1
@@ -47,7 +51,7 @@ console.log(omil({
     </style>
     `,
     callback(code) {
-        console.log(code)
+        // console.log(code)
     }
 }).compileSass(`
 p{
