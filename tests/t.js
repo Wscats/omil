@@ -10,7 +10,7 @@ console.log(omil({
             <p>123</p>
         </div>
     </template>
-    <script>
+    <script type="module">
     // JS
     var a = 'abcd'
     import style from './index.css'

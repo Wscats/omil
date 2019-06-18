@@ -17,9 +17,9 @@ module.exports = (option, options) => {
         styleLang,
         isExistStyle
     } = option
-    // console.log(option)
+    console.log(option)
     return new Promise((resolve, reject) => {
-        // console.log(allScript)
+        console.log(allScript)
         let presets = [
             [
                 require("@babel/preset-react"),
@@ -28,6 +28,7 @@ module.exports = (option, options) => {
                 },
             ]
         ]
+
         if (scriptType === 'text/babel') {
             presets.push(require("@babel/preset-env"))
         }
@@ -100,9 +101,9 @@ module.exports = (option, options) => {
                         // "ClassExpression"(path) {
                         //     console.log(path)
                         // },
-                        // "ImportDeclaration"(path){
-                        //     path.remove()
-                        // }
+                        "ImportDeclaration"(path){
+                            path.remove()
+                        }
                     }
                 }
             ],
