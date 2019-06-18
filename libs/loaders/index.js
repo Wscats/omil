@@ -25,6 +25,7 @@ const compileAll = async (sourceObj, options, callback) => {
     let {
         script,
         isExistScript,
+        scriptType,
         scriptLang,
         // variable
         style,
@@ -85,12 +86,13 @@ const compileAll = async (sourceObj, options, callback) => {
                 sourceObj
             })
         )
-        console.log(allScript)
+        // console.log(allScript)
         // ast
         allScript = (await ast({
             script,
             allScript,
             isExistScript,
+            scriptType,
             scriptLang,
             template,
             templateLang,
@@ -99,7 +101,7 @@ const compileAll = async (sourceObj, options, callback) => {
             styleLang,
             isExistStyle
         }, null)).code
-        console.log(allScript)
+        // console.log(allScript)
         // as async return
         if (sourceObj.type === 'extension') {
             callback(allScript)

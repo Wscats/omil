@@ -8,6 +8,7 @@ module.exports = (option, options) => {
         script,
         allScript,
         isExistScript,
+        scriptType,
         scriptLang,
         template,
         templateLang,
@@ -16,8 +17,21 @@ module.exports = (option, options) => {
         styleLang,
         isExistStyle
     } = option
+    // console.log(option)
     return new Promise((resolve, reject) => {
         // console.log(allScript)
+        let presets = [
+            [
+                require("@babel/preset-react"),
+                {
+                    "pragma": "h",
+                },
+            ]
+        ]
+        if (scriptType === 'text/babel') {
+            presets.push(require("@babel/preset-env"))
+        }
+        // console.log(presets)
         const defaultOption = {
             plugins: [
                 [require("@babel/plugin-proposal-class-properties"), { "loose": true }],
@@ -92,16 +106,15 @@ module.exports = (option, options) => {
                     }
                 }
             ],
-            presets: [
-                // [require("@babel/preset-env")],
-                [
-                    require("@babel/preset-react"),
-                    {
-                        "pragma": "h",
-                    },
-
-                ]
-            ],
+            presets
+            // :[
+            //     require("@babel/preset-react"),
+            //     [
+            //         {
+            //             "pragma": "h",
+            //         },
+            //     ]
+            // ]
 
         }
         // comibine option

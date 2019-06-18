@@ -1,4 +1,5 @@
 const compileStyle = require('../styles/index')
+const cheerio = require('cheerio')
 const compileScript = (sourceObj) => {
     const omi = sourceObj.source
     const {
@@ -30,6 +31,20 @@ const compileScript = (sourceObj) => {
         // console.log(script)
         return script
     })()
+
+    const scriptType = (() => {
+        let type = scriptInTag.match(/<script[^>]*>/g)[0]
+        if (type.indexOf('type') >= 0) {
+            let $ = cheerio.load(type)
+            // console.log($('template').attr('lang')||'')
+            // return lang.replace(/<template\s+lang=["']([^>]*)["']\s*>/g, '$1')
+            return $('script').attr('type').replace(/^\s*|\s*$/g, "") || ''
+        } else {
+            return ''
+        }
+    })()
+
+
     const scriptLang = (() => {
         if (scriptInTag) {
             return scriptInTag
@@ -39,12 +54,14 @@ const compileScript = (sourceObj) => {
     })()
     return {
         isExistScript: scriptInTag ? true : false,
+        scriptType,
         scriptLang,
         script,
         style,
         isExistStyle,
         styleLang
     };
+
 }
 
 module.exports = compileScript
