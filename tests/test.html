@@ -8,15 +8,17 @@
   <body>
     <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
     <script>
-      const { WeElement, define, html, h, render } = omi;
+      const { WeElement, define, html, h, render } = omi; // JS
 
-      // JS
-
-      const componentName = class extends WeElement {
-        static css = `p{color:#58bc58}
-`;
+      class componentName extends WeElement {
         render() {
           return h("div", null, h("p", null, this.data.title));
+        }
+
+        css() {}
+
+        render() {
+          console.log(1);
         }
 
         install() {
@@ -24,10 +26,17 @@
             title: "omi"
           };
         }
-      };
+      }
 
+      componentName.css =
+        `
+/* CSS */
+p{color:#58bc58};
+` +
+        1 +
+        `adda`;
+      componentName.abc = 1;
       define("component-name", componentName);
-
       render(
         html`
           <component-name />

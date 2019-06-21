@@ -7,6 +7,12 @@
 <script>
 // JS
 export default class {
+    css(){}
+    render(){
+        console.log(1)
+    }
+    static css = 1 + `adda`
+    static abc = 1
     install() {
         this.data = {
             title: "omi"

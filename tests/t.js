@@ -51,7 +51,7 @@ console.log(omil({
     </style>
     `,
     callback(code) {
-        // console.log(code)
+        console.log(code)
     }
 }).compileSass(`
 p{

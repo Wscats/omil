@@ -39,10 +39,20 @@ module.exports = (option) => {
             `
         }
     })()
+    const templateComponentCamelCaseName = (() => {
+        if (templateComponentName) {
+            return convertToCamelCase(templateComponentName)
+        } else {
+            return ''
+        }
+    })()
+
+
     const componentName = (() => {
         if (templateComponentName) {
             const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)
-            return `const ${templateComponentCamelCaseName} =`
+            // return `const ${templateComponentCamelCaseName} =`
+            return ``
         } else {
             return `export default`
 
@@ -62,7 +72,7 @@ module.exports = (option) => {
         // html
         case 'html':
             return `
-                    ${componentName} class extends WeElement {
+                    ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
                     ${css}
                     render() {
                         return (html${'`'}${template}${'`'})
@@ -71,7 +81,7 @@ module.exports = (option) => {
         // jsx
         default:
             return `
-                    ${componentName} class extends WeElement {
+                    ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
                     ${css}
                     render() {
                         return ${template}

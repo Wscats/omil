@@ -41,7 +41,7 @@ module.exports = (option, options) => {
                         "ClassExpression"(path, { opts }) {
                             // 筛选class myAbcAbc extends WeElement
                             if (path.node.superClass.name === 'WeElement') {
-                                // console.log('-----------------------------------------------')
+                                // console.log('------------------------ClassExpression-----------------------')
                                 // console.log(path.get("body.body"))
                                 let ClassMethods = [];
                                 path.get("body.body").forEach((ClassMethod) => {
@@ -104,6 +104,36 @@ module.exports = (option, options) => {
                         "ImportDeclaration"(path) {
                             if (scriptType === 'module') {
                                 path.remove()
+                            }
+                        },
+                        "ClassDeclaration"(path) {
+                            // console.log('-----------------------ClassDeclaration------------------------')
+                            // console.log(path)
+                            // 筛选class myAbcAbc extends WeElement
+                            if (path.node.superClass.name === 'WeElement') {
+                                // console.log(path.get("body.body"))
+                                let ClassMethods = [];
+                                path.get("body.body").forEach((ClassMethod) => {
+                                    // 筛选render() {}
+                                    if (ClassMethod.node.key.name === 'render') {
+                                        // console.log(ClassMethod.type)
+                                        ClassMethods.push(ClassMethod)
+                                        // ClassMethod.remove()
+                                        // 删除所有css() {}
+                                    } else if (ClassMethod.node.key.name === 'css') {
+                                        ClassMethod.remove()
+                                    }
+                                })
+                                // 获取最后一个render函数
+                                let lastRenderFn = ClassMethods[ClassMethods.length - 1];
+                                // 删除除第一个以外的其他render
+                                if (ClassMethods) {
+                                    for (let i = 0; i < ClassMethods.length; i++) {
+                                        if (i != 0) {
+                                            ClassMethods[i].remove()
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
