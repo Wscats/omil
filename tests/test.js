@@ -1,14 +1,13 @@
 import { WeElement, define, h } from "omi"; // JS
 
 class componentName extends WeElement {
-  render() {
-    return h("div", null, h("p", null, this.data.title));
+  constructor(...args) {
+    super(...args);
+    this.abc = 123;
   }
 
-  css() {}
-
   render() {
-    console.log(1);
+    return h("div", null, h("p", null, this.data.title));
   }
 
   install() {
@@ -20,8 +19,13 @@ class componentName extends WeElement {
 
 componentName.css =
   `
-/* CSS */
-p{color:#58bc58};
+    /* CSS */
+    div {
+        color: #58bc58;
+        span {
+            font-size: 14px;
+        }
+    }
 ` +
   1 +
   `adda`;

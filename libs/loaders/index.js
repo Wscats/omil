@@ -1,4 +1,4 @@
-// const compileStyle = require('../styles/index')
+const compileStyle = require('../styles/index')
 const compileTemplate = require('../templates/index')
 const compileScript = require('../scripts/index')
 
@@ -21,6 +21,16 @@ const compileAll = async (sourceObj, options, callback) => {
         templateLang,
         templateComponentName
     } = html = compileTemplate(sourceObj)
+    // css
+    let {
+        style,
+        isExistStyle,
+        styleLang
+    } = compileStyle(sourceObj)
+    // console.log(style,styleLang)
+    // sass and jsx
+    // use in omi-snippets
+    style = sourceObj.type === 'extension' && styleLang === 'scss' ? (await compileSass(style)).text : style
     // js
     let {
         script,
@@ -28,13 +38,18 @@ const compileAll = async (sourceObj, options, callback) => {
         scriptType,
         scriptLang,
         // variable
+        // style,
+        // isExistStyle,
+        // styleLang
+    } = js = compileScript({
+        ...sourceObj,
         style,
         isExistStyle,
         styleLang
-    } = js = compileScript(sourceObj)
-    // sass and jsx
-    // use in omi-snippets
-    style = sourceObj.type === 'extension' ? (await compileSass(style)).text : style
+    })
+    
+
+    // console.log(style)
 
     // html -> jsx
     if (templateLang !== 'html' && templateLang !== 'htm') {

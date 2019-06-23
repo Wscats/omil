@@ -6,7 +6,7 @@ const compileScript = (sourceObj) => {
         style,
         isExistStyle,
         styleLang
-    } = compileStyle(sourceObj)
+    } = sourceObj
 
     const scriptInTag = (() => {
         // match some content like <script>xxx</script>

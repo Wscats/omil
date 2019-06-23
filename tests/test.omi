@@ -5,22 +5,30 @@
     </div>
 </template>
 <script>
-// JS
-export default class {
-    css(){}
-    render(){
-        console.log(1)
-    }
-    static css = 1 + `adda`
-    static abc = 1
-    install() {
-        this.data = {
-            title: "omi"
+    // JS
+    export default class {
+        abc = 123
+        // 12345123
+        css() { }
+        render() {
+            console.log(1)
+        }
+        static css = 1 + `adda`
+        static abc = 1
+        install() {
+            this.data = {
+                title: "omi"
+            }
         }
     }
-}
 </script>
 <style lang="scss">
-/* CSS */
-p{color:#58bc58};
+
+    /* CSS */
+    div {
+        color: #58bc58;
+        span {
+            font-size: 14px;
+        }
+    }
 </style>
