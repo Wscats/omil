@@ -47,9 +47,8 @@ const compileAll = async (sourceObj, options, callback) => {
         isExistStyle,
         styleLang
     })
-    
-
     // console.log(style)
+    // console.log(script)
 
     // html -> jsx
     if (templateLang !== 'html' && templateLang !== 'htm') {

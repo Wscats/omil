@@ -22,7 +22,7 @@ console.log(omil({
     //     }
     // })
     module.exports = {
-        static css = style + a
+        // static css = style + a
         css(){
             return 'ooooo'
         }

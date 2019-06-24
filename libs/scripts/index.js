@@ -1,4 +1,5 @@
 const compileStyle = require('../styles/index')
+const { deleteCodeComments } = require('../utils/comments')
 const cheerio = require('cheerio')
 const compileScript = (sourceObj) => {
     const omi = sourceObj.source
@@ -23,10 +24,13 @@ const compileScript = (sourceObj) => {
         scriptInTag
             .replace(/<script[^>]*>|<\/script>/g, '')
     )
+    // delete comments
+    script = deleteCodeComments(script)
     const styleInScript = (() => {
         // if css(){} in script , we should combine style and css functuon
         // script =  script.replace(/css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g, `static css(){return ${'`'}${style}${'`'}+$1`)
         // console.log(style)
+        // console.log(script)
         script = script.replace(/static\s*css\s*=([^\)]*)/g, `static css = ${'`'}${style}${'`'}+$1`)
         // console.log(script)
         return script

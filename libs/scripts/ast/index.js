@@ -135,7 +135,7 @@ module.exports = (option, options) => {
                                     }
                                 }
                                 let returnStatement = lastRenderFn.get("body.body").find((path) => path.isReturnStatement());
-                                console.log(lastRenderFn.get("body"))
+                                // console.log(lastRenderFn.get("body"))
                                 // returnStatement.replaceWithMultiple([
                                 //     // lastRenderFn,
                                 //     // template
@@ -149,6 +149,7 @@ module.exports = (option, options) => {
                     }
                 }
             ],
+            comments: false,
             presets
             // :[
             //     require("@babel/preset-react"),
