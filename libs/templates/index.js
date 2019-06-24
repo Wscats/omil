@@ -32,6 +32,20 @@ const compileTemplate = (sourceObj) => {
             return ''
         }
     })()
+    const templateWithRender = (() => {
+        let render = templateInTag.match(/<template[^>]*>/g)[0]
+        let $ = cheerio.load(render)
+        console.log($('template').attr('render'))
+        if (render.indexOf('render') >= 0) {
+            let $ = cheerio.load(render)
+            return $('template').attr('render').replace(/^\s*|\s*$/g, "") || ''
+        } else {
+            return ''
+        }
+    })()
+
+    console.log(templateWithRender)
+    
     // remove annotation
     template = annotation.remove({
         code: template,

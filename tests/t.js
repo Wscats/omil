@@ -4,7 +4,8 @@ console.log(omil({
     // file: 'html',
     options: null,
     source: `
-    <template  name="my-abc-abc">
+    <template render={
+        123;console.log(1)} name="my-abc-abc">
         <div>
             <!-- JSX -->
             <p>123</p>
