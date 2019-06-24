@@ -30,7 +30,7 @@ const compileAll = async (sourceObj, options, callback) => {
     // console.log(style,styleLang)
     // sass and jsx
     // use in omi-snippets
-    style = sourceObj.type === 'extension' && styleLang === 'scss' ? (await compileSass(style)).text : style
+    style = sourceObj.type === 'extension' && styleLang === 'scss' ? (await compileSass(style)).text.replace(/[\r\n]/g,"") : style
     // js
     let {
         script,

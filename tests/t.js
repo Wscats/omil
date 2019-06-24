@@ -22,6 +22,8 @@ console.log(omil({
     //     }
     // })
     module.exports = {
+        // aaa
+        // bbb
         // static css = style + a
         css(){
             return 'ooooo'
@@ -53,7 +55,7 @@ console.log(omil({
     </style>
     `,
     callback(code) {
-        console.log(code)
+        // console.log(code)
     }
 }).compileSass(`
 p{

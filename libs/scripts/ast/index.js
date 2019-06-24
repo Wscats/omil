@@ -149,7 +149,7 @@ module.exports = (option, options) => {
                     }
                 }
             ],
-            comments: false,
+            // comments: false,
             presets
             // :[
             //     require("@babel/preset-react"),

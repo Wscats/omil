@@ -24,15 +24,15 @@ const compileScript = (sourceObj) => {
         scriptInTag
             .replace(/<script[^>]*>|<\/script>/g, '')
     )
+    // console.log(script)
     // delete comments
     script = deleteCodeComments(script)
+    // console.log(script)
     const styleInScript = (() => {
         // if css(){} in script , we should combine style and css functuon
         // script =  script.replace(/css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g, `static css(){return ${'`'}${style}${'`'}+$1`)
         // console.log(style)
-        // console.log(script)
         script = script.replace(/static\s*css\s*=([^\)]*)/g, `static css = ${'`'}${style}${'`'}+$1`)
-        // console.log(script)
         return script
     })()
 
