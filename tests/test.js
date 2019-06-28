@@ -1,27 +1,27 @@
-import { WeElement, define, html } from "omi";
+var _class, _temp;
 
-class componentName extends WeElement {
-  constructor(...args) {
-    super(...args);
-    this.abc = 123;
-  }
+import { Component as WeElement, createElement as h } from "react";
+import axios from "axios";
+export default connect()(
+  ((_temp = _class = class ComponentName extends WeElement {
+    constructor(...args) {
+      super(...args);
+      this.abc = 123;
+    }
 
-  render() {
-    return html`
-      <div>
-        <p>{this.data.title}</p>
-        {<abc />}
-      </div>
-    `;
-  }
+    render() {
+      return h("div", null, h("p", null, this.data.title), h("abc", null));
+    }
 
-  install() {
-    this.data = {
-      title: "omi"
-    };
-  }
-}
+    install() {
+      this.data = {
+        title: "omi"
+      };
+    }
 
-componentName.css = `div{color:#58bc58}div span{font-size:14px}` + 1 + `adda`;
-componentName.abc = 1;
-define("component-name", componentName);
+    componentDidMount() {}
+  }),
+  (_class.css = `div{color:#58bc58}div span{font-size:14px}` + 1 + `adda`),
+  (_class.abc = 1),
+  _temp)
+);

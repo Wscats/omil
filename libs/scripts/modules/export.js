@@ -71,32 +71,59 @@ module.exports = (option) => {
     // ast(script, null)
     // console.log(templateComponentCamelCaseName)
 
-
     // 1.module.exports=class{    19 remove . and =
     // 2.export default class {   19
     // console.log(script.match(/export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g))
     const isHoc = script.match(/export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g)
     // hoc
     if (isHoc && isHoc[0].replace(/([\s\.\=])/g, "").length > 19) {
+        let hocScript;
         switch (isCaptain(templateComponentName)) {
             // react hoc
             case true:
-                return `
-                    ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]}${templateComponentCamelCaseName} extends WeElement {
-                    render() {
-                        return (html${'`'}${template}${'`'})
-                    }
-                `
+                switch (templateLang) {
+                    // html
+                    case 'html':
+                        return `
+                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]}${templateComponentCamelCaseName} extends WeElement {
+                            render() {
+                                return (html${'`'}${template}${'`'})
+                            }
+                        `
+                    // jsx
+                    default:
+                        return `
+                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]}${templateComponentCamelCaseName} extends WeElement {
+                            render() {
+                                return ${template}
+                            }
+                        `
+                }
             // omi hoc
             default:
-                let hocScript = `
-                    ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} extends WeElement {
-                    render() {
-                        return (html${'`'}${template}${'`'})
-                    }
-                `.replace(/export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g, `const ${captain(convertToCamelCase(templateComponentName))} = $1$2`)
-                // console.log(hocScript)
-                return hocScript
+                switch (templateLang) {
+                    // html
+                    case 'html':
+                        hocScript = `
+                                ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} extends WeElement {
+                                render() {
+                                    return (html${'`'}${template}${'`'})
+                                }
+                            `.replace(/export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g, `const ${captain(convertToCamelCase(templateComponentName))} = $1$2`)
+                        // console.log(hocScript)
+                        return hocScript
+                    // jsx
+                    default:
+                        hocScript = `
+                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} extends WeElement {
+                            render() {
+                                return ${template}
+                            }
+                        `.replace(/export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g, `const ${captain(convertToCamelCase(templateComponentName))} = $1$2`)
+                        // console.log(hocScript)
+                        return hocScript
+                }
+
         }
     }
 

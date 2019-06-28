@@ -1,4 +1,4 @@
-<template lang="html" name="component-name">
+<template name="Component-name">
     <div>
         <!-- JSX -->
         <p>{this.data.title}</p>
@@ -6,8 +6,9 @@
     </div>
 </template>
 <script>
+    import axios from 'axios'
     // JS
-    export default class {
+    export default connect()(class {
         render() {
             console.log(1)
         }
@@ -32,7 +33,10 @@
         render() {
             console.log(1)
         }
-    }
+        componentDidMount(){
+
+        }
+    })
 </script>
 <style lang="scss">
     /* CSS */

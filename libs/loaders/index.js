@@ -92,6 +92,7 @@ const compileAll = async (sourceObj, options, callback) => {
                 })) +
             // define('my-eno', myEno)
             defineComponent({
+                script,
                 templateComponentName
             }) +
             // render(html`my-eno`, body)

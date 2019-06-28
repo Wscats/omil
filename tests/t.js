@@ -4,7 +4,7 @@ console.log(omil({
     // file: 'html',
     options: null,
     source: `
-    <template name="my-abc-abc">
+    <template name="my-abc-abc" lang="html">
         <div>
             <!-- JSX -->
             <p>123</p>
@@ -20,9 +20,7 @@ console.log(omil({
     //         return 
     //     }
     // })
-    export default connect(()=>{
-        console.log(1)
-    })(class {
+    export default connect(class {
     // module.exports = class {
         // aaa
         // bbb
