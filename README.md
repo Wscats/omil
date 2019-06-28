@@ -41,11 +41,11 @@ module: {
 ```
 > [Loader Demo](https://wscats.github.io/omil/dist)
 
-## Why Eno Loader?
+## Why Omil Or Eno Loader?
 
-`omil` is a loader for [webpack](https://webpack.js.org/) that allows you to author Omi components in a format called Single-File Components
+`omil` is a loader for [webpack](https://webpack.js.org/) that allows you to author Omi components in a format called Single-File Components.
 
-## Usage
+## Usage In Omi
 
 A `*.omi` file is a custom file format that uses HTML-like syntax to describe a Omi component. Each `*.omi` file consists of three types of top-level language blocks: `<template>, <script>, and <style>`, and optionally additional custom blocks:
 
@@ -104,9 +104,78 @@ header {
 
 > [Sass Demo](https://github.com/Wscats/omil/blob/master/src/components/oGallery.omi)
 
+## Support React
+
+You can also use an ES6 class to define a class component by omil.
+```html
+<template name="ComponentName">
+    <p>{this.state.title}</p>
+</template>
+<script>
+    export default class {
+        constructor(props) {
+            super(props)
+            this.state.title = "Eno Yao"
+        }
+    }
+</script>
+<style lang="scss">
+    p {color: #58bc58;}
+</style>
+```
+
+A higher-order component (HOC) is an advanced technique in React for reusing component logic. HOCs are not part of the React API. Here's a concrete example.
+```html
+<template name="ComponentName">
+    <div>
+        <p>{this.state.title}</p>
+    </div>
+</template>
+<script>
+    const HOC = (props) => {
+        return (WraooedComponent) => {
+            return class HOC extends WeElement {
+                state = {
+                    name: 'Eno Yao',
+                    ...props
+                }
+                render() {
+                    return (
+                        <div>
+                            Hello World
+                            <WraooedComponent name={{ ...this.state }} />
+                        </div>
+                    )
+                }
+            }
+        }
+    }
+    export default HOC({
+        age: 18
+    })(class {
+        constructor(props) {
+            super(props)
+            this.state = {
+                title: 'Lemon'
+            }
+        }
+        componentDidMount() {
+            console.log(this)
+        }
+        handleChange() {}
+    })
+</script>
+<style lang="scss">
+    /* CSS */
+    p {
+        color: #58bc58;
+    }
+</style>
+```
+
 There are many cool features provided by `omil`:
 
-- Allows using other webpack loaders for each part of a Omi component, for example Sass for `<style lang="scss">` and JSX/HTML for `<template lang="html">`;
+- Allows using other webpack loaders for each part of a Omi component, for example Sass for `<style lang="scss">` and JSX/HTML for `<template lang="html">` and ES5+ for `<script type="text/babel">`;
 - Allows custom blocks in a `.omi` or `.eno` file that can have custom loader chains applied to them [Here Online Demo](https://github.com/Wscats/omil/tree/master/src/components);
 - Treat static assets referenced in `<style>` and `<template>` as module dependencies and handle them with webpack loaders (Such as [htm](https://www.npmjs.com/package/htm), [to-string-loader](https://www.npmjs.com/package/to-string-loader));
 - Simulate scoped CSS for each component (Use Shadow DOM);

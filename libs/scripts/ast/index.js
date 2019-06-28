@@ -35,7 +35,9 @@ module.exports = (option, options) => {
         // console.log(presets)
         const defaultOption = {
             plugins: [
-                [require("@babel/plugin-proposal-class-properties"), { "loose": true }],
+                [require("@babel/plugin-proposal-class-properties"), 
+                    { "loose": true },
+                ],
                 {
                     visitor: {
                         "ClassExpression"(path, { opts }) {
