@@ -4,14 +4,13 @@ console.log(omil({
     // file: 'html',
     options: null,
     source: `
-    <template render={
-        123;console.log(1)} name="my-abc-abc">
+    <template name="my-abc-abc">
         <div>
             <!-- JSX -->
             <p>123</p>
         </div>
     </template>
-    <script type="module">
+    <script>
     // JS
     var a = 'abcd'
     import style from './index.css'
@@ -21,7 +20,10 @@ console.log(omil({
     //         return 
     //     }
     // })
-    module.exports = {
+    export default connect(()=>{
+        console.log(1)
+    })(class {
+    // module.exports = class {
         // aaa
         // bbb
         // static css = style + a
@@ -39,10 +41,14 @@ console.log(omil({
             return 'abc'
         }
         render(){
+            let a = 1;
+            return 'abc'
+        }
+        render(){
 
         }
         abc
-    }
+    })
     1
     </script>
     <style lang='scss'>
@@ -55,7 +61,7 @@ console.log(omil({
     </style>
     `,
     callback(code) {
-        // console.log(code)
+        console.log(code)
     }
 }).compileSass(`
 p{

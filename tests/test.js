@@ -1,4 +1,4 @@
-import { WeElement, define, h } from "omi"; // JS
+import { WeElement, define, html } from "omi";
 
 class componentName extends WeElement {
   constructor(...args) {
@@ -7,7 +7,12 @@ class componentName extends WeElement {
   }
 
   render() {
-    return h("div", null, h("p", null, this.data.title));
+    return html`
+      <div>
+        <p>{this.data.title}</p>
+        {<abc />}
+      </div>
+    `;
   }
 
   install() {
@@ -17,17 +22,6 @@ class componentName extends WeElement {
   }
 }
 
-componentName.css =
-  `
-    /* CSS */
-    div {
-        color: #58bc58;
-        span {
-            font-size: 14px;
-        }
-    }
-` +
-  1 +
-  `adda`;
+componentName.css = `div{color:#58bc58}div span{font-size:14px}` + 1 + `adda`;
 componentName.abc = 1;
 define("component-name", componentName);

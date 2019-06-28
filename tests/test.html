@@ -8,7 +8,7 @@
   <body>
     <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
     <script>
-      const { WeElement, define, html, h, render } = omi; // JS
+      const { WeElement, define, html, h, render } = omi;
 
       class componentName extends WeElement {
         constructor(...args) {
@@ -17,7 +17,12 @@
         }
 
         render() {
-          return h("div", null, h("p", null, this.data.title));
+          return html`
+            <div>
+              <p>{this.data.title}</p>
+              {<abc />}
+            </div>
+          `;
         }
 
         install() {
@@ -28,17 +33,7 @@
       }
 
       componentName.css =
-        `
-    /* CSS */
-    div {
-        color: #58bc58;
-        span {
-            font-size: 14px;
-        }
-    }
-` +
-        1 +
-        `adda`;
+        `div{color:#58bc58}div span{font-size:14px}` + 1 + `adda`;
       componentName.abc = 1;
       define("component-name", componentName);
       render(

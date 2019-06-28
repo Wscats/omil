@@ -1,3 +1,7 @@
+const {
+    isCaptain
+} = require('../extension/convert')
+
 module.exports = (option) => {
     const {
         script,
@@ -20,13 +24,13 @@ module.exports = (option) => {
             return `
                 const {
                     ${
-                        // register component
-                        'WeElement,'
-                    }
+                // register component
+                'WeElement,'
+                }
                     ${
-                        // when you use component, you should define
-                        templateComponentName?'define,':''
-                    }
+                // when you use component, you should define
+                templateComponentName ? 'define,' : ''
+                }
                     html,
                     h,
                     render
@@ -34,24 +38,59 @@ module.exports = (option) => {
             `
             break
         default:
-            return `
-                import {
-                    ${
+            // console.log(isCaptain(templateComponentName))
+            switch (isCaptain(templateComponentName)) {
+                // A
+                case true:
+                    return `
+                        import {
+                            ${
                         // register component
-                        'WeElement,'
-                    }
-                    ${
-                        // when you use component, you should define
-                        templateComponentName?'define,':''
-                    }
-                    ${
+                        'Component as WeElement,'
+                        }
+                            ${
                         // JSX or HTML
                         // html,
                         // htm,
-                        templateLang==='html'||templateLang==='htm'?'html':'h'
-                    }
-                } from "omi";
-            `
+                        templateLang === 'html' || templateLang === 'htm' ? 'html' : 'createElement as h'
+                        }
+                        } from "react";
+                    `
+                    // +
+                    // `
+                    // import {
+                    //     ${
+                    //         // when you use component, you should define
+                    //         templateComponentName ? 'render,' : ''
+                    //     }
+                    //     ${
+                    //         'findDOMNode'
+                    //     }
+                    // } from "react-dom"
+                    // `
+                    break;
+                // a
+                default:
+                    return `
+                        import {
+                            ${
+                        // register component
+                        'WeElement,'
+                        }
+                            ${
+                        // when you use component, you should define
+                        templateComponentName ? 'define,' : ''
+                        }
+                            ${
+                        // JSX or HTML
+                        // html,
+                        // htm,
+                        templateLang === 'html' || templateLang === 'htm' ? 'html' : 'h'
+                        }
+                        } from "omi";
+                    `
+                    break;
+            }
     }
 
 }

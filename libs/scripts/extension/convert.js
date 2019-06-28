@@ -13,6 +13,16 @@ const convertToCamelCase = (str) => {
     return strArr.join('')
 }
 
+const captain = (str) => {
+    return str.substring(0, 1).toUpperCase() + str.substring(1);
+}
+
+const isCaptain = (str) => {
+    return /[A-Z]/.test(str.substring(0, 1))
+}
+
 module.exports = {
-    convertToCamelCase
+    convertToCamelCase,
+    captain,
+    isCaptain
 }

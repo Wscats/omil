@@ -18,17 +18,18 @@ import axios from 'axios'
 //         return 
 //     }
 // })
-module.exports = {
+module.exports = connect(
+    function(){
+
+    }
+)(class {
     // aaa
-    /* bbb
-    // 000
-    weqwe*/
-    axios("http://asdasd.com")
-    static css = style + a 
+    // bbb
     // static css = style + a
     css(){
         return 'ooooo'
     }
+    class {}
     css(){}
     static arr = ['a','b','c']
     install() {
@@ -40,10 +41,15 @@ module.exports = {
         return 'abc'
     }
     render(){
+        let a = 1;
+        return 'abc'
+    }
+    render(){
 
     }
     abc
-}
+})
+
 1
 `)
 

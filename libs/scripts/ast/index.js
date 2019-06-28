@@ -2,7 +2,7 @@ const {
     transform
 } = require("@babel/core");
 
-const t = require("@babel/types");
+// const t = require("@babel/types");
 module.exports = (option, options) => {
     let {
         script,
@@ -66,11 +66,11 @@ module.exports = (option, options) => {
                                     }
                                 }
                                 if (lastRenderFn) {
-                                    lastRenderFn.replaceWithMultiple([
-                                        t.expressionStatement(t.stringLiteral("Is this the real life?")),
-                                        t.expressionStatement(t.stringLiteral("Is this just fantasy?")),
-                                        t.expressionStatement(t.stringLiteral("(Enjoy singing the rest of the song in your head)")),
-                                    ])
+                                    // lastRenderFn.replaceWithMultiple([
+                                    //     t.expressionStatement(t.stringLiteral("Is this the real life?")),
+                                    //     t.expressionStatement(t.stringLiteral("Is this just fantasy?")),
+                                    //     t.expressionStatement(t.stringLiteral("(Enjoy singing the rest of the song in your head)")),
+                                    // ])
                                     // lastRenderFn.remove();
                                     // console.log(t);
                                     // lastRenderFn.get("body.body").remove()
@@ -125,16 +125,16 @@ module.exports = (option, options) => {
                                     }
                                 })
                                 // 获取最后一个render函数
-                                let lastRenderFn = ClassMethods[ClassMethods.length - 1];
+                                // let lastRenderFn = ClassMethods[ClassMethods.length - 1];
                                 // 删除除第一个以外的其他render
                                 if (ClassMethods) {
                                     for (let i = 0; i < ClassMethods.length; i++) {
                                         if (i != 0) {
-                                            // ClassMethods[i].remove()
+                                            ClassMethods[i].remove()
                                         }
                                     }
                                 }
-                                let returnStatement = lastRenderFn.get("body.body").find((path) => path.isReturnStatement());
+                                // let returnStatement = lastRenderFn.get("body.body").find((path) => path.isReturnStatement());
                                 // console.log(lastRenderFn.get("body"))
                                 // returnStatement.replaceWithMultiple([
                                 //     // lastRenderFn,
@@ -149,7 +149,7 @@ module.exports = (option, options) => {
                     }
                 }
             ],
-            // comments: false,
+            comments: false,
             presets
             // :[
             //     require("@babel/preset-react"),

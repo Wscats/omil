@@ -1,5 +1,7 @@
 const {
-    convertToCamelCase
+    convertToCamelCase,
+    captain,
+    isCaptain
 } = require('../extension/convert')
 
 module.exports = (option) => {
@@ -10,6 +12,7 @@ module.exports = (option) => {
         templateLang,
         templateComponentName
     } = option;
+    // console.log(option.script)
     // 1. static css = `xxx`
     const styleInScript = (() => {
         // style in script
@@ -41,7 +44,7 @@ module.exports = (option) => {
     })()
     const templateComponentCamelCaseName = (() => {
         if (templateComponentName) {
-            return convertToCamelCase(templateComponentName)
+            return captain(convertToCamelCase(templateComponentName))
         } else {
             return ''
         }
@@ -66,7 +69,36 @@ module.exports = (option) => {
     })()
 
     // ast(script, null)
-    // console.log(script)
+    // console.log(templateComponentCamelCaseName)
+
+
+    // 1.module.exports=class{    19 remove . and =
+    // 2.export default class {   19
+    // console.log(script.match(/export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g))
+    const isHoc = script.match(/export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g)
+    // hoc
+    if (isHoc && isHoc[0].replace(/([\s\.\=])/g, "").length > 19) {
+        switch (isCaptain(templateComponentName)) {
+            // react hoc
+            case true:
+                return `
+                    ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]}${templateComponentCamelCaseName} extends WeElement {
+                    render() {
+                        return (html${'`'}${template}${'`'})
+                    }
+                `
+            // omi hoc
+            default:
+                let hocScript = `
+                    ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} extends WeElement {
+                    render() {
+                        return (html${'`'}${template}${'`'})
+                    }
+                `.replace(/export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g, `const ${captain(convertToCamelCase(templateComponentName))} = $1$2`)
+                // console.log(hocScript)
+                return hocScript
+        }
+    }
 
     switch (templateLang) {
         // html
