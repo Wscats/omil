@@ -1,4 +1,9 @@
 const annotation = require('../utils/annotation')
+const {
+    convertToCamelCase,
+    captain,
+    isCaptain
+} = require('../scripts/extension/convert')
 const cheerio = require('cheerio')
 const compileTemplate = (sourceObj) => {
     const omi = sourceObj.source
@@ -32,6 +37,11 @@ const compileTemplate = (sourceObj) => {
             return ''
         }
     })()
+    // <StyledComponents>xxx</StyledComponents>
+    if(isCaptain(templateComponentName)){
+        template = `<StyledComponents>${template}</StyledComponents>`
+    }
+    // console.log(template,templateComponentName)
     // const templateWithRender = (() => {
     //     let render = templateInTag.match(/<template[^>]*>/g)[0]
     //     let $ = cheerio.load(render)

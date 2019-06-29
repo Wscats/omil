@@ -4,7 +4,7 @@ const {
 } = require("@babel/core");
 module.exports = (code, options) => {
     return new Promise((resolve, reject) => {
-        // console.log(code)
+        // console.log(code,options)
         const defaultOption = {
             plugins: [
                 require("@babel/plugin-proposal-class-properties")

@@ -55,6 +55,14 @@ module.exports = (option) => {
                         templateLang === 'html' || templateLang === 'htm' ? 'html' : 'createElement as h'
                         }
                         } from "react";
+
+                    `
+                        // css
+                        +
+                        `
+                        ${style ? 'import styled from "styled-components"' : ''}
+                    `+ `
+                        ${style ? 'const StyledComponents = styled.div`' + style + '`' : ''}
                     `
                     // +
                     // `

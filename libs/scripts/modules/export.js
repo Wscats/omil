@@ -86,7 +86,7 @@ module.exports = (option) => {
                     case 'html':
                         return `
                             ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]}${templateComponentCamelCaseName} extends WeElement {
-                            render() {
+                                render() {
                                 return (html${'`'}${template}${'`'})
                             }
                         `
@@ -94,7 +94,7 @@ module.exports = (option) => {
                     default:
                         return `
                             ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]}${templateComponentCamelCaseName} extends WeElement {
-                            render() {
+                                render() {
                                 return ${template}
                             }
                         `
