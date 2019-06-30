@@ -4,7 +4,7 @@ console.log(omil({
     // file: 'html',
     options: null,
     source: `
-    <template name="my-abc-abc">
+    <template name="My-abc-abc">
         <div>
             <!-- JSX -->
             <p>123</p>
@@ -29,7 +29,7 @@ console.log(omil({
             return 'ooooo'
         }
         css(){}
-        static arr = ['a','b','c']
+        // static arr = ['a','b','c']
         install() {
             this.data = {
             }
@@ -45,7 +45,6 @@ console.log(omil({
         render(){
 
         }
-        abc
     })
     1
     </script>

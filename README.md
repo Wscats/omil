@@ -189,7 +189,7 @@ In a nutshell, the combination of webpack and `omil` gives you a modern, flexibl
 * [htm](https://github.com/developit/htm)
 * [preact](https://github.com/developit/preact)
 * [node-sass](https://github.com/sass/node-sass)
-* [vue-loader](https://github.com/vuejs/vue-loader)
+* [styled-components](https://github.com/styled-components/styled-components)
 
 # Contributors
 
