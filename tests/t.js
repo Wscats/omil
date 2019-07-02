@@ -12,15 +12,17 @@ console.log(omil({
     </template>
     <script>
     // JS
-    var a = 'abcd'
+    
     import style from './index.css'
     import axios from 'axios'
+    var a = 'abcd'
     // const aa = (_temp = _class = class myAbcAbc extends WeElement2 {
     //     css (){
     //         return 
     //     }
     // })
-    export default connect(class {
+    export default connect()(class {
+        state = 1
     // module.exports = class {
         // aaa
         // bbb

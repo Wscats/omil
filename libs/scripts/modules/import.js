@@ -61,9 +61,10 @@ module.exports = (option) => {
                         +
                         `
                         ${style ? 'import styled from "styled-components"' : ''}
-                    `+ `
-                        ${style ? 'const StyledComponents = styled.div`' + style + '`' : ''}
                     `
+                    // + `
+                    //     ${style ? 'const StyledComponents = styled.div`' + style + '`' : ''}
+                    // `
                     // +
                     // `
                     // import {
