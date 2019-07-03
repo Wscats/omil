@@ -8,6 +8,9 @@ const modulesEnd = require('../scripts/modules/export')
 const defineComponent = require('../scripts/modules/define')
 const renderComponent = require('../scripts/modules/render')
 
+// hander styled components
+const handleStyledComponents = require('../templates/styledcomponents')
+
 // handle ast
 const ast = require('../scripts/ast')
 
@@ -25,12 +28,14 @@ const compileAll = async (sourceObj, options, callback) => {
     let {
         style,
         isExistStyle,
-        styleLang
+        styleLang,
     } = compileStyle(sourceObj)
+
+
     // console.log(style,styleLang)
     // sass and jsx
     // use in omi-snippets
-    style = sourceObj.type === 'extension' && styleLang === 'scss' ? ((await compileSass(style)).text||'').replace(/[\r\n]/g,"") : style
+    style = sourceObj.type === 'extension' && styleLang === 'scss' ? ((await compileSass(style)).text || '').replace(/[\r\n]/g, "") : style
     // js
     let {
         script,
@@ -47,9 +52,11 @@ const compileAll = async (sourceObj, options, callback) => {
         isExistStyle,
         styleLang
     })
+    // console.log(template)
     // console.log(style)
     // console.log(script)
-
+    // whether <StyledComponents> exist
+    template = handleStyledComponents({ style, template });
     // html -> jsx
     if (templateLang !== 'html' && templateLang !== 'htm') {
         const transform = require('../scripts/extension/transform')

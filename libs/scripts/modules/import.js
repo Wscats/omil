@@ -15,7 +15,7 @@ module.exports = (option) => {
         isExistStyle,
         sourceObj
     } = option
-
+    // console.log(style)
     const {
         file
     } = sourceObj

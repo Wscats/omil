@@ -135,20 +135,22 @@ module.exports = (option) => {
         // html
         case 'html':
             return `
-                    ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                    ${css}
-                    render() {
-                        return (html${'`'}${template}${'`'})
-                    }
-                `
+                ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
+                `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
+                ${css}
+                render() {
+                    return (html${'`'}${template}${'`'})
+                }
+            `
         // jsx
         default:
             return `
-                    ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                    ${css}
-                    render() {
-                        return ${template}
-                    }
-                `
+                ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
+                `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
+                ${css}
+                render() {
+                    return ${template}
+                }
+            `
     }
 }

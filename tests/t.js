@@ -21,7 +21,7 @@ console.log(omil({
     //         return 
     //     }
     // })
-    export default connect()(class {
+    export default connect(class {
         state = 1
     // module.exports = class {
         // aaa

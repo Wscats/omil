@@ -1,6 +1,6 @@
 {
-  "name": "eno-loader",
-  "version": "1.7.6",
+  "name": "omil",
+  "version": "1.7.8",
   "description": "Webpack loader for Omi.js components",
   "main": "libs/index.js",
   "scripts": {
