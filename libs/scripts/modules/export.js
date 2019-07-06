@@ -87,7 +87,7 @@ module.exports = (option) => {
                         return `
                             ${style ? 'const StyledComponents = styled.div`' + style + '`' : ''}
                         `+ `
-                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]}${templateComponentCamelCaseName} extends WeElement {
+                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} ${templateComponentCamelCaseName} extends WeElement {
                                 render() {
                                 return (html${'`'}${template}${'`'})
                             }
@@ -97,7 +97,7 @@ module.exports = (option) => {
                         return `
                             ${style ? 'const StyledComponents = styled.div`' + style + '`' : ''}
                         `+ `
-                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]}${templateComponentCamelCaseName} extends WeElement {
+                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} ${templateComponentCamelCaseName} extends WeElement {
                                 render() {
                                 return ${template}
                             }

@@ -173,6 +173,44 @@ A higher-order component (HOC) is an advanced technique in React for reusing com
 </style>
 ```
 
+# Cooperate With TypeScript
+
+A static type system can help prevent many potential runtime errors, especially as applications grow. You can use `Single File Components(SFC)` cooperate with `Higher Order Components(HOC)` to get support with `TypeScript`
+```html
+<template name="Eno">
+    <div><p>{this.state.name}</p></div>
+</template>
+<script>
+    // TypeScript Support
+    import EnoType from './EnoType.tsx'
+    export default EnoType(class {
+        constructor(props) {
+            super(props);
+            this.state = { name: 'abc', age: 18}
+        }
+    })
+</script>
+<style lang="scss">
+    p { color: #58bc58 };
+</style>
+```
+Now, you can create `EnoType.tsx` in editor which provides TypeScript inference inside SFCs and many other great features.
+```ts
+// EnoType.ts
+import React from 'react';
+interface EnoTypeProps { }
+interface EnoTypeState { name: string }
+export default (Component: React.ComponentType) => {
+    return class EnoType extends React.Component<EnoTypeProps, EnoTypeState> {
+        constructor(props: EnoTypeProps) {
+            super(props)
+            this.state = { name: 'Eno Yao' }
+        }
+        render() { return <Component /> }
+    }
+}
+```
+
 There are many cool features provided by `omil`:
 
 - Allows using other webpack loaders for each part of a Omi component, for example Sass for `<style lang="scss">` and JSX/HTML for `<template lang="html">` and ES5+ for `<script type="text/babel">`;

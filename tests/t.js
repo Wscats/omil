@@ -10,7 +10,7 @@ console.log(omil({
             <p>123</p>
         </div>
     </template>
-    <script>
+    <script lang="ts">
     // JS
     
     import style from './index.css'
@@ -21,12 +21,14 @@ console.log(omil({
     //         return 
     //     }
     // })
-    export default connect(class {
+    
+    export default class{
         state = 1
     // module.exports = class {
         // aaa
         // bbb
-        // static css = style + a
+
+        static css = style + a
         css(){
             return 'ooooo'
         }
@@ -47,7 +49,7 @@ console.log(omil({
         render(){
 
         }
-    })
+    }
     1
     </script>
     <style lang='scss'>
