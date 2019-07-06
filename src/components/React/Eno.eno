@@ -1,0 +1,25 @@
+<template name="Eno">
+    <div>
+        <!-- JSX -->
+        <p>{this.state.name}</p>
+    </div>
+</template>
+<script>
+    import EnoType from './EnoType.tsx'
+    // JS
+    export default EnoType(class {
+        constructor(props) {
+            super(props);
+            this.state = {
+                name: 'abc',
+                age: 18
+            }
+        }
+    })
+</script>
+<style lang="scss">
+    /* CSS */
+    p {
+        color: #58bc58
+    };
+</style>
