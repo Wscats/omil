@@ -10,21 +10,21 @@
     // JS
     export default connect()(class {
         render() {
-            console.log(1)
+            console.log(2)
         }
         /* cccc */
         // bbbb
         // static css = 1
         /*asdsad
         asda*/
-        abc = 123
+        // abc = 123
         // 12345123
-        css() { }
+        // css() { }
         render() {
             console.log(1)
         }
-        static css = 1 + `adda`
-        static abc = 1
+        // static css = 1 + `adda`
+        // static abc = 1
         install() {
             this.data = {
                 title: "omi"

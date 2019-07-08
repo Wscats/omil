@@ -1,3 +1,5 @@
+English | [简体中文](./README.CN.md) 
+
 # Install
 
 > Webpack loader for Omi Single-File Components

@@ -8,23 +8,23 @@
   <body>
     <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
     <script>
-      var _class, _temp;
-
       const { WeElement, define, html, h, render } = omi;
       import axios from "axios";
+      const StyledComponents = styled.div`
+        div {
+          color: #58bc58;
+        }
+        div span {
+          font-size: 14px;
+        }
+      `;
       export default connect()(
-        ((_temp = _class = class ComponentName extends WeElement {
-          constructor(...args) {
-            super(...args);
-            this.abc = 123;
-          }
-
+        class ComponentName extends WeElement {
           render() {
             return h(
-              "div",
+              StyledComponents,
               null,
-              h("p", null, this.data.title),
-              h("abc", null)
+              h("div", null, h("p", null, this.data.title), h("abc", null))
             );
           }
 
@@ -35,11 +35,7 @@
           }
 
           componentDidMount() {}
-        }),
-        (_class.css =
-          `div{color:#58bc58}div span{font-size:14px}` + 1 + `adda`),
-        (_class.abc = 1),
-        _temp)
+        }
       );
       render(
         html`
