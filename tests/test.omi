@@ -1,49 +1,21 @@
-<template name="Component-name">
-    <div>
-        <!-- JSX -->
-        <p>{this.data.title}</p>
-        {<abc />}
-    </div>
+<template name="my-test">
+  <div class="example">
+    { this.data.msg }
+  </div>
 </template>
-<script>
-    import axios from 'axios'
-    // JS
-    export default connect()(class {
-        render() {
-            console.log(2)
-        }
-        /* cccc */
-        // bbbb
-        // static css = 1
-        /*asdsad
-        asda*/
-        // abc = 123
-        // 12345123
-        // css() { }
-        render() {
-            console.log(1)
-        }
-        // static css = 1 + `adda`
-        // static abc = 1
-        install() {
-            this.data = {
-                title: "omi"
-            }
-        }
-        render() {
-            console.log(1)
-        }
-        componentDidMount(){
 
-        }
-    })
-</script>
-<style lang="scss">
-    /* CSS */
-    div {
-        color: #58bc58;
-        span {
-            font-size: 14px;
-        }
+<script>
+export default class {
+  install () {
+    this.data = {
+      msg: 'Hello world!'
     }
+  }
+}
+</script>
+
+<style>
+.example {
+  color: red;
+}
 </style>

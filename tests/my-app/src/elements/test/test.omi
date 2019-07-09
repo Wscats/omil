@@ -1,0 +1,28 @@
+<template name="my-test">
+    <div onClick={this.testClick}>
+        {this.data.title}
+    </div>
+</template>
+<script>
+    export default class {
+        install() {
+            this.data = {
+                title: "Eno Yao !"
+            }
+        }
+        testClick() {
+            alert('Bye!')
+        }
+    }
+</script>
+<style lang="scss">
+    $color:red;
+    $size:60px;
+
+    div {
+        background: $color;
+        color: white;
+        height: $size;
+        line-height: $size;
+    }
+</style>

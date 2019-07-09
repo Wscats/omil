@@ -1,7 +1,7 @@
 import { define, WeElement } from 'omi'
 import logo from './logo.svg'
 import '../app-intro'
-import '../test/test.omi.jsx'
+import '../test/test'
 import 'omiu/button'
 define('my-app', class extends WeElement {
   static css = require('./_index.less')

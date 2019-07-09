@@ -8,43 +8,36 @@
   <body>
     <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
     <script>
-      const { WeElement, define, html, h, render } = omi;
+      const { WeElement, html, h, render } = omi;
       const StyledComponents = styled.div`
         .example {
           color: red;
         }
       `;
-
-      class MyTest extends WeElement {
+      export default class _class extends WeElement {
         render() {
           return h(
             "div",
             {
               class: "example"
             },
-            this.data.msg
+            {
+              msg
+            }
           );
         }
 
-        install() {
-          this.data = {
+        data() {
+          return {
             msg: "Hello world!"
           };
         }
       }
-
-      MyTest.css = `
+      _class.css = `
 .example {
   color: red;
 }
 `;
-      define("my-test", MyTest);
-      render(
-        html`
-          <my-test />
-        `,
-        "body"
-      );
     </script>
   </body>
 </html>

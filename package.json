@@ -1,6 +1,6 @@
 {
   "name": "omil",
-  "version": "1.8.1",
+  "version": "1.8.4",
   "description": "Webpack loader for Omi.js components",
   "main": "libs/index.js",
   "scripts": {

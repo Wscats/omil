@@ -131,26 +131,53 @@ module.exports = (option) => {
         }
     }
 
-    switch (templateLang) {
-        // html
-        case 'html':
-            return `
-                ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
-                `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                ${css}
-                render() {
-                    return (html${'`'}${template}${'`'})
-                }
-            `
-        // jsx
+
+    switch (isCaptain(templateComponentName)) {
+        // react
+        case true:
+            switch (templateLang) {
+                // html
+                case 'html':
+                    return `
+                        ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
+                        `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
+                        ${css}
+                        render() {
+                            return (html${'`'}${template}${'`'})
+                        }
+                    `
+                // jsx
+                default:
+                    return `
+                        ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
+                        `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
+                        ${css}
+                        render() {
+                            return ${template}
+                        }
+                    `
+            }
+        // omi
         default:
-            return `
-                ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
-                `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                ${css}
-                render() {
-                    return ${template}
-                }
-            `
+            switch (templateLang) {
+                // html
+                case 'html':
+                    return `
+                        ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
+                            ${css}
+                            render() {
+                                return (html${'`'}${template}${'`'})
+                            }
+                        `
+                // jsx
+                default:
+                    return `
+                        ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
+                            ${css}
+                            render() {
+                                return ${template}
+                            }
+                        `
+            }
     }
 }

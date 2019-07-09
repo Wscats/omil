@@ -10,8 +10,11 @@
     <script>
       const { WeElement, define, html, h, render } = omi;
       const StyledComponents = styled.div`
-        .example {
-          color: red;
+        div {
+          background: red;
+          color: white;
+          height: 60px;
+          line-height: 60px;
         }
       `;
 
@@ -20,24 +23,24 @@
           return h(
             "div",
             {
-              class: "example"
+              onClick: this.testClick
             },
-            this.data.msg
+            this.data.title
           );
         }
 
         install() {
           this.data = {
-            msg: "Hello world!"
+            title: "Eno Yao !"
           };
+        }
+
+        testClick() {
+          alert("Bye!");
         }
       }
 
-      MyTest.css = `
-.example {
-  color: red;
-}
-`;
+      MyTest.css = `div{background:red;color:white;height:60px;line-height:60px}`;
       define("my-test", MyTest);
       render(
         html`

@@ -1,30 +1,26 @@
-import { Component as WeElement, createElement as h } from "react";
-import styled from "styled-components";
-import axios from "axios";
-const StyledComponents = styled.div`
-  div {
-    color: #58bc58;
+import { WeElement, define, h } from "omi";
+
+class MyTest extends WeElement {
+  render() {
+    return h(
+      "div",
+      {
+        class: "example"
+      },
+      this.data.msg
+    );
   }
-  div span {
-    font-size: 14px;
+
+  install() {
+    this.data = {
+      msg: "Hello world!"
+    };
   }
+}
+
+MyTest.css = `
+.example {
+  color: red;
+}
 `;
-export default connect()(
-  class ComponentName extends WeElement {
-    render() {
-      return h(
-        StyledComponents,
-        null,
-        h("div", null, h("p", null, this.data.title), h("abc", null))
-      );
-    }
-
-    install() {
-      this.data = {
-        title: "omi"
-      };
-    }
-
-    componentDidMount() {}
-  }
-);
+define("my-test", MyTest);
