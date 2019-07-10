@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="./favicon.ico">
+    
+
+    <title>
+        
+          Omil
+        
+    </title>
+
+    <!-- Spectre.css framework (v0.5.8) -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
+
+    <!-- theme css & js -->
+    <link rel="stylesheet" href="./css/spectre_custom.css">
+    <link rel="stylesheet" href="./css/book.css">
+    <script src="./js/book.js"></script>
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+
+<body>
+
+<div class="container">
+  <div class="book-container">
+    <div class="columns">
+      <div class="column col-2 hide-lg">
+        <div class="book-sidebar">
+  <h4 class="site-meta">
+    <a href="./">Omil</a>
+  </h4>
+  <div class="sidebar-content">
+    <ul>
+<li><a href="/">介绍</a></li>
+<li><a href="/install">安装</a></li>
+<li><a href="/plugin">配合Omi Snippets插件</a></li>
+<li><a href="/spec">语言块规范</a></li>
+<li><a href="/jsx">JSX</a></li>
+</ul>
+
+  </div>
+</div>
+
+<script src="./js/book-sidebar.js"></script>
+      </div>
+
+      <div class="column col-8 col-lg-12">
+        <div class="book-content">
+          <div class="book-navbar">
+  <header class="navbar">
+  <section class="navbar-section">
+    <img class="navbar-icon" src="./favicon.ico">
+  </section>
+  <section class="navbar-center">
+    Omil
+  </section>
+  <section class="navbar-section">
+    <label class="accordion-header c-hand" for="accordion-sidebar">
+      <i class="icon icon-menu"></i>
+    </label>
+  </section>
+</header>
+
+<div class="accordion">
+  <input type="checkbox" id="accordion-sidebar" name="accordion-checkbox" hidden>
+  <div class="accordion-body">
+    <ul>
+<li><a href="/">介绍</a></li>
+<li><a href="/install">安装</a></li>
+<li><a href="/plugin">配合Omi Snippets插件</a></li>
+<li><a href="/spec">语言块规范</a></li>
+<li><a href="/jsx">JSX</a></li>
+</ul>
+
+  </div>
+</div>
+</div>
+
+<div class="book-post">
+  <h1 id="Omi-Snippets"><a href="#Omi-Snippets" class="headerlink" title="Omi Snippets"></a>Omi Snippets</h1><p>在配置完 Omil 之后，我们可以在 VSC 上同时安装好 <a href="https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets" target="_blank" rel="noopener">Omi Snippets</a> 扩展，这个插件可以方便的让你把 .omi 和 .eno 后缀文件转化为 .js 文件，让你可以直观了解到单文件组件经过 omil 转化后的 JS 文件内容。</p>
+<h2 id="目录结构"><a href="#目录结构" class="headerlink" title="目录结构"></a>目录结构</h2><p>例如你在 webpack 的入口文件夹中有一个 .omi 的后缀文件，当你新建并经过编辑保存之后，Omi Snippets扩展会在同级目录下新建一份同名但不同后缀的 .js 文件</p>
+<ul>
+<li>src<ul>
+<li>Hello.omi</li>
+<li>Hello.js</li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Hello.omi</th>
+<th>开发中你需要编写的单文件组件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Hello.js</td>
+<td>修改或者保存文件<code>Hello.omi</code>后经过插件转化的js文件</td>
+</tr>
+</tbody></table>
+<p>如下图，左边的代码是我们编写的 .omi 后缀的单文件组件，右边是经过 Omi Snippets 生成的 .js 后缀文件。</p>
+<img src="../images/transfer.png">
+
+
+<h2 id="示例代码"><a href="#示例代码" class="headerlink" title="示例代码"></a>示例代码</h2><p>上图的示例代码如下</p>
+<ul>
+<li><code>&lt;template&gt;</code> 标签负责放 JSX 的内容，属性<code>name=&quot;my-test&quot;</code>为该组件的名字，后面可以在 JSX 中用<code>&lt;my-text&gt;</code>使用该组件;</li>
+<li><code>&lt;script&gt;</code> 标签负责放入组件的逻辑文件，固定的结构为 <code>export default class { // 你的代码 }</code>或者为<code>export default HOC(class { // 你的代码 })</code>两种形式，第一种是定义类组件，第二种用来定义高阶组件，你的代码部分可以放入生命周期，函数等;</li>
+<li><code>&lt;style&gt;</code> 标签负责定义该组件的局部样式</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"my-test"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    &#123; this.data.msg &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;</span></span><br><span class="line">  install () &#123;</span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.data = &#123;</span></span><br><span class="line"><span class="javascript">      msg: <span class="string">'Hello world!'</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">.example &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以下代码就是经过 Omi Snippets 生成的 .js 后缀文件，可以用于在你没有 omil 模块下，主逻辑文件或者其他组件引入调用。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; WeElement, define, h &#125; <span class="keyword">from</span> <span class="string">"omi"</span>;</span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyTest</span> <span class="keyword">extends</span> <span class="title">WeElement</span> </span>&#123;</span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">return</span> h(</span><br><span class="line">      <span class="string">"div"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">        class: "example"</span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="keyword">this</span>.data.msg</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">  install() &#123;</span><br><span class="line">    <span class="keyword">this</span>.data = &#123;</span><br><span class="line">      msg: <span class="string">"Hello world!"</span></span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">MyTest.css = <span class="string">`</span></span><br><span class="line"><span class="string">.example &#123;</span></span><br><span class="line"><span class="string">  color: red;</span></span><br><span class="line"><span class="string">&#125;</span></span><br><span class="line"><span class="string">`</span>;</span><br><span class="line">define(<span class="string">"my-test"</span>, MyTest);</span><br></pre></td></tr></table></figure>
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+  </div>
+
+
+<script src="./js/book-post.js"></script>
+        </div>
+      </div>
+
+      <div class="column col-2 hide-lg">
+        <div class="book-toc">
+  <div class="book-tocbot">
+  </div>
+  <div class="book-tocbot-menu">
+    <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+    <a onclick="go_top()">Back to top</a>
+    <a onclick="go_bottom()">Go to bottom</a>
+  </div>
+</div>
+
+<script>
+tocbot.init({
+  tocSelector: '.book-tocbot',
+  contentSelector: '.book-post',
+  headingSelector: 'h1, h2, h3, h4, h5',
+  collapseDepth: 2,
+  orderedList: false,
+  scrollSmooth: false,
+});
+
+function expand_toc(){
+  var b = document.querySelector(".book-toc-expand");
+  tocbot.init({
+    tocSelector: '.book-tocbot',
+    contentSelector: '.book-post',
+    headingSelector: 'h1, h2, h3, h4, h5',
+    collapseDepth: 6,
+    orderedList: false,
+    scrollSmooth: false,
+  });
+  b.setAttribute("onclick", "collapse_toc()");
+  b.innerHTML = "Collapse all"
+}
+
+function collapse_toc(){
+  var b = document.querySelector(".book-toc-expand");
+  tocbot.init({
+    tocSelector: '.book-tocbot',
+    contentSelector: '.book-post',
+    headingSelector: 'h1, h2, h3, h4, h5',
+    collapseDepth: 2,
+    orderedList: false,
+    scrollSmooth: false,
+  });
+  b.setAttribute("onclick", "expand_toc()");
+  b.innerHTML = "Expand all"
+}
+
+function go_top() {
+  window.scrollTo(0, 0);
+}
+
+function go_bottom() {
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+</script>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
