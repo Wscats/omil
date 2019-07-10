@@ -7,7 +7,7 @@
     export default class {
         install() {
             this.data = {
-                title: "Eno Yao !"
+                title: "123 Eno Yao !"
             }
         }
         testClick() {

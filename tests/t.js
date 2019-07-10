@@ -5,10 +5,12 @@ console.log(omil({
     options: null,
     source: `
     <template name="my-abc-abc">
-        <div>
-            <!-- JSX -->
-            <p>123</p>
-        </div>
+        connect(
+            <div>
+                <!-- JSX -->
+                <p>123</p>
+            </div>
+        )
     </template>
     <script lang="ts">
     // JS

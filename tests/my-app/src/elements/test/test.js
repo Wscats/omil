@@ -1,12 +1,4 @@
 import { WeElement, define, h } from "omi";
-const StyledComponents = styled.div`
-  div {
-    background: red;
-    color: white;
-    height: 60px;
-    line-height: 60px;
-  }
-`;
 
 class MyTest extends WeElement {
   render() {
@@ -21,7 +13,7 @@ class MyTest extends WeElement {
 
   install() {
     this.data = {
-      title: "Eno Yao !"
+      title: "123 Eno Yao !"
     };
   }
 

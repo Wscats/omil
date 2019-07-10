@@ -12,7 +12,7 @@ module.exports = (option) => {
         templateLang,
         templateComponentName
     } = option;
-    // console.log(option.script)
+    // console.log(script,template)
     // 1. static css = `xxx`
     const styleInScript = (() => {
         // style in script

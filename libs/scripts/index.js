@@ -16,7 +16,7 @@ const compileScript = (sourceObj) => {
         if (isExistScript) {
             return isExistScript[0]
         } else {
-            return '<script>module.exports={}</script>'
+            return '<script>module.exports=class{}</script>'
         }
     })()
     let script = (

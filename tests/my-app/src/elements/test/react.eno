@@ -1,0 +1,24 @@
+<template name="component-name">
+    hoc(
+        <div>
+            <!-- JSX -->
+            <p>{this.state.title}</p>
+        </div>
+    )
+</template>
+<script>
+// JS
+export default class {
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: "react"
+        }
+    }
+}
+
+</script>
+<style>
+/* CSS */
+p {color: #58bc58};
+</style>

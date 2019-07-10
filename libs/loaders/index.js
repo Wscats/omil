@@ -57,6 +57,7 @@ const compileAll = async (sourceObj, options, callback) => {
     // console.log(script)
     // whether <StyledComponents> exist
     template = handleStyledComponents({ style, template });
+    
     // html -> jsx
     if (templateLang !== 'html' && templateLang !== 'htm') {
         const transform = require('../scripts/extension/transform')
@@ -67,7 +68,7 @@ const compileAll = async (sourceObj, options, callback) => {
         })).code
         // console.log(template)
     }
-
+    // console.log(template)
     try {
         let allScript = (
             // import html modules to transform html to jsx 

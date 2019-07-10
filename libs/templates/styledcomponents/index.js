@@ -6,6 +6,7 @@ module.exports = ({ style, template }) => {
         return template
     } else {
         let $ = cheerio.load(template)
-        return $('StyledComponents').html()
+        let html = $('StyledComponents').html()
+        return html ? html : template
     }
 }
