@@ -1,4 +1,4 @@
-[English](./README.md)  | 简体中文
+[English](./README.EN.md)  | 简体中文
 
 # Omil 是什么？
 `omil`是一个 webpack 的 loader，它允许你以一种名为单文件组件`(SFCs)`的格式撰写 Omi 组件：
