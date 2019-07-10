@@ -16,7 +16,7 @@ define('my-app', class extends WeElement {
   render() {
     return (
       <div class="app">
-        <my-test />
+        <component-name />
       </div>
     )
   }

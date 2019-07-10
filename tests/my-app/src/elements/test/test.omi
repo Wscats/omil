@@ -1,28 +1,9 @@
-<template name="my-test">
-    <div onClick={this.testClick}>
-        {this.data.title}
-    </div>
+<template name="component-name">
+    <ul>
+        {
+            ['a','b','c'].map((item,index) => {
+                return <li key={index}>{item}</li>
+            })
+        }
+    </ul>
 </template>
-<script>
-    export default class {
-        install() {
-            this.data = {
-                title: "123 Eno Yao !"
-            }
-        }
-        testClick() {
-            alert('Bye!')
-        }
-    }
-</script>
-<style lang="scss">
-    $color:red;
-    $size:60px;
-
-    div {
-        background: $color;
-        color: white;
-        height: $size;
-        line-height: $size;
-    }
-</style>

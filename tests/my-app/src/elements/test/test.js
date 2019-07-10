@@ -1,26 +1,22 @@
 import { WeElement, define, h } from "omi";
 
-class MyTest extends WeElement {
+class ComponentName extends WeElement {
   render() {
     return h(
-      "div",
-      {
-        onClick: this.testClick
-      },
-      this.data.title
+      "ul",
+      null,
+      ["a", "b", "c"].map((item, index) => {
+        return h(
+          "li",
+          {
+            key: index
+          },
+          item
+        );
+      })
     );
-  }
-
-  install() {
-    this.data = {
-      title: "123 Eno Yao !"
-    };
-  }
-
-  testClick() {
-    alert("Bye!");
   }
 }
 
-MyTest.css = `div{background:red;color:white;height:60px;line-height:60px}`;
-define("my-test", MyTest);
+ComponentName.css = ``;
+define("component-name", ComponentName);

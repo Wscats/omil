@@ -46,13 +46,13 @@ Omil 支持使用非默认语言，比如 CSS 预处理器，预编译的 HTML �
 
 内容将被提取，如果是 JSX 会编译为函数片段，如果为 html 会编译为字符串，并最终注入到从`<script>`导出的组件 render 函数中。
 
-### 属性`name = "xxx-xxx"`
+### 属性`name = "xxx-xxx"`(Omi组件)
 
 定义`name="xxx-xxx"`可以给组件定义一个名字，这个名字会自动调用 omi 框架的 `define('xxx-xxx', xxxXxx)` 方法来注册组件，你就可以在页面中用这个属性名`<xxx-xxx></xxx-xxx>`来使用该组件
 
 **注意：** 
 - name属性值是组件名要满足 omi 框架的组件名字定义规范，首字母不能用大写字母，并且中间必须有`-`字符;
-- `<template>`模板中不能有`<script>`和`<style>`代码片段
+- `<template>`模板中不能有`<script>`和`<style>`代码片段。
 
 ```html
 <template name="my-test">
@@ -61,8 +61,34 @@ Omil 支持使用非默认语言，比如 CSS 预处理器，预编译的 HTML �
   </div>
 </template>
 ```
+在页面容器中如此使用
+```html
+<my-test/>
+<my-test></my-test>
+```
 
-### 属性`lang = "html"`
+### 属性`name = "XxxXxx"`(React组件)
+
+定义`name="XxxXxx"`可以给组件定义一个名字，这个名字会自动调用 React 框架的 `React.Component` 方法来定义类组件，你就可以在页面中用这个属性名`<XxxXxx></XxxXxx>`来使用该组件
+
+**注意：** 
+- name属性值是组件名要满足 React 框架的组件名字定义规范，首字母必须大写字母;
+- `<template>`模板中不能有`<script>`和`<style>`代码片段。
+
+```html
+<template name="MyTest">
+  <div class="example">
+    { this.data.msg }
+  </div>
+</template>
+```
+在页面容器中如此使用
+```html
+<MyTest/>
+<MyTest></MyTest>
+```
+
+### 属性`lang = "html"`(仅支持Omi)
 
 默认情况下，我们的`<template>`模板是使用 JSX 语法，如果我们增加属性`lang = "html"`，就可以支持编写html格式的字符串模板，你可以使用 ES6 的语法来编写 html 模板`<div>${ this.data.msg }<div>`，Omil 和 Omi-Snippets 会自动帮你引入`Omi.html()`方法帮你在客户端进行处理，会有一定的性能损耗，一般情况下不建议使用。
 
@@ -104,7 +130,7 @@ export default class {
 </script>
 ```
 
-### 高阶组件
+### 高阶组件(仅支持React)
 
 有时候我们可以使用高阶组件拓展组件本身的一些功能，高阶组件跟类组件一样，只支持下面规定的写法。
 
@@ -125,9 +151,9 @@ export default HOC(class {
 })
 </script>
 ```
-下面是一个高阶组件的详细参考例子，
+下面是一个高阶组件的详细参考例子
 ```html
-<template name="my-text">
+<template name="MyTest">
     <div><p>{this.state.title}</p></div>
 </template>
 <script>
@@ -150,6 +176,34 @@ export default HOC({
         }
     }
 })
+</script>
+<style lang="scss">
+p { color: #58bc58; }
+</style>
+```
+或者你可以这样写
+```html
+<template name="MyTest">
+    {HOC(<div><p>{this.state.title}</p></div>)}
+</template>
+<script>
+// 高阶函数
+const HOC = (props) => {
+    return (WraooedComponent) => {
+        return class HOC extends WeElement {
+            render() {
+                return (<div><WraooedComponent name={{ ...this.props }} /></div>)
+            }
+        }
+    }
+}
+export default class {
+    install () {
+        this.data = {
+            msg: 'Hello world!'
+        }
+    }
+}
 </script>
 <style lang="scss">
 p { color: #58bc58; }
