@@ -1,5 +1,0 @@
-* [介绍](/)
-* [安装](/install)
-* [配合Omi Snippets插件](/plugin)
-* [语言块规范](/spec)
-* [JSX](/jsx)
