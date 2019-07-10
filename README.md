@@ -235,6 +235,7 @@ In a nutshell, the combination of webpack and `omil` gives you a modern, flexibl
 
 | [<img src="https://avatars1.githubusercontent.com/u/17243165?s=460&v=4" width="60px;"/><br /><sub>Eno Yao</sub>](https://github.com/Wscats)|
 |-|
+||
 
 ## License
 

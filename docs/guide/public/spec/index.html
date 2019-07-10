@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="./favicon.ico">
+    
+
+    <title>
+        
+          Omil
+        
+    </title>
+
+    <!-- Spectre.css framework (v0.5.8) -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
+
+    <!-- theme css & js -->
+    <link rel="stylesheet" href="./css/spectre_custom.css">
+    <link rel="stylesheet" href="./css/book.css">
+    <script src="./js/book.js"></script>
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+
+<body>
+
+<div class="container">
+  <div class="book-container">
+    <div class="columns">
+      <div class="column col-2 hide-lg">
+        <div class="book-sidebar">
+  <h4 class="site-meta">
+    <a href="./">Omil</a>
+  </h4>
+  <div class="sidebar-content">
+    <ul>
+<li><a href="/">介绍</a></li>
+<li><a href="/install">安装</a></li>
+<li><a href="/plugin">配合Omi Snippets插件</a></li>
+<li><a href="/spec">语言块规范</a></li>
+<li><a href="/jsx">JSX</a></li>
+</ul>
+
+  </div>
+</div>
+
+<script src="./js/book-sidebar.js"></script>
+      </div>
+
+      <div class="column col-8 col-lg-12">
+        <div class="book-content">
+          <div class="book-navbar">
+  <header class="navbar">
+  <section class="navbar-section">
+    <img class="navbar-icon" src="./favicon.ico">
+  </section>
+  <section class="navbar-center">
+    Omil
+  </section>
+  <section class="navbar-section">
+    <label class="accordion-header c-hand" for="accordion-sidebar">
+      <i class="icon icon-menu"></i>
+    </label>
+  </section>
+</header>
+
+<div class="accordion">
+  <input type="checkbox" id="accordion-sidebar" name="accordion-checkbox" hidden>
+  <div class="accordion-body">
+    <ul>
+<li><a href="/">介绍</a></li>
+<li><a href="/install">安装</a></li>
+<li><a href="/plugin">配合Omi Snippets插件</a></li>
+<li><a href="/spec">语言块规范</a></li>
+<li><a href="/jsx">JSX</a></li>
+</ul>
+
+  </div>
+</div>
+</div>
+
+<div class="book-post">
+  <h1 id="语言块规范"><a href="#语言块规范" class="headerlink" title="语言块规范"></a>语言块规范</h1><h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>.omi 文件是一个自定义的文件类型，用类 HTML 语法描述一个 Omi 组件。每个 .omi 文件包含三种类型的顶级语言块 <code>&lt;template&gt;</code>、<code>&lt;script&gt;</code> 和 <code>&lt;style&gt;</code>:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"my-test"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    &#123; this.data.msg &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;</span></span><br><span class="line">  install () &#123;</span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.data = &#123;</span></span><br><span class="line"><span class="javascript">      msg: <span class="string">'Hello world!'</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">.example &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Omil 会解析文件，提取每个语言块，如有必要会通过其它 loader 处理，最后将他们组装成一个 ES Module，它的默认导出是一个 Omi.js 组件定义好的自定义标签对象。</p>
+<p>Omil 支持使用非默认语言，比如 CSS 预处理器，预编译的 HTML 模版语言，通过设置语言块的 lang 属性。例如，你可以像下面这样使用 Sass 语法编写样式：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"sass"</span>&gt;</span></span><br><span class="line">  /* write Sass! */</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="语言块"><a href="#语言块" class="headerlink" title="语言块"></a>语言块</h1><h2 id="lt-template-gt-模板"><a href="#lt-template-gt-模板" class="headerlink" title="&lt;template&gt;模板"></a><code>&lt;template&gt;</code>模板</h2><p>每个 .omi 文件最多包含一个 <code>&lt;template&gt;</code> 块。</p>
+<p>内容将被提取，如果是 JSX 会编译为函数片段，如果为 html 会编译为字符串，并最终注入到从<code>&lt;script&gt;</code>导出的组件 render 函数中。</p>
+<h3 id="属性name-quot-xxx-xxx-quot-Omi组件"><a href="#属性name-quot-xxx-xxx-quot-Omi组件" class="headerlink" title="属性name = &quot;xxx-xxx&quot;(Omi组件)"></a>属性<code>name = &quot;xxx-xxx&quot;</code>(Omi组件)</h3><p>定义<code>name=&quot;xxx-xxx&quot;</code>可以给组件定义一个名字，这个名字会自动调用 omi 框架的 <code>define(&#39;xxx-xxx&#39;, xxxXxx)</code> 方法来注册组件，你就可以在页面中用这个属性名<code>&lt;xxx-xxx&gt;&lt;/xxx-xxx&gt;</code>来使用该组件</p>
+<p><strong>注意：</strong> </p>
+<ul>
+<li>name属性值是组件名要满足 omi 框架的组件名字定义规范，首字母不能用大写字母，并且中间必须有<code>-</code>字符;</li>
+<li><code>&lt;template&gt;</code>模板中不能有<code>&lt;script&gt;</code>和<code>&lt;style&gt;</code>代码片段。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"my-test"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    &#123; this.data.msg &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在页面容器中如此使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">my-test</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">my-test</span>&gt;</span><span class="tag">&lt;/<span class="name">my-test</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="属性name-quot-XxxXxx-quot-React组件"><a href="#属性name-quot-XxxXxx-quot-React组件" class="headerlink" title="属性name = &quot;XxxXxx&quot;(React组件)"></a>属性<code>name = &quot;XxxXxx&quot;</code>(React组件)</h3><p>定义<code>name=&quot;XxxXxx&quot;</code>可以给组件定义一个名字，这个名字会自动调用 React 框架的 <code>React.Component</code> 方法来定义类组件，你就可以在页面中用这个属性名<code>&lt;XxxXxx&gt;&lt;/XxxXxx&gt;</code>来使用该组件</p>
+<p><strong>注意：</strong> </p>
+<ul>
+<li>name属性值是组件名要满足 React 框架的组件名字定义规范，首字母必须大写字母;</li>
+<li><code>&lt;template&gt;</code>模板中不能有<code>&lt;script&gt;</code>和<code>&lt;style&gt;</code>代码片段。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"MyTest"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    &#123; this.data.msg &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>在页面容器中如此使用</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">MyTest</span>/&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">MyTest</span>&gt;</span><span class="tag">&lt;/<span class="name">MyTest</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="属性lang-quot-html-quot-仅支持Omi"><a href="#属性lang-quot-html-quot-仅支持Omi" class="headerlink" title="属性lang = &quot;html&quot;(仅支持Omi)"></a>属性<code>lang = &quot;html&quot;</code>(仅支持Omi)</h3><p>默认情况下，我们的<code>&lt;template&gt;</code>模板是使用 JSX 语法，如果我们增加属性<code>lang = &quot;html&quot;</code>，就可以支持编写html格式的字符串模板，你可以使用 ES6 的语法来编写 html 模板<code>&lt;div&gt;${ this.data.msg }&lt;div&gt;</code>，Omil 和 Omi-Snippets 会自动帮你引入<code>Omi.html()</code>方法帮你在客户端进行处理，会有一定的性能损耗，一般情况下不建议使用。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"my-test"</span> <span class="attr">lang</span>=<span class="string">"html"</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">"example"</span>&gt;</span></span><br><span class="line">    $&#123; this.data.msg &#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-script-gt-脚本"><a href="#lt-script-gt-脚本" class="headerlink" title="&lt;script&gt;脚本"></a><code>&lt;script&gt;</code>脚本</h2><p>每个 .omi 文件最多包含一个 <code>&lt;script&gt;</code> 块。</p>
+<h3 id="类组件"><a href="#类组件" class="headerlink" title="类组件"></a>类组件</h3><p>如果我们使用过 react 我们会了解到组件通常有两种定义方式，一种是函数组件，一种是类组件，Omil 默认是帮你创建类组件，我们在<code>export default class { // 你的代码 }</code>或者<code>module.exports = class { // 你的代码 }</code>片段中写入你的组件逻辑代码，</p>
+<p><strong>注意：</strong> </p>
+<ul>
+<li>定义类组件必须是<code>export default class { // 你的代码 }</code>这种写法，<code>class MyText {} ; export default MyText</code>这种写法不可以，因为 Omil 和 Omil Snippets 只识别连续的<code>export default class</code>这段字符串</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th><code>export default class { // 你的代码 }</code></th>
+<th>可以</th>
+<th>建议使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>module.exports = class { // 你的代码 }</code></td>
+<td>可以</td>
+<td>支持</td>
+</tr>
+<tr>
+<td><code>class MyText { // 你的代码 }</code><br><code>export default MyText</code></td>
+<td>不可以</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td><code>class MyText { // 你的代码 }</code><br><code>module.export = MyText</code></td>
+<td>不可以</td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;</span></span><br><span class="line">  install () &#123;</span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.data = &#123;</span></span><br><span class="line"><span class="javascript">      msg: <span class="string">'Hello world!'</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="高阶组件-仅支持React"><a href="#高阶组件-仅支持React" class="headerlink" title="高阶组件(仅支持React)"></a>高阶组件(仅支持React)</h3><p>有时候我们可以使用高阶组件拓展组件本身的一些功能，高阶组件跟类组件一样，只支持下面规定的写法。</p>
+<table>
+<thead>
+<tr>
+<th><code>export default HOC(class { // 你的代码 })</code></th>
+<th>可以</th>
+<th>建议使用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>module.exports = HOC(class { // 你的代码 })</code></td>
+<td>可以</td>
+<td>支持</td>
+</tr>
+<tr>
+<td><code>class MyText { // 你的代码 }</code><br><code>export default HOC(MyText)</code></td>
+<td>不可以</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td><code>class MyText { // 你的代码 }</code><br><code>module.export = HOC(MyText)</code></td>
+<td>不可以</td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> HOC(<span class="class"><span class="keyword">class</span> </span>&#123;</span></span><br><span class="line">  install () &#123;</span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.data = &#123;</span></span><br><span class="line"><span class="javascript">      msg: <span class="string">'Hello world!'</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>下面是一个高阶组件的详细参考例子</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"MyTest"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;this.state.title&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">// 高阶函数</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> HOC = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> <span class="function">(<span class="params">WraooedComponent</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">HOC</span> <span class="keyword">extends</span> <span class="title">WeElement</span> </span>&#123;</span></span><br><span class="line">            render() &#123;</span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">WraooedComponent</span> <span class="attr">name</span>=<span class="string">&#123;&#123;</span> <span class="attr">...this.props</span> &#125;&#125; /&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>)</span></span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> HOC(&#123;</span></span><br><span class="line">    age: 18</span><br><span class="line"><span class="javascript">&#125;)(<span class="class"><span class="keyword">class</span> </span>&#123;</span></span><br><span class="line">    install () &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.data = &#123;</span></span><br><span class="line"><span class="javascript">            msg: <span class="string">'Hello world!'</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"scss"</span>&gt;</span></span><br><span class="line">p &#123; color: #58bc58; &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者你可以这样写</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">template</span> <span class="attr">name</span>=<span class="string">"MyTest"</span>&gt;</span></span><br><span class="line">    &#123;HOC(<span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;this.state.title&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>)&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="comment">// 高阶函数</span></span></span><br><span class="line"><span class="javascript"><span class="keyword">const</span> HOC = <span class="function">(<span class="params">props</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">    <span class="keyword">return</span> <span class="function">(<span class="params">WraooedComponent</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="javascript">        <span class="keyword">return</span> <span class="class"><span class="keyword">class</span> <span class="title">HOC</span> <span class="keyword">extends</span> <span class="title">WeElement</span> </span>&#123;</span></span><br><span class="line">            render() &#123;</span><br><span class="line"><span class="javascript">                <span class="keyword">return</span> (<span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">WraooedComponent</span> <span class="attr">name</span>=<span class="string">&#123;&#123;</span> <span class="attr">...this.props</span> &#125;&#125; /&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>)</span></span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;</span></span><br><span class="line">    install () &#123;</span><br><span class="line"><span class="javascript">        <span class="keyword">this</span>.data = &#123;</span></span><br><span class="line"><span class="javascript">            msg: <span class="string">'Hello world!'</span></span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span>=<span class="string">"scss"</span>&gt;</span></span><br><span class="line">p &#123; color: #58bc58; &#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="属性type-quot-text-babel-quot"><a href="#属性type-quot-text-babel-quot" class="headerlink" title="属性type=&quot;text/babel&quot;"></a>属性<code>type=&quot;text/babel&quot;</code></h3><p>通常情况下，你可以在代码中使用ES6的语法，甚至一些新特性，例如：<code>static</code>，某些情况下我们需要转化为ES5做兼容，我们可以添加属性<code>type=&quot;text/babel&quot;</code></p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span></span><br><span class="line"><span class="javascript"><span class="keyword">export</span> <span class="keyword">default</span> <span class="class"><span class="keyword">class</span> </span>&#123;</span></span><br><span class="line"><span class="javascript">  <span class="keyword">static</span> name = <span class="string">'Eno Yao'</span></span></span><br><span class="line">  install () &#123;</span><br><span class="line"><span class="javascript">    <span class="keyword">this</span>.data = &#123;</span></span><br><span class="line"><span class="javascript">      msg: <span class="string">'Hello world!'</span></span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="lt-style-gt-样式"><a href="#lt-style-gt-样式" class="headerlink" title="&lt;style&gt;样式"></a><code>&lt;style&gt;</code>样式</h2><p>一个 .omi 文件可以包含一个<code>&lt;style&gt;</code>标签。</p>
+<p><code>&lt;style&gt;</code>标签的样式本身具有局部样式的特性，这取决于 Omi 的设计是 Web Components，这有点类似于 Vue 的 scoped 属性。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span>&gt;</span></span><br><span class="line">.example &#123;</span><br><span class="line">  color: red;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="属性lang-quot-scss-quot"><a href="#属性lang-quot-scss-quot" class="headerlink" title="属性lang = &quot;scss&quot;"></a>属性<code>lang = &quot;scss&quot;</code></h3><p>我们还可以使用<code>lang = &quot;scss&quot;</code>来书写 scss 样式，它会自动帮我们编译为 css 格式内容</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">style</span> <span class="attr">lang</span> = <span class="string">"scss"</span>&gt;</span></span><br><span class="line">$color: red;</span><br><span class="line">.example &#123;</span><br><span class="line">  color: $color;</span><br><span class="line">&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="语法高亮"><a href="#语法高亮" class="headerlink" title="语法高亮"></a>语法高亮</h1><p>建议使用 VS Code 配合 Omi Snippets （该扩展支持语法高亮）扩展开发 Omi 项目，当然你可以把 .omi 文件当作 HTML 对待。</p>
+<h1 id="注释"><a href="#注释" class="headerlink" title="注释"></a>注释</h1><p>在语言块中使用该语言块对应的注释语法 (HTML、CSS、JavaScript 等)。</p>
+<table>
+<thead>
+<tr>
+<th>JSX 注释语法</th>
+<th><code>{/* comment contents here */}</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HTML 注释语法</td>
+<td><code>&lt;!-- comment contents here --&gt;</code></td>
+</tr>
+</tbody></table>
+
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+  </div>
+
+
+<script src="./js/book-post.js"></script>
+        </div>
+      </div>
+
+      <div class="column col-2 hide-lg">
+        <div class="book-toc">
+  <div class="book-tocbot">
+  </div>
+  <div class="book-tocbot-menu">
+    <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+    <a onclick="go_top()">Back to top</a>
+    <a onclick="go_bottom()">Go to bottom</a>
+  </div>
+</div>
+
+<script>
+tocbot.init({
+  tocSelector: '.book-tocbot',
+  contentSelector: '.book-post',
+  headingSelector: 'h1, h2, h3, h4, h5',
+  collapseDepth: 2,
+  orderedList: false,
+  scrollSmooth: false,
+});
+
+function expand_toc(){
+  var b = document.querySelector(".book-toc-expand");
+  tocbot.init({
+    tocSelector: '.book-tocbot',
+    contentSelector: '.book-post',
+    headingSelector: 'h1, h2, h3, h4, h5',
+    collapseDepth: 6,
+    orderedList: false,
+    scrollSmooth: false,
+  });
+  b.setAttribute("onclick", "collapse_toc()");
+  b.innerHTML = "Collapse all"
+}
+
+function collapse_toc(){
+  var b = document.querySelector(".book-toc-expand");
+  tocbot.init({
+    tocSelector: '.book-tocbot',
+    contentSelector: '.book-post',
+    headingSelector: 'h1, h2, h3, h4, h5',
+    collapseDepth: 2,
+    orderedList: false,
+    scrollSmooth: false,
+  });
+  b.setAttribute("onclick", "expand_toc()");
+  b.innerHTML = "Expand all"
+}
+
+function go_top() {
+  window.scrollTo(0, 0);
+}
+
+function go_bottom() {
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+</script>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

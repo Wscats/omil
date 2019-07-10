@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head><meta name="generator" content="Hexo 3.9.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+
+    
+      <link rel="icon" href="./favicon.ico">
+    
+
+    <title>
+        
+          Omil
+        
+    </title>
+
+    <!-- Spectre.css framework (v0.5.8) -->
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-exp.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/spectre.css/dist/spectre-icons.min.css">
+
+    <!-- Noto Sans TC -->
+    <link href="https://fonts.googleapis.com/css?family=Noto+Sans+TC" rel="stylesheet">
+
+    <!-- theme css & js -->
+    <link rel="stylesheet" href="./css/spectre_custom.css">
+    <link rel="stylesheet" href="./css/book.css">
+    <script src="./js/book.js"></script>
+
+    <!-- tocbot -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.4.2/tocbot.css">
+
+    <!-- highlight.js -->
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/styles/default.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.6/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    
+    <!-- katex -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+</head>
+
+<body>
+
+<div class="container">
+  <div class="book-container">
+    <div class="columns">
+      <div class="column col-2 hide-lg">
+        <div class="book-sidebar">
+  <h4 class="site-meta">
+    <a href="./">Omil</a>
+  </h4>
+  <div class="sidebar-content">
+    <ul>
+<li><a href="/">介绍</a></li>
+<li><a href="/install">安装</a></li>
+<li><a href="/plugin">配合Omi Snippets插件</a></li>
+<li><a href="/spec">语言块规范</a></li>
+<li><a href="/jsx">JSX</a></li>
+</ul>
+
+  </div>
+</div>
+
+<script src="./js/book-sidebar.js"></script>
+      </div>
+
+      <div class="column col-8 col-lg-12">
+        <div class="book-content">
+          <div class="book-navbar">
+  <header class="navbar">
+  <section class="navbar-section">
+    <img class="navbar-icon" src="./favicon.ico">
+  </section>
+  <section class="navbar-center">
+    Omil
+  </section>
+  <section class="navbar-section">
+    <label class="accordion-header c-hand" for="accordion-sidebar">
+      <i class="icon icon-menu"></i>
+    </label>
+  </section>
+</header>
+
+<div class="accordion">
+  <input type="checkbox" id="accordion-sidebar" name="accordion-checkbox" hidden>
+  <div class="accordion-body">
+    <ul>
+<li><a href="/">介绍</a></li>
+<li><a href="/install">安装</a></li>
+<li><a href="/plugin">配合Omi Snippets插件</a></li>
+<li><a href="/spec">语言块规范</a></li>
+<li><a href="/jsx">JSX</a></li>
+</ul>
+
+  </div>
+</div>
+</div>
+
+<div class="book-post">
+  <h1 id="起步"><a href="#起步" class="headerlink" title="起步"></a>起步</h1><h2 id="Omi-CLI"><a href="#Omi-CLI" class="headerlink" title="Omi CLI"></a>Omi CLI</h2><p>如果你不想手动设置 webpack，我们推荐使用 <a href="https://github.com/Tencent/omi/tree/master/packages/omi-cli" target="_blank" rel="noopener">Omi CLI</a> 直接创建一个项目的脚手架。通过 Omi CLI 创建的项目会针对多数常见的开发需求进行预先配置，做到开箱即用。</p>
+<p>如果<code>Omi CLI</code>提供的内建没有满足你的需求，或者你乐于从零开始创建你自己的 webpack 配置，那么请继续阅读这篇指南。</p>
+<h1 id="手动设置"><a href="#手动设置" class="headerlink" title="手动设置"></a>手动设置</h1><h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p>首先先安装好<code>Omil</code></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install -D omil</span><br></pre></td></tr></table></figure>
+
+<p>如果你使用的是 <a href="https://code.visualstudio.com/" target="_blank" rel="noopener">Visual Studio Code</a> 进行开发，强烈建议下载 <a href="https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets" target="_blank" rel="noopener">Omi Snippets</a> 扩展，它会提供给你语法高亮，局部编译等功能。您可以在 VSC 扩展界面里面搜索 omi 这个关键词出现<code>Omi Snippets</code>点击安装即可，稍等片刻，当它安装成功后会提醒你需要重新加载编辑工具，点击重新加载即可使用。</p>
+<img src="../images/omi-snippets.png">
+
+<p>每个<code>Omil</code>包的新版本发布时，一个相应版本的<code>Omi Snippets</code>也会随之发布。</p>
+<h2 id="webpack-配置"><a href="#webpack-配置" class="headerlink" title="webpack 配置"></a>webpack 配置</h2><p>Omi Loader 的配置和其它的 loader 基本一样。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// webpack.config.js</span></span><br><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [</span><br><span class="line">      <span class="comment">// ... 其它规则</span></span><br><span class="line">      &#123;</span><br><span class="line">        test: <span class="regexp">/\.omi|eno$/</span>,</span><br><span class="line">        loader: <span class="string">'omil'</span></span><br><span class="line">      &#125;</span><br><span class="line">    ]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一个更完整的 webpack 配置示例看起来像这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">module</span>.exports = &#123;</span><br><span class="line">  mode: <span class="string">'development'</span>,</span><br><span class="line">  <span class="built_in">module</span>: &#123;</span><br><span class="line">    rules: [&#123;</span><br><span class="line">      test: <span class="regexp">/\.omi|eno$/</span>,</span><br><span class="line">      use: [&#123;</span><br><span class="line">        loader: <span class="built_in">require</span>.resolve(<span class="string">'omil'</span>),</span><br><span class="line">        options: &#123;</span><br><span class="line">          <span class="comment">// Use in development, You should remove in production</span></span><br><span class="line">          sourceMaps: <span class="string">'both'</span>,</span><br><span class="line">          <span class="comment">// Config babel plugins for async, await and other many features</span></span><br><span class="line">          plugins: [</span><br><span class="line">            [</span><br><span class="line">              <span class="string">"@babel/plugin-transform-runtime"</span>,</span><br><span class="line">              &#123;</span><br><span class="line">                <span class="string">"absoluteRuntime"</span>: <span class="literal">false</span>,</span><br><span class="line">                <span class="string">"corejs"</span>: <span class="literal">false</span>,</span><br><span class="line">                <span class="string">"helpers"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="string">"regenerator"</span>: <span class="literal">true</span>,</span><br><span class="line">                <span class="string">"useESModules"</span>: <span class="literal">false</span></span><br><span class="line">              &#125;</span><br><span class="line">            ]</span><br><span class="line">          ]</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;],</span><br><span class="line">      <span class="comment">// Or you can use eno-loader or omil directly</span></span><br><span class="line">      <span class="comment">// use: ['eno-loader']</span></span><br><span class="line">      <span class="comment">// use: ['omil']</span></span><br><span class="line">    &#125;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</div>
+
+
+  <div class="book-comments">
+    
+
+
+  </div>
+
+
+<script src="./js/book-post.js"></script>
+        </div>
+      </div>
+
+      <div class="column col-2 hide-lg">
+        <div class="book-toc">
+  <div class="book-tocbot">
+  </div>
+  <div class="book-tocbot-menu">
+    <a class="book-toc-expand" onclick="expand_toc()">Expand all</a>
+    <a onclick="go_top()">Back to top</a>
+    <a onclick="go_bottom()">Go to bottom</a>
+  </div>
+</div>
+
+<script>
+tocbot.init({
+  tocSelector: '.book-tocbot',
+  contentSelector: '.book-post',
+  headingSelector: 'h1, h2, h3, h4, h5',
+  collapseDepth: 2,
+  orderedList: false,
+  scrollSmooth: false,
+});
+
+function expand_toc(){
+  var b = document.querySelector(".book-toc-expand");
+  tocbot.init({
+    tocSelector: '.book-tocbot',
+    contentSelector: '.book-post',
+    headingSelector: 'h1, h2, h3, h4, h5',
+    collapseDepth: 6,
+    orderedList: false,
+    scrollSmooth: false,
+  });
+  b.setAttribute("onclick", "collapse_toc()");
+  b.innerHTML = "Collapse all"
+}
+
+function collapse_toc(){
+  var b = document.querySelector(".book-toc-expand");
+  tocbot.init({
+    tocSelector: '.book-tocbot',
+    contentSelector: '.book-post',
+    headingSelector: 'h1, h2, h3, h4, h5',
+    collapseDepth: 2,
+    orderedList: false,
+    scrollSmooth: false,
+  });
+  b.setAttribute("onclick", "expand_toc()");
+  b.innerHTML = "Expand all"
+}
+
+function go_top() {
+  window.scrollTo(0, 0);
+}
+
+function go_bottom() {
+  window.scrollTo(0, document.body.scrollHeight);
+}
+
+</script>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
