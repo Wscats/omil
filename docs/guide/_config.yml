@@ -13,8 +13,8 @@ timezone:
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://github.com/Wscats/omil-docs
-root: /
+url: https://wscats.github.io/omi-docs/public/home
+root: ../
 permalink: :title/
 permalink_defaults:
 

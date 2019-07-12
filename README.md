@@ -103,7 +103,7 @@ module.exports = {
 
 # Omi Snippets
 
-在配置完 Omil 之后，我们可以在 VSC 上同时安装好 [Omi Snippets](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets) 扩展，这个插件可以方便的让你把 .omi 和 .eno 后缀文件转化为 .js 文件，让你可以直观了解到单文件组件经过 omil 转化后的 JS 文件内容。
+在配置完 Omil 之后，我们可以在 VS Code 上同时安装好 [Omi Snippets](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets) 扩展，这个插件可以方便的让你把 .omi 和 .eno 后缀文件在未经过 webpack 处理前转化为 .js 文件，让你可以直观了解到单文件组件经过 omil 转化后的 JS 文件内容，这相当于局部编译减轻 webpack 处理单文件时候的不必要消耗。
 
 ## 目录结构
 
@@ -178,6 +178,97 @@ MyTest.css = `
 }
 `;
 define("my-test", MyTest);
+```
+
+# 配合 React 开发
+
+安装 React 脚手架和一些必要模块。
+```bash
+npm install create-react-app
+# 初始化项目
+create-react-app my-project
+# 进入项目文件夹目录
+cd my-project
+# 安装项目依赖
+npm install
+# 安装 styled-components 这个务必得安装 用于处理 React 单文件组件局部样式
+npm install styled-components --save
+# 安装 omil 处理React单文件组件，把 .omi 或者 .eno 后缀文件处理为 JS
+npm install omil --save-dev
+```
+
+在配置完 Omil 之后，我们可以在 VS Code 上同时安装好 [Omi Snippets](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets) 扩展，这个插件可以方便的让你把 .omi 和 .eno 后缀文件在未经过 webpack 处理前转化为 .js 文件，让你可以直观了解到单文件组件经过 omil 转化后的 JS 文件内容，这相当于局部编译减轻 webpack 处理单文件时候的不必要消耗。
+
+
+# 编写第一个组件
+
+现在你可以使用单文件组件来编写 React 组件，默认生成类组件。
+
+- name属性值是组件名要满足 React 框架的组件名字定义规范，首字母必须大写字母;
+- `<template>`模板中不能有`<script>`和`<style>`代码片段。
+
+```html
+<template name="Component-name">
+    <div>
+        <p>{this.state.title}</p>
+    </div>
+</template>
+<script>
+export default class {
+    constructor(props) {
+        super(props)
+        this.state = {
+            title: "react"
+        }
+    }
+    componentDidMount(){
+        console.log('生命周期')
+    }
+}
+
+</script>
+<style>
+p {color: #58bc58};
+</style>
+```
+以上文件经过 Omil 处理后将会转化为以下代码：
+
+```js
+import { Component as WeElement, createElement as h } from "react";
+import styled from "styled-components";
+const StyledComponents = styled.div`
+  /* CSS */
+  p {
+    color: #58bc58;
+  }
+`;
+
+class ComponentName extends WeElement {
+  render() {
+    return h(
+      StyledComponents,
+      null,
+      h("div", null, h("p", null, this.state.title))
+    );
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      title: "react"
+    };
+  }
+
+  componentDidMount() {
+    console.log("生命周期");
+  }
+}
+
+ComponentName.css = `
+/* CSS */
+p {color: #58bc58};
+`;
+export default ComponentName;
 ```
 
 # 语言块规范
@@ -706,3 +797,497 @@ const element = {
 
 这些对象它们描述了你希望在屏幕上看到的内容。Omi 通过读取这些对象，然后使用它们来构建 DOM 以及保持随时更新。
 
+# Props
+
+我们可以在组件的属性上传入属性值，通过传入属性值让组件接受外部的数据而更改自身的状态。
+
+```html
+<component-name myObj={{ name: 'Eno Yao' }} />
+```
+
+组件内部通过props接受即可：
+
+```html
+<template name="component-name">
+    <p>{props.myObj.name}</p>
+</template>
+```
+
+我们还可以通过`static defaultProps`设置默认的props值和通过`static propTypes`设置默认的props类型。
+
+```html
+<template name="component-name">
+    <div>
+        <p>{props.name}</p>
+        <p>{props.age}</p>
+    </div>
+</template>
+<script>
+    export default class {
+        static defaultProps = {
+            name: 'Omi',
+            age: 18
+        }
+
+        static propTypes = {
+            name: String,
+            age: Number
+        }
+    }
+</script>
+```
+
+# 事件处理
+
+Omi 元素的事件处理和 React 一样和 DOM 元素的很相似，但是有一点语法上的不同:
+
+- Omi 事件的命名采用小驼峰式（camelCase），而不是纯小写。
+- 使用 JSX 语法时你需要传入一个函数作为事件处理函数，而不是一个字符串。
+
+```html
+<template name="component-name">
+    <div>
+        <button onClick={this.onClick}>Hello Omi!</button>
+        <button onClick={(evt)=> {alert('Hello Omi!')}}>Hello Omi!</button>
+        <button onClick={onClick}>Hello Omi!</button>
+    </div>
+</template>
+<script>
+    const onClick = (evt) => {
+        alert('Hello Omi!')
+    }
+    export default class {
+        onClick(evt) {
+            alert('Hello Omi!')
+        }
+    }
+</script>
+```
+
+## 事件中的this
+
+你必须谨慎对待 JSX 回调函数中的 this，在 JavaScript 中，class 的方法默认不会绑定 this。如果你忘记绑定 this.handleClick 并把它传入了 onClick，当你调用这个函数的时候 this 的值为 undefined。
+
+这并不是 React 特有的行为；这其实与 JavaScript 函数工作原理有关。通常情况下，如果你没有在方法后面添加 ()，例如 onClick={this.handleClick}，你应该为这个方法绑定 this。
+
+```html
+<template name="component-name">
+    <div>
+        <button onClick={this.onClick.bind(this)}>{this.data.title}</button>
+    </div>
+</template>
+<script>
+    export default class {
+        install() {
+            this.data = { title: 'Hello Omi!' }
+        }
+        onClick() {
+            this.data.title = 'Hi Eno!'
+            this.update()
+        }
+    }
+</script>
+```
+
+## 向事件处理程序传递参数
+
+在循环中，通常我们会为事件处理函数传递额外的参数。例如，若 id 是你要删除那一行的 ID，以下两种方式都可以向事件处理函数传递参数：
+
+```html
+<button onClick={(e) => this.deleteRow(id, e)}>Delete Row</button>
+<button onClick={this.deleteRow.bind(this, id)}>Delete Row</button>
+```
+
+上述两种方式是等价的，分别通过箭头函数和 Function.prototype.bind 来实现。
+
+在这两种情况下，React 的事件对象 e 会被作为第二个参数传递。如果通过箭头函数的方式，事件对象必须显式的进行传递，而通过 bind 的方式，事件对象以及更多的参数将会被隐式的进行传递。
+
+# 生命周期
+
+以下表格是 Omi 的生命周期：
+
+|生命周期钩子|描述|
+|-|-|
+|install|组件挂载到 DOM 前|
+|installed|组件挂载到 DOM 后|
+|uninstall|组件从 DOM 中移除前|
+|beforeUpdate|update 更新前|
+|updated|update 更新后|
+|beforeRender|render() 之前|
+|receiveProps|父元素重新渲染触发|
+
+举个例子：
+
+```html
+<template name="component-name">
+    <div>Seconds: {this.data.seconds}</div>
+</template>
+<script>
+    export default class {
+        data = {
+            seconds: 0
+        }
+        tick() {
+            this.data.seconds++
+            this.update()
+        }
+        install() {
+            this.interval = setInterval(() => this.tick(), 1000)
+        }
+        uninstall() {
+            clearInterval(this.interval)
+        }
+    }
+</script>
+```
+
+# Update
+
+update 方法是内置的重要核心方法，用于更新组件自身。比如:
+
+```js
+this.update()
+```
+
+也可以传递参数，决定是否在 html 模式下忽略 attributes，强行更新:
+
+```js
+this.update(true)
+```
+
+当我们组件的 data 值发生变化，我们可以使用`this.update()`更新视图
+
+```html
+<template name="component-name">
+    <div>
+        <button onClick={this.toggle.bind(this)}>Update</button>
+        <p style={{display:this.data.bool?'block':'none'}}>显示或者隐藏</p>
+    </div>
+</template>
+<script>
+    export default class {
+        data = {
+            bool: !0
+        }
+        toggle() {
+            this.data.bool = !this.data.bool
+            this.update()
+        }
+    }
+</script>
+```
+
+# Ref
+
+```html
+<template name="component-name">
+    <div>
+        <h1 ref={e=> { this.h1 = e }} onClick={this.onClick}>Hello, world!</h1>
+    </div>
+</template>
+<script>
+    export default class {
+        onClick = (evt) => {
+            console.log(this.h1)
+        }
+    }
+</script>
+```
+
+在元素上添加 `ref={e => { this.anyNameYouWant = e }}` ，然后你就可以 JS 代码里使用 `this.anyNameYouWant` 访问该元素。你可以使用两种方式来提高 update 的性能：
+
+- 提前赋值
+- createRef
+
+
+## 提前赋值
+
+```html
+<template name="component-name">
+    <div>
+        <h1 ref={e=> { this.myRef = e }} onClick={this.onClick}>Hello, world!</h1>
+    </div>
+</template>
+<script>
+    export default class {
+        myRef = e => { this.h1 = e }
+        onClick = (evt) => {
+            console.log(this.h1)
+        }
+    }
+</script>
+```
+
+## createRef
+
+你也可以使用 `createRef` 来得到更高的性能，使用前需要引用 `import { createRef } from "omi"`:
+
+```html
+<template name="component-name">
+    <div>
+        <h1 ref={this.myRef} onClick={this.onClick}>Hello, world!</h1>
+    </div>
+</template>
+<script>
+    import { createRef } from "omi";
+    export default class {
+        myRef = createRef()
+        onClick = (evt) => {
+            console.log(this.myRef.current)
+        }
+    }
+</script>
+```
+
+# Store 是什么？
+
+Store 是 Omi 内置的中心化数据仓库，他解决和提供了下面问题和能力：
+
+组件树数据共享
+数据变更按需更新依赖的组件
+
+<img src="./src/assets/store.cn.jpg" />
+
+# 两份代码完全上手 Store
+
+`path/elements/app/index.omi`下的根组件
+```html
+<template name="my-app">
+    <div>
+        <p>
+            Clicked: {this.use.count} times
+            {' '}
+            <button onClick={this.add}>+</button>
+            {' '}
+            <button onClick={this.sub}>-</button>
+            {' '}
+            <button onClick={this.addIfOdd}>
+                Add if odd
+            </button>
+            {' '}
+            <button onClick={this.addAsync}>
+                Add async
+            </button>
+        </p>
+    </div>
+</template>
+<script>
+    export default class {
+        static use = [
+            { count: 'count' }
+        ]
+
+        add = () => this.store.add()
+        sub = () => this.store.sub()
+
+        addIfOdd = () => {
+            if (this.use.count % 2 !== 0) {
+                this.store.add()
+            }
+        }
+
+        addAsync = () => {
+            setTimeout(() => this.store.add(), 1000)
+        }
+    }
+</script>
+<style lang="scss">
+    /* CSS */
+    p {
+        color: #58bc58
+    };
+</style>
+```
+`path/src/index.js`全局的入口文件代码
+```js
+import { render } from 'omi'
+import './elements/app'
+
+render(<my-app />, '#root', {
+    data: {
+        count: 0
+    },
+    sub() {
+        this.data.count--
+    },
+    add() {
+        this.data.count++
+    },
+})
+```
+
+- 通过 `static use` 声明依赖的 path
+- store 通过 render 的第三个参数从根节点注入到所有组件。
+
+
+Store 里的 data:
+```js
+{
+  count: 0,
+  arr: ['china', 'tencent'],
+  motto: 'I love omi.',
+  userInfo: {
+    firstName: 'dnt',
+    lastName: 'zhang',
+    age: 18
+  }
+}
+```
+
+下面举一个复杂的 `use` 例子：
+```jsx
+static use = [
+  'count', //直接字符串，JSX 里可通过 this.use[0] 访问
+  'arr[0]', //也支持 path，JSX 里可通过 this.use[1] 访问
+  //支持 json
+  {
+    //alias，JSX 里可通过 this.use.reverseMotto 访问
+    reverseMotto: [
+      'motto', //path
+      target => target.split('').reverse().join('')  //computed
+    ]
+  },
+  { name: 'arr[1]' }, //{ alias: path }，JSX 里可通过 this.use.name 访问
+  {
+    //alias，JSX 里可通过 this.use.fullName 访问
+    fullName: [
+      ['userInfo.firstName', 'userInfo.lastName'], //path array
+      (firstName, lastName) => firstName + lastName //computed
+    ]
+  },
+]
+```
+
+下面看看 JSX 中使用:
+
+```jsx
+...
+...
+<template>
+    <div>
+      <button onClick={this.sub}>-</button>
+      <span>{this.use[0]}</span>
+      <button onClick={this.add}>+</button>
+      <div>
+        <span>{this.use[1]}</span>
+        <button onClick={this.rename}>rename</button>
+      </div>
+      <div>{this.use.reverseMotto}</div><button onClick={this.changeMotto}>change motto</button>
+      <div>{this.use.name}</div>
+      <div>{this.use[3]}</div>
+      <div>
+        {this.use.fullName}
+        <button onClick={this.changeFirstName}>change first name</button>
+      </div>
+    </div>
+</template>
+...
+...
+```
+
+如果不带有 alias ，你也可以直接通过 `this.store.data.xxx` 访问。
+
+
+当 `store.data` 发生变化，依赖变更数据的组件会进行更新，举例说明 Path 命中规则:
+
+| Proxy Path(由数据更改产生) | static use 中的 path | 是否更新 |
+| ---------- | ---------- | -------- |
+| abc        | abc        | 更新     |
+| abc[1]     | abc        | 更新     |
+| abc.a      | abc        | 更新     |
+| abc        | abc.a      | 不更新   |
+| abc        | abc[1]     | 不更新   |
+| abc        | abc[1].c   | 不更新   |
+| abc.b      | abc.b      | 更新     |
+
+以上只要命中一个条件就可以进行更新！
+
+总结： 只要注入组件的 path 等于 use 里声明 或者在 use 里声明的其中 path 子节点下就会进行更新！
+
+# CSS
+
+这里说的是 props 的 css，而不是 static css，它提供了修改 shadow dom 内部 scoped style 的能力。
+
+```html
+<template name="component-name">
+    <div>
+        <h1>Look at my color!</h1>
+    </div>
+</template>
+<script>
+    export default class {
+        static css = `h1{
+            color: red;
+        }`
+    }
+</script>
+```
+
+上面的 `my-element` 的 h1 标签颜色是红色。有什么办法修改吗？
+
+```html
+<template name="component-name">
+    <div onClick={this.onClick}>
+        <my-element css={this.myCSS} />
+    </div>
+</template>
+<script>
+    export default class {
+        myCSS = `
+            h1{
+                color: green;
+            }
+        `
+        onClick = () => {
+            //动态修改
+            this.myCSS = `
+                h1{
+                    color: blue;
+                }
+            `
+            this.update()
+        }
+    }
+</script>
+```
+
+而且还可以通过下面的方式保证一定能够修改：
+
+```css
+color: blue!important;
+```
+
+# 高阶组件
+
+如果您用过 React，相信对高阶组件肯定不陌生，高阶组件（HOC）是 React 中用于复用组件逻辑的一种高级技巧。HOC 自身不是 React API 的一部分，它是一种基于 React 的组合特性而形成的设计模式。
+
+具体而言，高阶组件是参数为组件，返回值为新组件的函数。
+```js
+const EnhancedComponent = higherOrderComponent(WrappedComponent);
+```
+组件是将 props 转换为 UI，而高阶组件是将组件转换为另一个组件。
+
+HOC 在 React 的第三方库中很常见，例如 Redux 的 connect。
+
+下面这个例子是是在组件中使用 Redux 高阶组件
+```html
+<template name="Component-name">
+    <div><p>{this.state.title}</p></div>
+</template>
+<script>
+    import { connect } from 'react-redux';
+    export default connect((state) => {
+        return state
+    })(class {
+        constructor(props) {
+            super(props)
+            this.state = {
+                title: "react"
+            }
+        }
+    })
+</script>
+<style>
+    p {color: #58bc58;}
+</style>
+```
