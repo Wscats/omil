@@ -1,10 +1,7 @@
-<template name="component-name">
-    hoc(
-        <div>
-            <!-- JSX -->
-            <p>{this.state.title}</p>
-        </div>
-    )
+<template name="Component-name">
+    <div>
+        <p>{this.state.title}</p>
+    </div>
 </template>
 <script>
 // JS
@@ -14,6 +11,9 @@ export default class {
         this.state = {
             title: "react"
         }
+    }
+    componentDidMount(){
+        console.log('生命周期')
     }
 }
 

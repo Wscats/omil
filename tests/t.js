@@ -4,7 +4,7 @@ console.log(omil({
     // file: 'html',
     options: null,
     source: `
-    <template name="my-abc-abc">
+    <template lang="html" name="my-abc-abc">
         connect(
             <div>
                 <!-- JSX -->

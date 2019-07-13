@@ -1,0 +1,24 @@
+<template name="component-name">
+    <div onClick={this.onClick}>
+        hello world
+    </div>
+</template>
+<script>
+    //extractClass 会取出 props 的  class 或 className 属性并与其他 classNames 合并在一起
+    export default class {
+        myCSS = `
+            h1{
+                color: green;
+            }
+        `
+        onClick = () => {
+            //动态修改
+            this.myCSS = `
+                h1{
+                    color: blue;
+                }
+            `
+            this.update()
+        }
+    }
+</script>

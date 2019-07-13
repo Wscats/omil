@@ -110,7 +110,7 @@ module.exports = (option) => {
                     case 'html':
                         hocScript = `
                                 ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} extends WeElement {
-                                render() {
+                                render(props) {
                                     return (html${'`'}${template}${'`'})
                                 }
                             `.replace(/export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g, `const ${captain(convertToCamelCase(templateComponentName))} = $1$2`)
@@ -120,7 +120,7 @@ module.exports = (option) => {
                     default:
                         hocScript = `
                             ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} extends WeElement {
-                            render() {
+                            render(props) {
                                 return ${template}
                             }
                         `.replace(/export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g, `const ${captain(convertToCamelCase(templateComponentName))} = $1$2`)
@@ -165,7 +165,7 @@ module.exports = (option) => {
                     return `
                         ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
                             ${css}
-                            render() {
+                            render(props) {
                                 return (html${'`'}${template}${'`'})
                             }
                         `
@@ -174,7 +174,7 @@ module.exports = (option) => {
                     return `
                         ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
                             ${css}
-                            render() {
+                            render(props) {
                                 return ${template}
                             }
                         `

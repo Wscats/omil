@@ -11,19 +11,31 @@
       const { WeElement, define, html, h, render } = omi;
 
       class ComponentName extends WeElement {
-        render() {
+        constructor(...args) {
+          super(...args);
+          this.myCSS = `
+            h1{
+                color: green;
+            }
+        `;
+
+          this.onClick = () => {
+            this.myCSS = `
+                h1{
+                    color: blue;
+                }
+            `;
+            this.update();
+          };
+        }
+
+        render(props) {
           return h(
-            "ul",
-            null,
-            ["a", "b", "c"].map((item, index) => {
-              return h(
-                "li",
-                {
-                  key: index
-                },
-                item
-              );
-            })
+            "div",
+            {
+              onClick: this.onClick
+            },
+            "hello world"
           );
         }
       }
