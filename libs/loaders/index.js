@@ -57,7 +57,7 @@ const compileAll = async (sourceObj, options, callback) => {
     // console.log(script)
     // whether <StyledComponents> exist
     template = handleStyledComponents({ style, template });
-    
+
     // html -> jsx
     if (templateLang !== 'html' && templateLang !== 'htm') {
         const transform = require('../scripts/extension/transform')
@@ -127,7 +127,12 @@ const compileAll = async (sourceObj, options, callback) => {
         // console.log(allScript)
         // as async return
         if (sourceObj.type === 'extension') {
-            callback(allScript)
+            // callback(allScript)
+            callback({
+                status: 'success',
+                allScript,
+                e: null
+            })
         } else {
             // handle template
             const transform = require('../scripts/loader/transform')
@@ -139,6 +144,11 @@ const compileAll = async (sourceObj, options, callback) => {
 
         // callback(null, result.code)
     } catch (e) {
+        callback({
+            status: 'fail',
+            allScript: '',
+            e
+        })
         console.log(e)
         // throw new Error("babel compile failed, see issues https://github.com/Wscats/eno-loader/issues");
     }
