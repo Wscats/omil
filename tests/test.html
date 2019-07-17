@@ -9,14 +9,9 @@
     <script src="https://tencent.github.io/omi/packages/omi/dist/omi.js"></script>
     <script>
       const { WeElement, define, html, h, render } = omi;
-      const StyledComponents = styled.div`
-        .example {
-          color: red;
-        }
-      `;
 
       class MyTest extends WeElement {
-        render() {
+        render(props) {
           return h(
             "div",
             {
@@ -28,7 +23,8 @@
 
         install() {
           this.data = {
-            msg: "Hello world!"
+            msg: "Hello world!",
+            name: "yao"
           };
         }
       }

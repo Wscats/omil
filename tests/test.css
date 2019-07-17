@@ -4,3 +4,6 @@ p {
 p header {
   background-color: blue;
 }
+p span {
+  color: red;
+}

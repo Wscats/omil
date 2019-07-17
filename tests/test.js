@@ -1,26 +1,16 @@
 import { WeElement, define, h } from "omi";
 
-class MyTest extends WeElement {
-  render() {
-    return h(
-      "div",
-      {
-        class: "example"
-      },
-      this.data.msg
-    );
+class ComponentName extends WeElement {
+  render(props) {
+    return h("div", null, h("p", null, this.data.title));
   }
 
   install() {
     this.data = {
-      msg: "Hello world!"
+      title: "omi"
     };
   }
 }
 
-MyTest.css = `
-.example {
-  color: red;
-}
-`;
-define("my-test", MyTest);
+ComponentName.css = `p{color:#58bc58}`;
+define("component-name", ComponentName);

@@ -1,30 +1,19 @@
-import { WeElement, h } from "omi";
-const StyledComponents = styled.div`
-  .example {
-    color: red;
-  }
-`;
-export default class _class extends WeElement {
-  render() {
-    return h(
-      "div",
-      {
-        class: "example"
-      },
-      {
-        msg
-      }
-    );
+import { WeElement, define, h } from "omi";
+
+class ComponentName extends WeElement {
+  render(props) {
+    return h("div", null, h("p", null, this.data.title));
   }
 
-  data() {
-    return {
-      msg: "Hello world!"
+  install() {
+    this.data = {
+      title: "omi"
     };
   }
 }
-_class.css = `
-.example {
-  color: red;
-}
+
+ComponentName.css = `
+/* CSS */
+p {color: #58bc58};
 `;
+define("component-name", ComponentName);

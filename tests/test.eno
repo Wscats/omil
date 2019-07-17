@@ -14,7 +14,7 @@ export default class {
     }
 }
 </script>
-<style>
+<style lang="scss">
 /* CSS */
-p {color: #58bc58};
+p {color: #58bc58}
 </style>
