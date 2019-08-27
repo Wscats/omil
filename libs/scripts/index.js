@@ -1,12 +1,16 @@
 const compileStyle = require('../styles/index')
 const { deleteCodeComments } = require('../utils/comments')
 const cheerio = require('cheerio')
+const {
+    isCaptain
+} = require('./extension/convert')
 const compileScript = (sourceObj) => {
     const omi = sourceObj.source
     const {
         style,
         isExistStyle,
-        styleLang
+        styleLang,
+        templateComponentName
     } = sourceObj
 
     const scriptInTag = (() => {
@@ -29,11 +33,16 @@ const compileScript = (sourceObj) => {
     script = deleteCodeComments(script)
     // console.log(script)
     const styleInScript = (() => {
-        // if css(){} in script , we should combine style and css functuon
-        // script =  script.replace(/css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g, `static css(){return ${'`'}${style}${'`'}+$1`)
-        // console.log(style)
-        script = script.replace(/static\s*css\s*=([^\)]*)/g, `static css = ${'`'}${style}${'`'}+$1`)
-        return script
+        // if css(){} or css = 'xxx' in script , we should combine style and css functuon
+        if (isCaptain(templateComponentName)) {
+            script = script.replace(/static\s*css\s*=([^\)]*)/g, `static css = $1`)
+            return script
+            return script
+        } else {
+            script = script.replace(/static\s*css\s*=([^\)]*)/g, `static css = ${'`'}${style}${'`'}+$1`)
+            return script
+        }
+
     })()
 
     const scriptType = (() => {

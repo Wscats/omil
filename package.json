@@ -1,7 +1,7 @@
 {
   "name": "omil",
-  "version": "1.8.9",
-  "description": "Webpack loader for Omi.js components",
+  "version": "1.9.1",
+  "description": "Webpack loader for Omi.js, React.js or Rax.js components",
   "main": "libs/index.js",
   "scripts": {
     "start": "webpack"
@@ -43,6 +43,7 @@
     "proxy",
     "preact",
     "react",
+    "rax",
     "virtual dom",
     "vdom",
     "components",

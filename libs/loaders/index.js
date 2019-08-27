@@ -22,7 +22,8 @@ const compileAll = async (sourceObj, options, callback) => {
     let {
         template,
         templateLang,
-        templateComponentName
+        templateComponentName,
+        templateFrameworkName
     } = html = compileTemplate(sourceObj)
     // css
     let {
@@ -30,7 +31,6 @@ const compileAll = async (sourceObj, options, callback) => {
         isExistStyle,
         styleLang,
     } = compileStyle(sourceObj)
-
 
     // console.log(style,styleLang)
     // sass and jsx
@@ -49,8 +49,9 @@ const compileAll = async (sourceObj, options, callback) => {
     } = js = compileScript({
         ...sourceObj,
         style,
+        styleLang,
         isExistStyle,
-        styleLang
+        templateComponentName
     })
     // console.log(template)
     // console.log(style)
@@ -79,6 +80,7 @@ const compileAll = async (sourceObj, options, callback) => {
                 template,
                 templateLang,
                 templateComponentName,
+                templateFrameworkName,
                 style,
                 styleLang,
                 isExistStyle,

@@ -5,57 +5,51 @@ const {
     isCaptain
 } = require('../scripts/extension/convert')
 const cheerio = require('cheerio')
+
+const findAttr = (templateInTag, attr) => {
+    let attrKey = templateInTag.match(/<template[^>]*>/g)[0]
+    if (attrKey.indexOf(attr) >= 0) {
+        let $ = cheerio.load(attrKey)
+        return $('template').attr(attr).replace(/^\s*|\s*$/g, "") || ''
+    } else {
+        return ''
+    }
+}
+
 const compileTemplate = (sourceObj) => {
     const omi = sourceObj.source
     const templateInTag = (
         omi
-        .match(/<template[^>]*>([\s\S]*?)<\/template>/g)[0]
+            .match(/<template[^>]*>([\s\S]*?)<\/template>/g)[0]
     )
     let template = (
         templateInTag
-        .replace(/<template[^>]*>|<\/template>/g, '')
+            .replace(/<template[^>]*>|<\/template>/g, '')
     )
-    const templateLang = (() => {
-        let lang = templateInTag.match(/<template[^>]*>/g)[0]
-        if (lang.indexOf('lang') >= 0) {
-            let $ = cheerio.load(lang)
-            // console.log($('template').attr('lang')||'')
-            // return lang.replace(/<template\s+lang=["']([^>]*)["']\s*>/g, '$1')
-            return $('template').attr('lang').replace(/^\s*|\s*$/g, "") || ''
-        } else {
-            return ''
-        }
-    })()
-    const templateComponentName = (() => {
-        let name = templateInTag.match(/<template[^>]*>/g)[0]
-        if (name.indexOf('name') >= 0) {
-            let $ = cheerio.load(name)
-            // console.log($('template').attr('name')||'')
-            // return name.replace(/<template\s+name=["']([^>]*)["']\s*>/g, '$1')
-            return $('template').attr('name').replace(/^\s*|\s*$/g, "") || ''
-        } else {
-            return ''
-        }
-    })()
+
+    // lang="xxx"
+    const templateLang = findAttr(templateInTag, 'lang')
+
+    // name="xxx"
+    const templateComponentName = findAttr(templateInTag, 'name')
+
+    // framework="xxx"
+    const templateFrameworkName = findAttr(templateInTag, 'framework')
+
     // <StyledComponents>xxx</StyledComponents>
-    if(isCaptain(templateComponentName)){
+    if (isCaptain(templateComponentName)) {
         template = `<StyledComponents>${template}</StyledComponents>`
     }
-    // console.log(template,templateComponentName)
-    // const templateWithRender = (() => {
-    //     let render = templateInTag.match(/<template[^>]*>/g)[0]
-    //     let $ = cheerio.load(render)
-    //     console.log($('template').attr('render'))
-    //     if (render.indexOf('render') >= 0) {
-    //         let $ = cheerio.load(render)
-    //         return $('template').attr('render').replace(/^\s*|\s*$/g, "") || ''
-    //     } else {
-    //         return ''
-    //     }
-    // })()
 
-    // console.log(templateWithRender)
-    
+    // render="xxx"
+    // const templateWithRender = findAttr(templateInTag, 'render')
+
+    console.log({
+        templateLang,
+        templateComponentName,
+        templateFrameworkName
+    })
+
     // remove annotation
     template = annotation.remove({
         code: template,
@@ -64,7 +58,8 @@ const compileTemplate = (sourceObj) => {
     return {
         template,
         templateLang,
-        templateComponentName
+        templateComponentName,
+        templateFrameworkName
     }
 }
 

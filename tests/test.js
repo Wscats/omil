@@ -2,15 +2,20 @@ import { WeElement, define, h } from "omi";
 
 class ComponentName extends WeElement {
   render(props) {
-    return h("div", null, h("p", null, this.data.title));
+    return h("div", null, this.data.title);
   }
 
   install() {
     this.data = {
-      title: "omi"
+      title: "Hello World"
     };
   }
 }
 
-ComponentName.css = `p{color:#58bc58}`;
+ComponentName.css = `
+    /* CSS */
+    p {
+        color: #58bc58
+    }
+`;
 define("component-name", ComponentName);

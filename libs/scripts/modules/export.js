@@ -131,9 +131,8 @@ module.exports = (option) => {
         }
     }
 
-
     switch (isCaptain(templateComponentName)) {
-        // react
+        // react without static css
         case true:
             switch (templateLang) {
                 // html
@@ -141,7 +140,6 @@ module.exports = (option) => {
                     return `
                         ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
                         `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                        ${css}
                         render() {
                             return (html${'`'}${template}${'`'})
                         }
@@ -151,7 +149,6 @@ module.exports = (option) => {
                     return `
                         ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
                         `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                        ${css}
                         render() {
                             return ${template}
                         }

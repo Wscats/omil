@@ -10,6 +10,7 @@ module.exports = (option) => {
         template,
         templateLang,
         templateComponentName,
+        templateFrameworkName,
         style,
         styleLang,
         isExistStyle,
@@ -54,8 +55,10 @@ module.exports = (option) => {
                         // htm,
                         templateLang === 'html' || templateLang === 'htm' ? 'html' : 'createElement as h'
                         }
-                        } from "react";
-
+                        } from '${
+                        // react , omi or rax
+                        templateFrameworkName ? templateFrameworkName : 'react'
+                        }';
                     `
                         // css
                         +
@@ -96,7 +99,10 @@ module.exports = (option) => {
                         // htm,
                         templateLang === 'html' || templateLang === 'htm' ? 'html' : 'h'
                         }
-                        } from "omi";
+                        } from  '${
+                        // react , omi or rax
+                        templateFrameworkName ? templateFrameworkName : 'omi'
+                        }';
                     `
                     break;
             }

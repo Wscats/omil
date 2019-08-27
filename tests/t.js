@@ -30,7 +30,7 @@ console.log(omil({
         // aaa
         // bbb
 
-        static css = style + a
+        // static css = style + a
         css(){
             return 'ooooo'
         }

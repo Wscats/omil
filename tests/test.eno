@@ -1,20 +1,20 @@
 <template name="component-name">
     <div>
         <!-- JSX -->
-        <p>{this.data.title}</p>
+        {this.data.title}
     </div>
 </template>
 <script>
-// JS
-export default class {
-    install() {
-        this.data = {
-            title: "omi"
+    // JS
+    export default class {
+        install() {
+            this.data = { title: "Hello World" }
         }
     }
-}
 </script>
-<style lang="scss">
-/* CSS */
-p {color: #58bc58}
+<style>
+    /* CSS */
+    p {
+        color: #58bc58
+    }
 </style>
