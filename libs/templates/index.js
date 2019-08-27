@@ -44,11 +44,11 @@ const compileTemplate = (sourceObj) => {
     // render="xxx"
     // const templateWithRender = findAttr(templateInTag, 'render')
 
-    console.log({
-        templateLang,
-        templateComponentName,
-        templateFrameworkName
-    })
+    // console.log({
+    //     templateLang,
+    //     templateComponentName,
+    //     templateFrameworkName
+    // })
 
     // remove annotation
     template = annotation.remove({

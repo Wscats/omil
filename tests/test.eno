@@ -1,5 +1,6 @@
-<template name="component-name">
+<template name="Component-name" framework="rax">
     <div>
+        <input />
         <!-- JSX -->
         {this.data.title}
     </div>

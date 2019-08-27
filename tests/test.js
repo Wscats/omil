@@ -1,8 +1,19 @@
-import { WeElement, define, h } from "omi";
+import { Component as WeElement, createElement as h } from "rax";
+import styled from "styled-components";
+const StyledComponents = styled.div`
+  /* CSS */
+  p {
+    color: #58bc58;
+  }
+`;
 
 class ComponentName extends WeElement {
-  render(props) {
-    return h("div", null, this.data.title);
+  render() {
+    return h(
+      StyledComponents,
+      null,
+      h("div", null, h("input", null), this.data.title)
+    );
   }
 
   install() {
@@ -12,10 +23,4 @@ class ComponentName extends WeElement {
   }
 }
 
-ComponentName.css = `
-    /* CSS */
-    p {
-        color: #58bc58
-    }
-`;
-define("component-name", ComponentName);
+export default ComponentName;

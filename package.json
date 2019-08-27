@@ -1,6 +1,6 @@
 {
   "name": "omil",
-  "version": "1.9.1",
+  "version": "1.9.3",
   "description": "Webpack loader for Omi.js, React.js or Rax.js components",
   "main": "libs/index.js",
   "scripts": {

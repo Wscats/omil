@@ -60,15 +60,25 @@ const compileAll = async (sourceObj, options, callback) => {
     template = handleStyledComponents({ style, template });
 
     // html -> jsx
-    if (templateLang !== 'html' && templateLang !== 'htm') {
-        const transform = require('../scripts/extension/transform')
-        // handle template
-        template = (await transform(template, {
-            // not in strict mode
-            sourceType: 'script',
-        })).code
-        // console.log(template)
+    try {
+        if (templateLang !== 'html' && templateLang !== 'htm') {
+            const transform = require('../scripts/extension/transform')
+            // handle template
+            template = (await transform(template, {
+                // not in strict mode
+                sourceType: 'script',
+            })).code
+            // console.log(template)
+        }
+    } catch (e) {
+        callback({
+            status: 'fail',
+            allScript: '',
+            e
+        })
+        throw new Error("Babel compile failed, see issues https://github.com/Wscats/eno-loader/issues");
     }
+    
     // console.log(template)
     try {
         let allScript = (
@@ -152,7 +162,7 @@ const compileAll = async (sourceObj, options, callback) => {
             e
         })
         console.log(e)
-        // throw new Error("babel compile failed, see issues https://github.com/Wscats/eno-loader/issues");
+        throw new Error("Babel compile failed, see issues https://github.com/Wscats/eno-loader/issues");
     }
 }
 
