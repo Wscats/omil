@@ -4,11 +4,11 @@ console.log(omil({
     // file: 'html',
     options: null,
     source: `
-    <template name="my-abc-abc">
+    <template name="My-abc-abc">
         connect(
             <div>
                 <!-- JSX -->
-                <input>
+                <input/>
                 <p>123</p>
             </div>
         )

@@ -1,3 +1,4 @@
+
 <template name="Component-name" framework="rax">
     <div>
         <input />
