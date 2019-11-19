@@ -35,14 +35,14 @@ module.exports = (option, options) => {
         // console.log(presets)
         const defaultOption = {
             plugins: [
-                [require("@babel/plugin-proposal-class-properties"), 
-                    { "loose": true },
+                [require("@babel/plugin-proposal-class-properties"),
+                { "loose": true },
                 ],
                 {
                     visitor: {
                         "ClassExpression"(path, { opts }) {
                             // 筛选class myAbcAbc extends WeElement
-                            if (path.node.superClass.name === 'WeElement') {
+                            if (path.node.superClass && path.node.superClass.name === 'WeElement') {
                                 // console.log('------------------------ClassExpression-----------------------')
                                 // console.log(path.get("body.body"))
                                 let ClassMethods = [];

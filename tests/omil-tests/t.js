@@ -1,5 +1,5 @@
 var omil = require('../../libs')
-console.log(omil({
+omil({
     type: 'extension',
     // file: 'html',
     options: null,
@@ -15,7 +15,6 @@ console.log(omil({
     </template>
     <script lang="ts">
     // JS
-    
     import style from './index.css'
     import axios from 'axios'
     var a = 'abcd'
@@ -25,8 +24,11 @@ console.log(omil({
     //     }
     // })
     
-    export default class{
-        state = 1
+    export default bb(class{
+        // state = 1
+        abc = ()=>{
+            console.log(1)
+        }
     // module.exports = class {
         // aaa
         // bbb
@@ -52,7 +54,7 @@ console.log(omil({
         render(){
 
         }
-    }
+    })
     1
     </script>
     <style lang='scss'>
@@ -76,4 +78,4 @@ p{
 }
 `).then((data) => {
     // console.log(data.text)
-}));
+});
