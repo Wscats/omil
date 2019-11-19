@@ -1,0 +1,40 @@
+<template name="Abc">
+    <div>hello world</div>
+</template>
+<script>
+    var _temp = 1
+    export default withRouter(Form.create({ name: 'normal_login' })(class {
+        state = 1
+        abc = u
+        constructor(props) {
+            super(props)
+            console.log(props)
+            const { getFieldDecorator } = this.props.form;
+        }
+        handleSubmit = (e) => {
+            e.preventDefault();
+            this.props.form.validateFields((err, values) => {
+                if (!err) {
+                    console.log('Received values of form: ', values);
+                }
+            })
+        }
+    }))
+</script>
+<style lang="scss">
+    .logBox {
+        background: #fff;
+        width: 76%;
+        height: 20rem;
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+
+        header {
+            color: #000;
+            text-align: center;
+            line-height: 50px
+        }
+    }
+</style>

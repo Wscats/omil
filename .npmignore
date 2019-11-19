@@ -1,5 +1,4 @@
 dist
 tests
 docs
-src
-tests
+node_modules
