@@ -1,0 +1,10 @@
+<template name="Header">
+    <div>
+        {this.name}
+    </div>
+</template>
+<script>
+    export default class{
+        name = 1
+    }
+</script>

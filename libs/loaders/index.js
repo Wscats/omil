@@ -101,9 +101,8 @@ const compileAll = async (sourceObj, options, callback) => {
                 let exportReg = 'export\\s+default\\s*\\{|module.exports\\s*=\\s*\\{|export\\s+default\\s*class\\s*\\{|module.exports\\s*=\\s*class\\s*\\{|export\\s+default[\\n\\s\\S]+?class[\\s\\w]*\\{|module.exports\\s*=[\\n\\s\\S]*?class\\s*\\{'
                 let exportReplaceReg = new RegExp(exportReg, 'g')
                 let exportCompileReg = new RegExp('((' + exportReg + ')[\\s\\S]+)', 'g')
-                let exportCode = script.match(exportCompileReg)[0]
-                script = script.replace(exportCompileReg, classProperty(exportCode).code)
-                return script
+
+                script = script
                     // load css and html
                     // support export default {} and export default class {}
                     .replace(exportReplaceReg, modulesEnd({
@@ -117,6 +116,8 @@ const compileAll = async (sourceObj, options, callback) => {
                         styleLang,
                         isExistStyle,
                     }))
+                let exportCode = script.match(exportCompileReg)[0]
+                return script.replace(exportCompileReg, classProperty(exportCode).code)
             })() +
             // define('my-eno', myEno)
             defineComponent({

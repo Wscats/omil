@@ -25,6 +25,9 @@ omil({
     // })
     
     export default bb(class{
+        constructor(props){
+            super(props)
+        }
         // state = 1
         abc = ()=>{
             console.log(1)
