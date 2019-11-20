@@ -2,10 +2,10 @@
     <div>hello world</div>
 </template>
 <script>
-    var _temp = 1
+    // var _temp = 1
     export default withRouter(Form.create({ name: 'normal_login' })(class {
-        state = 1
-        abc = u
+        // state = 1
+        // abc = u
         constructor(props) {
             super(props)
             console.log(props)

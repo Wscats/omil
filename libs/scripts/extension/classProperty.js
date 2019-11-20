@@ -4,7 +4,7 @@ const {
 module.exports = (code, options) => {
     let output = transformSync(code, {
         plugins: [
-            require("@babel/plugin-proposal-class-properties")
+            require("@babel/plugin-proposal-class-properties", { "loose": true })
         ]
     })
     return output
