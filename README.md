@@ -45,7 +45,7 @@ npm install -D omil
 ```
 如果你使用的是 [Visual Studio Code](https://code.visualstudio.com/) 进行开发，强烈建议下载 [Omi Snippets](https://marketplace.visualstudio.com/items?itemName=Wscats.omi-snippets) 扩展，它会提供给你语法高亮，局部编译等功能。您可以在 VSC 扩展界面里面搜索 omi 这个关键词出现`Omi Snippets`点击安装即可，稍等片刻，当它安装成功后会提醒你需要重新加载编辑工具，点击重新加载即可使用。
 
-<img src="./src/assets/omi-snippets.png">
+<img src="https://wscats.github.io/omi-docs/public/images/omi-snippets.png">
 
 每个`Omil`包的新版本发布时，一个相应版本的`Omi Snippets`也会随之发布。
 
@@ -119,7 +119,7 @@ module.exports = {
 
 如下图，左边的代码是我们编写的 .omi 后缀的单文件组件，右边是经过 Omi Snippets 生成的 .js 后缀文件。
 
-<img src="./src/assets/transfer.png" />
+<img src="https://wscats.github.io/omi-docs/public/images/transfer.png" />
 
 
 ## 示例代码

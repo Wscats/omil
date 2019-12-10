@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="demo"></div>
+    <script src="https://unpkg.com/yox"></script>
+    <script>
+        console.log(new Yox({
+            el: "#demo",
+            template: `<div ref="abc">123</div>`,
+            afterMount: function () {
+                console.log(this.$template)
+                console.log({ ...this })
+                console.log(this.$refs)
+                this.$el
+                this.$toggle
+                this.$vnode
+                this.append(keypath, item)
+            }
+        }))
+        this.prepend(keypath, item)
+        this.insert(keypath, item, index)
+        this.increase(keypath, step, max)
+        this.increase(keypath, step, max)
+        this.decrease(keypath, step, min)
+        this.$vnode
+        Yox.component("name", { options })
+        Yox.dom.addSpecialEvent("definition", {
+            on: function (element, listener) { handle },
+            off: function (element, listener) { handle }
+        })
+        Yox.dom.removeClass(node, "className")
+        Yox.dom.off(node, "event", listener)
+    </script>
+</body>
+
+</html>
