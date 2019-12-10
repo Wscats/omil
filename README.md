@@ -1046,7 +1046,7 @@ Store 是 Omi 内置的中心化数据仓库，他解决和提供了下面问题
 组件树数据共享
 数据变更按需更新依赖的组件
 
-<img src="./src/assets/store.cn.jpg" />
+<img src="https://wscats.github.io/omi-docs/public/images/store.cn.jpg" />
 
 # 两份代码完全上手 Store
 
