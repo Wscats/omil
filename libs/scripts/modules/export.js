@@ -53,9 +53,6 @@ module.exports = (option) => {
         if (templateComponentName) {
             const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)
             // return `const ${templateComponentCamelCaseName} =`
-            if (script == 'module.exports=class{}') {
-                return `export default`
-            }
             return ``
         } else {
             return `export default`
