@@ -12,7 +12,6 @@ module.exports = (option) => {
         templateLang,
         templateComponentName
     } = option;
-    // console.log(script,template)
     // 1. static css = `xxx`
     const styleInScript = (() => {
         // style in script
@@ -50,11 +49,13 @@ module.exports = (option) => {
         }
     })()
 
-
     const componentName = (() => {
         if (templateComponentName) {
             const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)
             // return `const ${templateComponentCamelCaseName} =`
+            if (script == 'module.exports=class{}') {
+                return `export default`
+            }
             return ``
         } else {
             return `export default`
@@ -75,6 +76,7 @@ module.exports = (option) => {
     // 2.export default class {   19
     // console.log(script.match(/export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g))
     const isHoc = script.match(/export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g)
+
     // hoc
     if (isHoc && isHoc[0].replace(/([\s\.\=])/g, "").length > 19) {
         let hocScript;
@@ -130,7 +132,6 @@ module.exports = (option) => {
 
         }
     }
-
     switch (isCaptain(templateComponentName)) {
         // react without static css
         case true:
