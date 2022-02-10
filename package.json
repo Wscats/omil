@@ -65,7 +65,7 @@
     "@babel/preset-react": "^7.9.4",
     "babel-plugin-transform-class-properties": "^6.24.1",
     "cheerio": "^1.0.0-rc.3",
-    "node-sass": "^4.14.1",
+    "node-sass": "^7.0.0",
     "omi": "^6.19.3"
   }
 }
