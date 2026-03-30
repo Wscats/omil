@@ -4,7 +4,10 @@
   "description": "Webpack loader for Omi.js, React.js or Rax.js components",
   "main": "libs/index.js",
   "scripts": {
-    "start": "webpack"
+    "start": "webpack",
+    "lint": "eslint src --ext .ts,.tsx,.js,.jsx --fix",
+    "test": "jest --coverage",
+    "type-check": "tsc --noEmit"
   },
   "repository": {
     "type": "git",
@@ -67,5 +70,8 @@
     "cheerio": "^1.0.0-rc.3",
     "node-sass": "^4.14.1",
     "omi": "^6.19.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
