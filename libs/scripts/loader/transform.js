@@ -1,3 +1,5 @@
+'use strict';
+
 const {
     transform
 } = require("@babel/core");

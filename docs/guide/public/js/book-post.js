@@ -1,3 +1,5 @@
+'use strict';
+
 // add figcaption under image
 document.querySelectorAll('img').forEach(function(img){
   if(img.getAttribute('alt')) {

@@ -1,3 +1,5 @@
+'use strict';
+
 const compileStyle = require('../styles/index')
 const compileTemplate = require('../templates/index')
 const compileScript = require('../scripts/index')

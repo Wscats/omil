@@ -1,4 +1,4 @@
-var omil = require('../../libs')
+const omil = require('../../libs')
 omil({
     type: 'extension',
     // file: 'html',
@@ -17,7 +17,7 @@ omil({
     // JS
     import style from './index.css'
     import axios from 'axios'
-    var a = 'abcd'
+    let a = 'abcd'
     // const aa = (_temp = _class = class myAbcAbc extends WeElement2 {
     //     css (){
     //         return 

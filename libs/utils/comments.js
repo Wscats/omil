@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     deleteCodeComments(code) {
         // console.log(code)

@@ -1,3 +1,5 @@
+'use strict';
+
 const sass = require('node-sass')
 const compileSass = (data) => {
     return new Promise((resolve, reject) => {

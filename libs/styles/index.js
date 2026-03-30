@@ -1,3 +1,5 @@
+'use strict';
+
 const compileStyle = (sourceObj) => {
     // console.log(sourceObj)
     const omi = sourceObj.source

@@ -1,3 +1,5 @@
+'use strict';
+
 const {
     transform
 } = require("@babel/core");
@@ -62,7 +64,7 @@ module.exports = (option, options) => {
                                 // 删除除第一个以外的其他render
                                 if (ClassMethods) {
                                     for (let i = 0; i < ClassMethods.length; i++) {
-                                        if (i != 0) {
+                                        if (i !== 0) {
                                             ClassMethods[i].remove()
                                         }
                                     }
@@ -131,7 +133,7 @@ module.exports = (option, options) => {
                                 // 删除除第一个以外的其他render
                                 if (ClassMethods) {
                                     for (let i = 0; i < ClassMethods.length; i++) {
-                                        if (i != 0) {
+                                        if (i !== 0) {
                                             ClassMethods[i].remove()
                                         }
                                     }

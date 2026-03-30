@@ -5,13 +5,13 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports["default"] = void 0;
 
-var _react = require("react");
+const _react = require("react");
 
-var _styledComponents = _interopRequireDefault(require("styled-components"));
+const _styledComponents = _interopRequireDefault(require("styled-components"));
 
-var _antd = require("antd");
+const _antd = require("antd");
 
-var _reactRouter = require("react-router");
+const _reactRouter = require("react-router");
 
 function _interopRequireDefault(obj) {
   return obj && obj.__esModule ? obj : { default: obj };
@@ -39,8 +39,8 @@ function _extends() {
   _extends =
     Object.assign ||
     function(target) {
-      for (var i = 1; i < arguments.length; i++) {
-        var source = arguments[i];
+      for (let i = 1; i < arguments.length; i++) {
+        const source = arguments[i];
         for (var key in source) {
           if (Object.prototype.hasOwnProperty.call(source, key)) {
             target[key] = source[key];
@@ -84,8 +84,8 @@ function _getPrototypeOf(o) {
 }
 
 function _defineProperties(target, props) {
-  for (var i = 0; i < props.length; i++) {
-    var descriptor = props[i];
+  for (let i = 0; i < props.length; i++) {
+    const descriptor = props[i];
     descriptor.enumerable = descriptor.enumerable || false;
     descriptor.configurable = true;
     if ("value" in descriptor) descriptor.writable = true;
@@ -120,7 +120,7 @@ function _setPrototypeOf(o, p) {
 }
 
 function _templateObject() {
-  var data = _taggedTemplateLiteral([
+  const data = _taggedTemplateLiteral([
     "\n  .regBox {\n    background: #fff;\n    width: 76%;\n    height: 20rem;\n    position: absolute;\n    left: 50%;\n    top: 50%;\n    transform: translate(-50%, -50%);\n  }\n"
   ]);
 
@@ -140,9 +140,9 @@ function _taggedTemplateLiteral(strings, raw) {
   );
 }
 
-var StyledComponents = _styledComponents["default"].div(_templateObject());
+const StyledComponents = _styledComponents["default"].div(_templateObject());
 
-var _default = (0, _reactRouter.withRouter)(
+const _default = (0, _reactRouter.withRouter)(
   _antd.Form.create({
     name: "register"
   })(
@@ -200,7 +200,7 @@ var _default = (0, _reactRouter.withRouter)(
         {
           key: "handleConfirmBlur",
           value: function handleConfirmBlur(e) {
-            var value = e.target.value;
+            const value = e.target.value;
             this.setState({
               confirmDirty: this.state.confirmDirty || !!value
             });
@@ -209,7 +209,7 @@ var _default = (0, _reactRouter.withRouter)(
         {
           key: "compareToFirstPassword",
           value: function compareToFirstPassword(rule, value, callback) {
-            var form = this.props.form;
+            let form = this.props.form;
 
             if (value && value !== form.getFieldValue("password")) {
               callback("Two passwords that you enter is inconsistent!");
@@ -221,7 +221,7 @@ var _default = (0, _reactRouter.withRouter)(
         {
           key: "validateToNextPassword",
           value: function validateToNextPassword(rule, value, callback) {
-            var form = this.props.form;
+            const form = this.props.form;
 
             if (value && this.state.confirmDirty) {
               form.validateFields(["confirm"], {
@@ -255,9 +255,9 @@ var _default = (0, _reactRouter.withRouter)(
         {
           key: "renderWn",
           value: function renderWn() {
-            var Option = _antd.Select.Option;
-            var AutoCompleteOption = _antd.AutoComplete.Option;
-            var residences = [
+            const Option = _antd.Select.Option;
+            const AutoCompleteOption = _antd.AutoComplete.Option;
+            const residences = [
               {
                 value: "zhejiang",
                 label: "Zhejiang",
@@ -291,9 +291,9 @@ var _default = (0, _reactRouter.withRouter)(
                 ]
               }
             ];
-            var getFieldDecorator = this.props.form.getFieldDecorator;
-            var autoCompleteResult = this.state.autoCompleteResult;
-            var formItemLayout = {
+            const getFieldDecorator = this.props.form.getFieldDecorator;
+            const autoCompleteResult = this.state.autoCompleteResult;
+            const formItemLayout = {
               labelCol: {
                 xs: {
                   span: 24
@@ -311,7 +311,7 @@ var _default = (0, _reactRouter.withRouter)(
                 }
               }
             };
-            var tailFormItemLayout = {
+            const tailFormItemLayout = {
               wrapperCol: {
                 xs: {
                   span: 24,
@@ -323,7 +323,7 @@ var _default = (0, _reactRouter.withRouter)(
                 }
               }
             };
-            var prefixSelector = getFieldDecorator("prefix", {
+            const prefixSelector = getFieldDecorator("prefix", {
               initialValue: "86"
             })(
               (0, _react.createElement)(
@@ -349,7 +349,7 @@ var _default = (0, _reactRouter.withRouter)(
                 )
               )
             );
-            var websiteOptions = autoCompleteResult.map(function(website) {
+            const websiteOptions = autoCompleteResult.map(function(website) {
               return (0, _react.createElement)(
                 AutoCompleteOption,
                 {

@@ -1,4 +1,6 @@
-var omil = require('../../libs')
+'use strict';
+
+const omil = require('../../libs')
 omil({
     type: 'extension',
     // file: 'html',

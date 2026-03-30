@@ -1,3 +1,5 @@
+'use strict';
+
 const sass = require('./sass.sync.js')
 
 const compileSass = (data) => {

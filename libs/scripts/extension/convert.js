@@ -1,3 +1,5 @@
+'use strict';
+
 // enoOmi -> eno-omi
 
 const convertToCamelCase = (str) => {

@@ -1,3 +1,5 @@
+'use strict';
+
 const annotation = require('../utils/annotation')
 const {
     convertToCamelCase,

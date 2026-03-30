@@ -1,3 +1,5 @@
+'use strict';
+
 const compileAll = require('./loaders/index')
 const path = require('path')
 const fs = require('fs')

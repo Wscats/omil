@@ -1,3 +1,5 @@
+'use strict';
+
 const {
     isCaptain
 } = require('../extension/convert')

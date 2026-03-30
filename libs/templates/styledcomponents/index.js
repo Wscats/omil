@@ -1,3 +1,5 @@
+'use strict';
+
 // const cheerio = require('cheerio');
 module.exports = ({ style, template }) => {
     // console.log({ style, template })

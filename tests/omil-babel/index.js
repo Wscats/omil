@@ -1,3 +1,5 @@
+'use strict';
+
 const babel = require("@babel/core");
 const code = babel.transformSync(`
 const fn = () => 1;

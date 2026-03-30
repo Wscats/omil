@@ -1,3 +1,5 @@
+'use strict';
+
 const compileStyle = require('../styles/index')
 const { deleteCodeComments } = require('../utils/comments')
 const cheerio = require('cheerio')
