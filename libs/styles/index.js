@@ -1,57 +1,55 @@
+/**
+ * Omil - Style compiler.
+ * Extracts and processes <style> blocks from Omi single-file components.
+ */
+
 'use strict';
 
+/**
+ * Compile the <style> section of an Omi single-file component.
+ *
+ * @param {object} sourceObj - The source object containing the raw component.
+ * @returns {{ style: string, isExistStyle: boolean, styleLang: string }}
+ */
 const compileStyle = (sourceObj) => {
-    // console.log(sourceObj)
-    const omi = sourceObj.source
-    const type = sourceObj.type
-    let compileSassSync = null
-    switch (type) {
-        // use in omi-snippets
-        case 'extension':
-            compileSassSync = (sass) => {
-                return sass
-            }
-            break
-        // loader branch
-        default:
-            compileSassSync = require('./loader').compileSassSync
-    }
+  const omi = sourceObj.source;
+  const type = sourceObj.type;
 
-    const styleInTag = (() => {
-        // match <script>xxx</script> content
-        let isExistStyle = omi.match(/<style[^>]*>[\s\S]*?<\/style>/g)
-        // judge <style> whether exist or not
-        if (isExistStyle) {
-            return isExistStyle[0]
-        } else {
-            return ''
-        }
-    })()
-    let style = (
-        // remove <script> and </script> tag
-        styleInTag
-        .replace(/<style[^>]*>|<\/style>/g, '')
-    )
-    const styleLang = (() => {
-        if (styleInTag) {
-            return styleInTag
-                .match(/<style[^>]*>/g)[0]
-                .replace(/<style\s+lang=["']([^>]*)["']\s*>/g, '$1')
-        }
-    })()
-    // console.log(style, styleInTag.match(/<style[^>]*>/g)[0].replace(/<style\s+lang=["']([^>]*)["']\s*>/g, '$1'))
-    switch (styleLang) {
-        case 'scss':
-            style = compileSassSync(style)
-            break
-        default:
-            style = style
-    }
-    return {
-        isExistStyle: styleInTag ? true : false,
-        styleLang,
-        style
-    };
-}
+  let compileSassSync = null;
+  switch (type) {
+    case 'extension':
+      // In extension mode, pass through without compilation
+      compileSassSync = (sass) => sass;
+      break;
+    default:
+      compileSassSync = require('./loader').compileSassSync;
+  }
 
-module.exports = compileStyle
+  // Extract <style> tag content
+  const styleMatch = omi.match(/<style[^>]*>[\s\S]*?<\/style>/g);
+  const styleInTag = styleMatch ? styleMatch[0] : '';
+
+  let style = styleInTag.replace(/<style[^>]*>|<\/style>/g, '');
+
+  // Extract lang attribute from <style> tag
+  const styleLang = (() => {
+    if (!styleInTag) {
+      return undefined;
+    }
+    const openTag = styleInTag.match(/<style[^>]*>/g)[0];
+    return openTag.replace(/<style\s+lang=["']([^>]*)["']\s*>/g, '$1');
+  })();
+
+  // Compile SCSS if needed
+  if (styleLang === 'scss') {
+    style = compileSassSync(style);
+  }
+
+  return {
+    isExistStyle: Boolean(styleInTag),
+    styleLang,
+    style,
+  };
+};
+
+module.exports = compileStyle;

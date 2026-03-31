@@ -1,82 +1,70 @@
+/**
+ * Omil - Script compiler.
+ * Extracts and processes <script> blocks from Omi single-file components.
+ */
+
 'use strict';
 
-const compileStyle = require('../styles/index')
-const { deleteCodeComments } = require('../utils/comments')
-const cheerio = require('cheerio')
-const {
-    isCaptain
-} = require('./extension/convert')
+const { deleteCodeComments } = require('../utils/comments');
+const cheerio = require('cheerio');
+const { isCaptain } = require('./extension/convert');
+
+/**
+ * Compile the <script> section of an Omi single-file component.
+ *
+ * @param {object} sourceObj - The source object with component data.
+ * @returns {{ script: string, isExistScript: boolean, scriptType: string, scriptLang: string, style: string, isExistStyle: boolean, styleLang: string }}
+ */
 const compileScript = (sourceObj) => {
-    const omi = sourceObj.source
-    const {
-        style,
-        isExistStyle,
-        styleLang,
-        templateComponentName
-    } = sourceObj
+  const omi = sourceObj.source;
+  const { style, isExistStyle, styleLang, templateComponentName } = sourceObj;
 
-    const scriptInTag = (() => {
-        // match some content like <script>xxx</script>
-        let isExistScript = omi.match(/<script[^>]*>[\s\S]*?<\/script>/g)
-        // judge <script> whether exist or not
-        if (isExistScript) {
-            return isExistScript[0]
-        } else {
-            return '<script>module.exports=class{}</script>'
-        }
-    })()
-    let script = (
-        // clear tag which is <script> and </script>
-        scriptInTag
-            .replace(/<script[^>]*>|<\/script>/g, '')
-    )
-    // console.log(script)
-    // delete comments
-    script = deleteCodeComments(script)
-    // console.log(script)
-    const styleInScript = (() => {
-        // if css(){} or css = 'xxx' in script , we should combine style and css functuon
-        if (isCaptain(templateComponentName)) {
-            script = script.replace(/static\s*css\s*=([^\)]*)/g, `static css = $1`)
-            return script
-            return script
-        } else {
-            script = script.replace(/static\s*css\s*=([^\)]*)/g, `static css = ${'`'}${style}${'`'}+$1`)
-            return script
-        }
+  // Extract <script> tag content
+  const scriptMatch = omi.match(/<script[^>]*>[\s\S]*?<\/script>/g);
+  const scriptInTag = scriptMatch ? scriptMatch[0] : '<script>module.exports=class{}</script>';
 
-    })()
+  let script = scriptInTag.replace(/<script[^>]*>|<\/script>/g, '');
 
-    const scriptType = (() => {
-        let type = scriptInTag.match(/<script[^>]*>/g)[0]
-        if (type.indexOf('type') >= 0) {
-            let $ = cheerio.load(type)
-            // console.log($('template').attr('lang')||'')
-            // return lang.replace(/<template\s+lang=["']([^>]*)["']\s*>/g, '$1')
-            return $('script').attr('type').replace(/^\s*|\s*$/g, "") || ''
-        } else {
-            return ''
-        }
-    })()
+  // Remove JS comments from script
+  script = deleteCodeComments(script);
 
+  // Merge CSS into static css property if component name is not capitalized (Omi mode)
+  if (!isCaptain(templateComponentName)) {
+    script = script.replace(
+      /static\s*css\s*=([^\)]*)/g,
+      `static css = \`${style}\`+$1`,
+    );
+  }
 
-    const scriptLang = (() => {
-        if (scriptInTag) {
-            return scriptInTag
-                .match(/<script[^>]*>/g)[0]
-                .replace(/<script\s+lang=["']([^>]*)["']\s*>/g, '$1')
-        }
-    })()
-    return {
-        isExistScript: scriptInTag ? true : false,
-        scriptType,
-        scriptLang,
-        script,
-        style,
-        isExistStyle,
-        styleLang
-    };
+  // Extract script type attribute (e.g., type="text/babel")
+  const scriptType = (() => {
+    const openTag = scriptInTag.match(/<script[^>]*>/g)[0];
+    if (openTag.indexOf('type') < 0) {
+      return '';
+    }
+    const $ = cheerio.load(openTag);
+    return ($('script').attr('type') || '').trim();
+  })();
 
-}
+  // Extract script lang attribute (e.g., lang="ts")
+  const scriptLang = (() => {
+    if (!scriptInTag) {
+      return undefined;
+    }
+    return scriptInTag
+      .match(/<script[^>]*>/g)[0]
+      .replace(/<script\s+lang=["']([^>]*)["']\s*>/g, '$1');
+  })();
 
-module.exports = compileScript
+  return {
+    isExistScript: Boolean(scriptInTag),
+    scriptType,
+    scriptLang,
+    script,
+    style,
+    isExistStyle,
+    styleLang,
+  };
+};
+
+module.exports = compileScript;

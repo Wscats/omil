@@ -1,113 +1,60 @@
+/**
+ * Omil - Import module generator.
+ * Generates the import statements for the compiled component.
+ */
+
 'use strict';
 
-const {
-    isCaptain
-} = require('../extension/convert')
+const { isCaptain } = require('../extension/convert');
 
+/**
+ * Generate import statements based on the component configuration.
+ *
+ * @param {object} option - The compilation context.
+ * @returns {string} The generated import code.
+ */
 module.exports = (option) => {
-    const {
-        script,
-        isExistScript,
-        scriptLang,
-        template,
-        templateLang,
-        templateComponentName,
-        templateFrameworkName,
-        style,
-        styleLang,
-        isExistStyle,
-        sourceObj
-    } = option
-    // console.log(style)
-    const {
-        file
-    } = sourceObj
-    switch (file) {
-        case 'html':
-            return `
-                const {
-                    ${
-                // register component
-                'WeElement,'
-                }
-                    ${
-                // when you use component, you should define
-                templateComponentName ? 'define,' : ''
-                }
-                    html,
-                    h,
-                    render
-                } = omi;
-            `
-            break
-        default:
-            // console.log(isCaptain(templateComponentName))
-            switch (isCaptain(templateComponentName)) {
-                // A
-                case true:
-                    return `
-                        import {
-                            ${
-                        // register component
-                        'Component as WeElement,'
-                        }
-                            ${
-                        // JSX or HTML
-                        // html,
-                        // htm,
-                        templateLang === 'html' || templateLang === 'htm' ? 'html' : 'createElement as h'
-                        }
-                        } from '${
-                        // react , omi or rax
-                        templateFrameworkName ? templateFrameworkName : 'react'
-                        }';
-                    `
-                        // css
-                        +
-                        `
-                        ${style ? 'import styled from "styled-components"' : ''}
-                    `
-                    // + `
-                    //     ${style ? 'const StyledComponents = styled.div`' + style + '`' : ''}
-                    // `
-                    // +
-                    // `
-                    // import {
-                    //     ${
-                    //         // when you use component, you should define
-                    //         templateComponentName ? 'render,' : ''
-                    //     }
-                    //     ${
-                    //         'findDOMNode'
-                    //     }
-                    // } from "react-dom"
-                    // `
-                    break;
-                // a
-                default:
-                    return `
-                        import {
-                            ${
-                        // register component
-                        'WeElement,'
-                        }
-                            ${
-                        // when you use component, you should define
-                        templateComponentName ? 'define,' : ''
-                        }
-                            ${
-                        // JSX or HTML
-                        // html,
-                        // htm,
-                        templateLang === 'html' || templateLang === 'htm' ? 'html' : 'h'
-                        }
-                        } from  '${
-                        // react , omi or rax
-                        templateFrameworkName ? templateFrameworkName : 'omi'
-                        }';
-                    `
-                    break;
-            }
-    }
+  const {
+    templateLang,
+    templateComponentName,
+    templateFrameworkName,
+    style,
+    sourceObj,
+  } = option;
 
-}
+  const isHtmlLang = templateLang === 'html' || templateLang === 'htm';
+  const framework = templateFrameworkName || (isCaptain(templateComponentName) ? 'react' : 'omi');
+
+  // HTML file mode: use global omi object
+  if (sourceObj.file === 'html') {
+    return `
+      const {
+        WeElement,
+        ${templateComponentName ? 'define,' : ''}
+        html,
+        h,
+        render
+      } = omi;
+    `;
+  }
+
+  // React mode (capitalized component name)
+  if (isCaptain(templateComponentName)) {
+    return `
+      import {
+        Component as WeElement,
+        ${isHtmlLang ? 'html' : 'createElement as h'}
+      } from '${framework}';
+      ${style ? 'import styled from "styled-components"' : ''}
+    `;
+  }
+
+  // Omi mode (lowercase component name)
+  return `
+    import {
+      WeElement,
+      ${templateComponentName ? 'define,' : ''}
+      ${isHtmlLang ? 'html' : 'h'}
+    } from '${framework}';
+  `;
+};

@@ -1,180 +1,103 @@
+/**
+ * Omil - Export module generator.
+ * Generates the class definition and export code for the compiled component.
+ */
+
 'use strict';
 
-const {
-    convertToCamelCase,
-    captain,
-    isCaptain
-} = require('../extension/convert')
+const { convertToCamelCase, captain, isCaptain } = require('../extension/convert');
 
+/** Regex to detect HOC (Higher-Order Component) export patterns. */
+const HOC_EXPORT_REGEX = /export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g;
+const HOC_NAME_REGEX = /export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g;
+
+/**
+ * Check if the script contains a Higher-Order Component pattern.
+ * HOC patterns have more than 19 non-whitespace characters in the export line.
+ */
+const isHocPattern = (script) => {
+  const match = script.match(HOC_EXPORT_REGEX);
+  return match && match[0].replace(/([\s.=])/g, '').length > 19;
+};
+
+/**
+ * Generate styled-components declaration if style exists.
+ */
+const styledDecl = (style) => {
+  return style ? `const StyledComponents = styled.div\`${style}\`;` : '';
+};
+
+/**
+ * Generate the export/class definition code for the component.
+ *
+ * @param {object} option - The compilation context.
+ * @returns {string} The generated class definition code.
+ */
 module.exports = (option) => {
-    let {
-        script,
-        style,
-        template,
-        templateLang,
-        templateComponentName
-    } = option;
-    // 1. static css = `xxx`
-    const styleInScript = (() => {
-        // style in script
-        return /static\s*css\s*=([^\)]*)/g.test(script)
-    })()
-    // 2. css()=>{return ``}
-    const styleInScript2 = (() => {
-        // style in script
-        return /css\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
-    })()
-    const css = (() => {
-        if (styleInScript || style === undefined) {
-            return ''
-        } else {
-            return `static css =  (${'`'}${style}${'`'})`
-        }
-    })()
+  const { script, style, template, templateLang, templateComponentName } = option;
 
-    const css2 = (() => {
-        if (styleInScript2 || style === undefined) {
-            return ''
-        } else {
-            return `
-                css() {
-                    return (${'`'}${style}${'`'})
-                }
-            `
-        }
-    })()
-    const templateComponentCamelCaseName = (() => {
-        if (templateComponentName) {
-            return captain(convertToCamelCase(templateComponentName))
-        } else {
-            return ''
-        }
-    })()
+  const isHtml = templateLang === 'html' || templateLang === 'htm';
+  const camelName = templateComponentName
+    ? captain(convertToCamelCase(templateComponentName))
+    : '';
+  const isReactMode = isCaptain(templateComponentName);
+  const renderExpr = isHtml ? `(html\`${template}\`)` : template;
 
-    const componentName = (() => {
-        if (templateComponentName) {
-            const templateComponentCamelCaseName = convertToCamelCase(templateComponentName)
-            // return `const ${templateComponentCamelCaseName} =`
-            return ``
-        } else {
-            return `export default`
+  // ── HOC Pattern ──────────────────────────────────────────────────────────
 
-        }
-    })()
+  if (isHocPattern(script)) {
+    const hocBase = script.match(HOC_NAME_REGEX)[0];
 
-    // 2. render()=>{return ``}
-    const renderInScript = (() => {
-        // style in script
-        return /render\s*\([^\)]*\)\s*\{[\s\S]*return([\s\S]*)/g.test(script)
-    })()
-
-    // ast(script, null)
-    // console.log(templateComponentCamelCaseName)
-
-    // 1.module.exports=class{    19 remove . and =
-    // 2.export default class {   19
-    // console.log(script.match(/export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g))
-    const isHoc = script.match(/export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g)
-
-    // hoc
-    if (isHoc && isHoc[0].replace(/([\s\.\=])/g, "").length > 19) {
-        let hocScript;
-        switch (isCaptain(templateComponentName)) {
-            // react hoc
-            case true:
-                switch (templateLang) {
-                    // html
-                    case 'html':
-                        return `
-                            ${style ? 'const StyledComponents = styled.div`' + style + '`' : ''}
-                        `+ `
-                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} ${templateComponentCamelCaseName} extends WeElement {
-                                render() {
-                                return (html${'`'}${template}${'`'})
-                            }
-                        `
-                    // jsx
-                    default:
-                        return `
-                            ${style ? 'const StyledComponents = styled.div`' + style + '`' : ''}
-                        `+ `
-                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} ${templateComponentCamelCaseName} extends WeElement {
-                                render() {
-                                return ${template}
-                            }
-                        `
-                }
-            // omi hoc
-            default:
-                switch (templateLang) {
-                    // html
-                    case 'html':
-                        hocScript = `
-                                ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} extends WeElement {
-                                render(props) {
-                                    return (html${'`'}${template}${'`'})
-                                }
-                            `.replace(/export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g, `const ${captain(convertToCamelCase(templateComponentName))} = $1$2`)
-                        // console.log(hocScript)
-                        return hocScript
-                    // jsx
-                    default:
-                        hocScript = `
-                            ${script.match(/export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*=[\n\s\S]*?class\s*/g)[0]} extends WeElement {
-                            render(props) {
-                                return ${template}
-                            }
-                        `.replace(/export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g, `const ${captain(convertToCamelCase(templateComponentName))} = $1$2`)
-                        // console.log(hocScript)
-                        return hocScript
-                }
-
-        }
+    if (isReactMode) {
+      return `
+        ${styledDecl(style)}
+        ${hocBase} ${camelName} extends WeElement {
+          render() {
+            return ${renderExpr}
+          }
+      `;
     }
-    switch (isCaptain(templateComponentName)) {
-        // react without static css
-        case true:
-            switch (templateLang) {
-                // html
-                case 'html':
-                    return `
-                        ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
-                        `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                        render() {
-                            return (html${'`'}${template}${'`'})
-                        }
-                    `
-                // jsx
-                default:
-                    return `
-                        ${style ? 'const StyledComponents = styled.div`' + style + '`;' : ''}` +
-                        `${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                        render() {
-                            return ${template}
-                        }
-                    `
-            }
-        // omi
-        default:
-            switch (templateLang) {
-                // html
-                case 'html':
-                    return `
-                        ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                            ${css}
-                            render(props) {
-                                return (html${'`'}${template}${'`'})
-                            }
-                        `
-                // jsx
-                default:
-                    return `
-                        ${componentName} class ${templateComponentCamelCaseName} extends WeElement {
-                            ${css}
-                            render(props) {
-                                return ${template}
-                            }
-                        `
-            }
-    }
-}
+
+    // Omi HOC: replace export with const assignment
+    const hocScript = `
+      ${hocBase} extends WeElement {
+        render(props) {
+          return ${renderExpr}
+        }
+    `.replace(
+      /export\s+default([\n\s\S]+?class[\s\w]*)|module.exports(\s*=[\n\s\S]*?class\s*)/g,
+      `const ${camelName} = $1$2`,
+    );
+    return hocScript;
+  }
+
+  // ── Standard Component ───────────────────────────────────────────────────
+
+  const componentName = templateComponentName ? '' : 'export default';
+
+  // Check if CSS is already defined in script
+  const hasCssInScript = /static\s*css\s*=([^\)]*)/g.test(script);
+  const cssDecl = (!hasCssInScript && style !== undefined)
+    ? `static css = (\`${style}\`)`
+    : '';
+
+  if (isReactMode) {
+    // React mode: no static css, use styled-components
+    return `
+      ${styledDecl(style)}
+      ${componentName} class ${camelName} extends WeElement {
+        render() {
+          return ${renderExpr}
+        }
+    `;
+  }
+
+  // Omi mode: include static css
+  return `
+    ${componentName} class ${camelName} extends WeElement {
+      ${cssDecl}
+      render(props) {
+        return ${renderExpr}
+      }
+  `;
+};
