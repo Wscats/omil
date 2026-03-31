@@ -3,17 +3,13 @@
  * Generates the import statements for the compiled component.
  */
 
-'use strict';
-
-const { isCaptain } = require('../extension/convert');
+import { isCaptain } from '../extension/convert';
+import type { CompileContext } from '../../types';
 
 /**
  * Generate import statements based on the component configuration.
- *
- * @param {object} option - The compilation context.
- * @returns {string} The generated import code.
  */
-module.exports = (option) => {
+export default function generateImports(option: CompileContext): string {
   const {
     templateLang,
     templateComponentName,
@@ -57,4 +53,4 @@ module.exports = (option) => {
       ${isHtmlLang ? 'html' : 'h'}
     } from '${framework}';
   `;
-};
+}

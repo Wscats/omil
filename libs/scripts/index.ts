@@ -3,19 +3,24 @@
  * Extracts and processes <script> blocks from Omi single-file components.
  */
 
-'use strict';
+import { deleteCodeComments } from '../utils/comments';
+import cheerio from 'cheerio';
+import { isCaptain } from './extension/convert';
+import type { ScriptResult } from '../types';
 
-const { deleteCodeComments } = require('../utils/comments');
-const cheerio = require('cheerio');
-const { isCaptain } = require('./extension/convert');
+/** Extended source object with style info for script compilation. */
+interface ScriptSourceObject {
+  source: string;
+  style: string;
+  isExistStyle: boolean;
+  styleLang: string | undefined;
+  templateComponentName: string;
+}
 
 /**
  * Compile the <script> section of an Omi single-file component.
- *
- * @param {object} sourceObj - The source object with component data.
- * @returns {{ script: string, isExistScript: boolean, scriptType: string, scriptLang: string, style: string, isExistStyle: boolean, styleLang: string }}
  */
-const compileScript = (sourceObj) => {
+export default function compileScript(sourceObj: ScriptSourceObject): ScriptResult {
   const omi = sourceObj.source;
   const { style, isExistStyle, styleLang, templateComponentName } = sourceObj;
 
@@ -38,7 +43,7 @@ const compileScript = (sourceObj) => {
 
   // Extract script type attribute (e.g., type="text/babel")
   const scriptType = (() => {
-    const openTag = scriptInTag.match(/<script[^>]*>/g)[0];
+    const openTag = scriptInTag.match(/<script[^>]*>/g)![0];
     if (openTag.indexOf('type') < 0) {
       return '';
     }
@@ -52,7 +57,7 @@ const compileScript = (sourceObj) => {
       return undefined;
     }
     return scriptInTag
-      .match(/<script[^>]*>/g)[0]
+      .match(/<script[^>]*>/g)![0]
       .replace(/<script\s+lang=["']([^>]*)["']\s*>/g, '$1');
   })();
 
@@ -65,6 +70,4 @@ const compileScript = (sourceObj) => {
     isExistStyle,
     styleLang,
   };
-};
-
-module.exports = compileScript;
+}

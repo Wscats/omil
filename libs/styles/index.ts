@@ -3,26 +3,25 @@
  * Extracts and processes <style> blocks from Omi single-file components.
  */
 
-'use strict';
+import type { SourceObject, StyleResult } from '../types';
 
 /**
  * Compile the <style> section of an Omi single-file component.
- *
- * @param {object} sourceObj - The source object containing the raw component.
- * @returns {{ style: string, isExistStyle: boolean, styleLang: string }}
  */
-const compileStyle = (sourceObj) => {
+export default function compileStyle(sourceObj: SourceObject): StyleResult {
   const omi = sourceObj.source;
   const type = sourceObj.type;
 
-  let compileSassSync = null;
+  let compileSassSync: (sass: string) => string;
   switch (type) {
     case 'extension':
       // In extension mode, pass through without compilation
-      compileSassSync = (sass) => sass;
+      compileSassSync = (sass: string) => sass;
       break;
-    default:
-      compileSassSync = require('./loader').compileSassSync;
+    default: {
+      const loader = require('./loader');
+      compileSassSync = loader.compileSassSync;
+    }
   }
 
   // Extract <style> tag content
@@ -36,7 +35,7 @@ const compileStyle = (sourceObj) => {
     if (!styleInTag) {
       return undefined;
     }
-    const openTag = styleInTag.match(/<style[^>]*>/g)[0];
+    const openTag = styleInTag.match(/<style[^>]*>/g)![0];
     return openTag.replace(/<style\s+lang=["']([^>]*)["']\s*>/g, '$1');
   })();
 
@@ -45,11 +44,5 @@ const compileStyle = (sourceObj) => {
     style = compileSassSync(style);
   }
 
-  return {
-    isExistStyle: Boolean(styleInTag),
-    styleLang,
-    style,
-  };
-};
-
-module.exports = compileStyle;
+  return { isExistStyle: Boolean(styleInTag), styleLang, style };
+}

@@ -3,21 +3,21 @@
  * Generates the render() call for HTML-based components.
  */
 
-'use strict';
+import type { SourceObject } from '../../types';
+
+interface RenderOption {
+  templateComponentName: string;
+  sourceObj: SourceObject;
+}
 
 /**
  * Generate a render() call for the component if it's an HTML file.
- *
- * @param {{ templateComponentName: string, sourceObj: object }} option
- * @returns {string} The render call code, or empty string.
  */
-module.exports = (option) => {
+export default function generateRender(option: RenderOption): string {
   const { templateComponentName, sourceObj } = option;
 
   if (templateComponentName && sourceObj.file === 'html') {
-    return `
-      render(html\`<${templateComponentName}/>\`, 'body');
-    `;
+    return `\n      render(html\`<${templateComponentName}/>\`, 'body');\n    `;
   }
   return '';
-};
+}

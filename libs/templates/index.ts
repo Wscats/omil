@@ -3,37 +3,29 @@
  * Extracts and processes <template> blocks from Omi single-file components.
  */
 
-'use strict';
-
-const annotation = require('../utils/annotation');
-const { convertToCamelCase, captain, isCaptain } = require('../scripts/extension/convert');
-const cheerio = require('cheerio');
+import * as annotation from '../utils/annotation';
+import { convertToCamelCase, captain, isCaptain } from '../scripts/extension/convert';
+import cheerio from 'cheerio';
+import type { SourceObject, TemplateResult } from '../types';
 
 /**
  * Extract an attribute value from a <template> tag.
- *
- * @param {string} templateInTag - The raw <template>...</template> string.
- * @param {string} attr - The attribute name to extract.
- * @returns {string} The attribute value, or empty string.
  */
-const findAttr = (templateInTag, attr) => {
-  const openTag = templateInTag.match(/<template[^>]*>/g)[0];
+function findAttr(templateInTag: string, attr: string): string {
+  const openTag = templateInTag.match(/<template[^>]*>/g)![0];
   if (openTag.indexOf(attr) < 0) {
     return '';
   }
   const $ = cheerio.load(openTag);
   return ($('template').attr(attr) || '').trim();
-};
+}
 
 /**
  * Compile the <template> section of an Omi single-file component.
- *
- * @param {object} sourceObj - The source object containing the raw component.
- * @returns {{ template: string, templateLang: string, templateComponentName: string, templateFrameworkName: string }}
  */
-const compileTemplate = (sourceObj) => {
+export default function compileTemplate(sourceObj: SourceObject): TemplateResult {
   const omi = sourceObj.source;
-  const templateInTag = omi.match(/<template[^>]*>([\s\S]*?)<\/template>/g)[0];
+  const templateInTag = omi.match(/<template[^>]*>([\s\S]*?)<\/template>/g)![0];
   let template = templateInTag.replace(/<template[^>]*>|<\/template>/g, '');
 
   const templateLang = findAttr(templateInTag, 'lang');
@@ -48,12 +40,5 @@ const compileTemplate = (sourceObj) => {
   // Remove HTML annotations
   template = annotation.remove({ code: template, type: 'html' });
 
-  return {
-    template,
-    templateLang,
-    templateComponentName,
-    templateFrameworkName,
-  };
-};
-
-module.exports = compileTemplate;
+  return { template, templateLang, templateComponentName, templateFrameworkName };
+}

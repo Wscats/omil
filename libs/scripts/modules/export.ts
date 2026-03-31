@@ -3,9 +3,8 @@
  * Generates the class definition and export code for the compiled component.
  */
 
-'use strict';
-
-const { convertToCamelCase, captain, isCaptain } = require('../extension/convert');
+import { convertToCamelCase, captain, isCaptain } from '../extension/convert';
+import type { CompileContext } from '../../types';
 
 /** Regex to detect HOC (Higher-Order Component) export patterns. */
 const HOC_EXPORT_REGEX = /export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g;
@@ -15,25 +14,20 @@ const HOC_NAME_REGEX = /export\s+default[\n\s\S]+?class[\s\w]*|module.exports\s*
  * Check if the script contains a Higher-Order Component pattern.
  * HOC patterns have more than 19 non-whitespace characters in the export line.
  */
-const isHocPattern = (script) => {
+function isHocPattern(script: string): boolean {
   const match = script.match(HOC_EXPORT_REGEX);
-  return match && match[0].replace(/([\s.=])/g, '').length > 19;
-};
+  return Boolean(match && match[0].replace(/([\s.=])/g, '').length > 19);
+}
 
-/**
- * Generate styled-components declaration if style exists.
- */
-const styledDecl = (style) => {
+/** Generate styled-components declaration if style exists. */
+function styledDecl(style: string): string {
   return style ? `const StyledComponents = styled.div\`${style}\`;` : '';
-};
+}
 
 /**
  * Generate the export/class definition code for the component.
- *
- * @param {object} option - The compilation context.
- * @returns {string} The generated class definition code.
  */
-module.exports = (option) => {
+export default function generateExport(option: CompileContext): string {
   const { script, style, template, templateLang, templateComponentName } = option;
 
   const isHtml = templateLang === 'html' || templateLang === 'htm';
@@ -44,9 +38,8 @@ module.exports = (option) => {
   const renderExpr = isHtml ? `(html\`${template}\`)` : template;
 
   // ── HOC Pattern ──────────────────────────────────────────────────────────
-
   if (isHocPattern(script)) {
-    const hocBase = script.match(HOC_NAME_REGEX)[0];
+    const hocBase = script.match(HOC_NAME_REGEX)![0];
 
     if (isReactMode) {
       return `
@@ -72,7 +65,6 @@ module.exports = (option) => {
   }
 
   // ── Standard Component ───────────────────────────────────────────────────
-
   const componentName = templateComponentName ? '' : 'export default';
 
   // Check if CSS is already defined in script
@@ -82,7 +74,6 @@ module.exports = (option) => {
     : '';
 
   if (isReactMode) {
-    // React mode: no static css, use styled-components
     return `
       ${styledDecl(style)}
       ${componentName} class ${camelName} extends WeElement {
@@ -92,7 +83,6 @@ module.exports = (option) => {
     `;
   }
 
-  // Omi mode: include static css
   return `
     ${componentName} class ${camelName} extends WeElement {
       ${cssDecl}
@@ -100,4 +90,4 @@ module.exports = (option) => {
         return ${renderExpr}
       }
   `;
-};
+}

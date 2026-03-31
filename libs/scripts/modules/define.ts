@@ -3,20 +3,20 @@
  * Generates define() or export default calls for the compiled component.
  */
 
-'use strict';
-
-const { convertToCamelCase, captain, isCaptain } = require('../extension/convert');
+import { convertToCamelCase, captain, isCaptain } from '../extension/convert';
 
 /** Regex to detect HOC (Higher-Order Component) patterns in exports. */
 const HOC_REGEX = /export\s+default[\n\s\S]+?class[\s\w]*\{|module.exports\s*=[\n\s\S]*?class\s*\{/g;
 
+interface DefineOption {
+  templateComponentName: string;
+  script: string;
+}
+
 /**
  * Generate the component definition code.
- *
- * @param {{ templateComponentName: string, script: string }} option
- * @returns {string} The define/export code snippet.
  */
-module.exports = (option) => {
+export default function generateDefine(option: DefineOption): string {
   const { templateComponentName, script } = option;
 
   if (!templateComponentName) {
@@ -38,4 +38,4 @@ module.exports = (option) => {
 
   // Omi mode: use define()
   return `\ndefine('${templateComponentName}', ${camelName});\n`;
-};
+}
